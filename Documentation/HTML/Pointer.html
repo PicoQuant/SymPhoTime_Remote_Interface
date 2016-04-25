@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Automated Online Help Creator">
+
+    <meta name="Topic"            id="20"  content="Scripting|Basic Types" />
+    <meta name="IconCode"         id="21"  content="d" />
+    <meta name="PositionIndex"    id="22"  content="99" />
+    <meta name="AddGroupToTitle"  id="23"  content="False" />
+
+    <meta name="Topic"            id="10"  content="Scripting|All Scripting Types (Alphabetically)" />
+    <meta name="IconCode"         id="11"  content="d" />
+    <meta name="PositionIndex"    id="12"  content="0" />
+    <meta name="AddGroupToTitle"  id="13"  content="True" />
+
+    <meta name="Group"                     content="Basic Type" />
+    <meta name="Key"                       content="SC_Pointer" />
+    <meta name="Keywords"                  content="Pointer, basic types" />
+    
+    <title>Pointer (Basic Type)</title>
+    
+    <style type="text/css">
+      
+      .I-1 {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;font-weight:bold}
+      .I0  {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I1  {margin-left:0.2cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I2  {margin-left:0.4cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I3  {margin-left:0.6cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I4  {margin-left:0.8cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I5  {margin-left:1.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      
+      .bra {border-top:thin solid;border-bottom:thin solid;border-left:thin solid;border-color:black;border-left-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .cket {border-top:thin solid;border-bottom:thin solid;border-right:thin solid;border-color:black;border-right-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .vertline {border-left:thin solid;border-color:black;border-left-width:1px}
+      .partable {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+
+      
+      .lnbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;text-align:right;color:gray}
+      .invs {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;color:lightgray}
+      .neut {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:black}
+      .cmnd {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:black}
+      .comt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:green}
+      .cnst {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:gray}
+      .idnt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .keyw {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .type {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:blue}
+      .nmbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:blue}
+      .strg {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:purple}
+
+      
+      body  {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+      h1    {position:relative;left:1.3cm;font-family:"Arial,sans-serif";font-style:normal;font-size:20pt;font-weight:bold;text-decoration:none}
+      h2    {font-family:"Arial,sans-serif";font-style:normal;font-size:14pt;font-weight:bold;text-decoration:none}
+      h3    {font-family:"Arial,sans-serif";font-style:normal;font-size:12pt;font-weight:bold;text-decoration:none}
+      h4    {font-family:"Arial,sans-serif";font-style:normal;font-size:11pt;font-weight:bold;text-decoration:none}
+      h5    {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none}
+      p     {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+    </style>
+    
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top" />
+    <table class=partable width=100% cellspacing=0 cellpadding=0>
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+            Basic Type
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+            Pointer
+          </h1>
+        </td>
+      </tr>
+    </table>
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]
+    <hr>
+    <br>
+<h4>Synopsis:</h4>
+<p>Represents a type-anonymous pointer.
+Only used for internal purposes.</p>
+<p>Although you may not declare objects of this type in a script, some methods may take these objects as parameter 
+and some classes have fields of this type. You may declare type-identified pointers instead from any public type.</p>
+    <br>
+<!-- +NotAnOverview -->
+
+
+
+
+    <br>
+
+    <br>
+<!-- -NotAnOverview -->    <hr>
+    <br>
+    <a name="RelatedTopics" />
+    <table class=partable width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+          [<a href="#Top">Top</a>]&nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+
+
+
+
+
+
+    <br>&nbsp;&nbsp;&nbsp;<nobr>[<a href="apx_support.html">Support</a>]</nobr>
+    <br>
+  </body>
+</html>
+

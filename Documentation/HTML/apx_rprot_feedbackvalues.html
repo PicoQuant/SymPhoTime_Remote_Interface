@@ -1,0 +1,992 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   Feedback Values (Appendix)                                                                               *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Appendices|Remote Control" />
+    <meta name="IconCode"         id="11"  content="i" />
+    <meta name="PositionIndex"    id="12"  content="50" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Appendix" />
+    <meta name="Key"                       content="APX_RProt_FeedbackValues" />                <!-- Key (mandatory)  -->
+    <meta name="Keywords"                  content="feedback values (appendix), remote control, RIVarEntry"> <!-- Keywords (optional) -->
+    
+<!--  ==============================================================================================================  -->
+    <title>Feedback Values (Appendix)</title>                                  <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+    <style>
+      body {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      h1   {
+             position:relative;
+             left:1.3cm;
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:20pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h2   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:14pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h3   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:12pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h4   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:11pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h5   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      table{
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      p    {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      a    {
+             font-family:sans-serif;
+             font-size:10pt;
+             font-weight:normal;
+           }
+    </style>
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
+    <table width=100% cellpadding=0 >
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Remote Control                                                     <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+            &nbsp;
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+<!--  ==============================================================================================================  -->
+            Feedback Values                                                    <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+    <table width=100% cellpadding=0 >
+      <tr valign=TOP>
+        <td align=LEFT >
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+        </td>
+        <td align=RIGHT>
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    <hr>                                                                       <!--                              BODY -->
+    <h3>
+      How to use Count Rates
+    </h3>
+    <p>
+      When adjusting scanning velocity (i.e. the line frequency) or the intensity of the excitation light,
+      it is important to monitor the count rate related feedback values. Several issues are of interest:
+      <ol>
+        <li>statistics within a pixel (image) or time bin (time trace)</li>
+        <li>total measurement time</li>
+        <li>pile-up and deadtime effects</li>
+      </ol>
+    <p>
+      The relation between single pixel statistcs, count rate and measurement time is of course straightforward:
+      the lower the count rate and the larger the number of photons needed in a single pixel, the
+      longer the acquisition time needs to be. Either the dwell time on a pixel has to be increased
+      or more repetitions have to be recorded.
+    </p>
+    <p>
+      However, as the intensity varies throughout the image, it is not sufficient to just monitor the average
+      count rate. Especially the bright regions of the image will in most cases be the most prominent source
+      of information. Thus, the number of counts in the brightest pixel is of interest, too.
+    </p>
+    <p>
+      The &quot;maxcpp&quot; values (displayed as <i>Max Photons</i> in the SymPhoTime user interface) transfer
+      the number of counts in the brightest pixel of the corresponding images. For TCSPC fitting, it is recommended
+      to acquire at least 1000&nbsp; photons in the brighter regions.
+    </p>
+    <p>
+      While a large count rate may in most cases be desirable to reduce measurement time, there is a caveat.
+      Due to deadtime effects both of the TCSPC electronics as well as the detector, distortions of the TCSPC
+      decays are to be expected in each pixel that exceeds a count rate of approximately 1% of the pulsed excitation frequency
+      (or SYNC rate).
+    </p>
+    <p>
+      For a count rate of 1% of the SYNC rate, given that a photon has been detected in an excitation
+      cycle, there is a 1% chance that at least one second photon will hit the detector within the same excitation cycle.
+      As the detector/TCSPC deadtime will prevent a second photon to be detected, this will lead to a loss of 1% of the
+      total intensity. The problem with this loss is that it is biased: It is predominantly encountered at later photon
+      arrival times within the excitation cycle.
+      Consequentially, the apparent lifetimes will be shortened. While these distortions may be still acceptable at 1%,
+      it is recommended that the average count rate as well as the maximum count rate are well below 10% of the SYNC rate.
+    </p>
+    <p>
+      The &quot;cps&quot; values both for images and time traces are a means to monitor the average count rate, whereas the
+      &quot;_MaxRate_&quot; (time trace) and the &quot;_MaxCountRate_&quot; (image) values show the count rate in the brightest
+      time bin or pixel. However, it should be noted that these count rates may refer to a combination of detection channels.
+      If the detection channels share a common deadtime (e.g. with PicoHarp in combination with a router), above
+      considerations hold for the sum of all detection channels. If the detection channels are independend with regard to
+      their deadtimes (e.g. the independent channels of a HydraHarp), above considerations hold for a single detection channel.
+    </p>
+    <p>
+      When an image's line frequency is high, especially in a test measurement the &quot;_MaxCountRate_&quot; value is subject
+      to a large noise. As there typically either is a single photon in a pixel or no photon at all, the &quot;_MaxCountRate_&quot; 
+      swiches rather between &quot;on&quot; and &quot;off&quot;, where the &quot;off&quot; value is zero and the &quot;on&quot;
+      value is one over the pixel dwell time, i.e. a very large value. In this case it is impossible to use the image as a means
+      to adjust the excitation intensity. To overcome this problem, it is recommended to reduce the line frequency for the test
+      measurement, adjust the excitation intensity, then switch back to a high line frequency for the recorded measurement.
+    </p>
+    <p>
+      Generally, as time resolved measurements require good statistics, fast scanning is only beneficial if one
+      at least acquires at least about 100&nbsp;counts in the brightest pixels in a single frame. Otherwise, several frames have
+      to be summed up for the analysis. Then, and a smaller line frequency would have been a good alternative, leading to fewer
+      complications with regard to monitoring the results by means of online analyses. As a side effect, smaller line frequencies
+      reduce the number of necessary frames and thus reduce the number of line start and line end markers in the file. For dark
+      samples/ultrafast scanning this effect can lead to differences in files sizes (and thereby loading times) of a factor
+      of ten and more. => If possible, prefer smaller line frequencies.
+    </p>
+    <p>
+      In a recorded measurement up to four online analyses can be performed simultaneously. When regarding the fluorescence intensity
+      rather as a function over time than a function over the image pixels, the measurement can be monitored by a countrate meter.
+      In this case it is possible to select a time binning that is independent from the dwell time in a single pixel. This can either
+      be used to implement a kind of gliding average as well as to oversample the scanning process in the fast direction. The latter
+      is a good means to monitor the pile-up limit in cases where the pixel width is much larger than the focal width, thus possibly
+      obscuring bright spots within a pixel. In any case, the &quot;_MaxRate_&quot; parameters of a count rate meter analysis may
+      generally be different from the &quot;_MaxCountRate_&quot; parameter of an image analysis, due to differences of the time binning
+      compared to the pixel dwell time.
+    </p>
+    <p>
+      The &quot;det&quot; + <&quot;1&quot;&hellip;&quot;8&quot;> feedback values (as displayed in the topmost region above the tabbed
+      pages (<i>Test</i>, <i>Measurement</i> and <i>Analysis</i>) serve as a quick means to monitor how many detectors are
+      active and receive photons in an individual measurement. The underlying time resolution is not sufficient to assess
+      the absence or presence of pile-up or deadtime effects.
+    </p>
+    <h3>
+      List of Feedback Values (as transmitted by user defined call-back-function)
+    </h3>
+    <table width=100%>
+      <tr>
+        <td>
+          &nbsp;&nbsp;&nbsp;
+        </td>
+        <td>
+          <p>
+            Read the elements in the list below as construction rules. This means:
+            An entry like the following example (as taken from the test mode part)
+            <br><br>
+            <code>
+              &nbsp;&nbsp;&quot;TCSPCHist&quot; + &lt;&quot;1&quot;, &quot;2&quot;&gt; + 
+              &quot;_MaxCounts_&quot; + &lt;&quot;Sum&quot;, &quot;Sync&quot;, 
+              &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;
+            </code>
+            <br><br>
+            stands in fact for a &quot;cross product&quot; list with 20 different elements,
+            containing:
+            <br><br>
+            <code>
+              &nbsp;&nbsp;&quot;TCSPCHist1_MaxCounts_Sum&quot;,<br>
+              &nbsp;&nbsp;&quot;TCSPCHist1_MaxCounts_Sync&quot;,<br>
+              &nbsp;&nbsp;&quot;TCSPCHist1_MaxCounts_Ch1&quot;,<br>
+              &nbsp;&nbsp;&quot;TCSPCHist1_MaxCounts_Ch2&quot;,<br>
+              &nbsp;&nbsp;&hellip;<br>
+              &nbsp;&nbsp;&quot;TCSPCHist1_MaxCounts_Ch8&quot;<br>
+              &nbsp;&nbsp;<br>
+              &nbsp;&nbsp;&quot;TCSPCHist2_MaxCounts_Sum&quot;,<br>
+              &nbsp;&nbsp;&quot;TCSPCHist2_MaxCounts_Sync&quot;,<br>
+              &nbsp;&nbsp;&quot;TCSPCHist2_MaxCounts_Ch1&quot;,<br>
+              &nbsp;&nbsp;&quot;TCSPCHist2_MaxCounts_Ch2&quot;,<br>
+              &nbsp;&nbsp;&hellip;<br>
+              &nbsp;&nbsp;&quot;TCSPCHist2_MaxCounts_Ch8&quot;
+            </code>
+            <br><br>
+            This results e.g. in more than 330 individual names in test mode.
+          </p>
+          <p>
+            The list is orderd by measurement modi, online analyses, measurement items
+            and calculation sources. Whether a named feedback value is sent or not during
+            a certain measurement is depending on the the user's selective online choices.
+          </p>
+          <p>
+            In fact, it isn't predictable at program design time by no means! If e.g.
+            none of the four slots for online analyses is set to FastFLIM during an image
+            measurement, then none of the named values commencing with &quot;FastFLIM&quot; will be
+            transmitted, but the countrates of the detectors installed will always be sent.
+            So, you have to take care of robustness, if you want to rely on the feedback
+            values for controlling purposes.
+          </p>
+        </td>
+      </tr>
+    </table>
+    
+    <h3>
+      Feedbacks in Test-Mode:
+    </h3>
+    <table width=100%>
+      <tr>
+        <td>
+          &nbsp;&nbsp;&nbsp;
+        </td>
+        <td>
+          <table border="0">
+            <colgroup>
+              <col width="100">
+              <col width="150">
+              <col>
+            </colgroup>
+            <tr>
+              <td valign="top">Only on start:</td>
+              <td valign="top">&quot;ServerVersion&quot;</td>
+              <td>Return value type is <a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a>. Byte[3] = Major Version No., 
+                  Byte[2] = Minor Version No., Byte[0] + 256 * Byte[1] = Word = Build No.</td>
+            </tr>
+            <tr>
+              <td>Always:</td>
+              <td>&quot;sync&quot;</td>
+              <td>SYNC rate (Hz)</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&quot;det&quot; + &lt;&quot;1&quot;&hellip;&quot;8&quot;&gt;</td>
+              <td>Countrate at detector (cps)</td>
+            </tr>
+          </table>
+          <br>
+          <table cellspacing="0" width=100% rules="rows" frame="box">
+            <colgroup>
+              <col width="130" style="background-color:darkgray; font-weight:bold">
+              <col width="100">
+              <col width="40">
+              <col width="145">
+              <col width="40">
+              <col width="100">
+              <col width="40">
+              <col width="230">
+              <col width="60" style="border-width:1px; border-style:solid;">
+              <col style="border-width:1px; border-style:solid;">
+            </colgroup>
+            <thead align="left" style="background-color:darkgray; font-weight:bold">
+              <th>&nbsp;</th>
+              <th>Analysis</th>
+              <th>&nbsp;</th>
+              <th>Curve Idx</th>
+              <th>&nbsp;</th>
+              <th>Value</th>
+              <th>&nbsp;</th>
+              <th>calculated from&hellip;</th>
+              <th>Type</th>
+              <th>Description</th>
+            </thead>
+            <tbody>
+              <tr bgcolor="lightgray">
+                <th align="left">TCSPCHist:</th>
+                <td colspan="9"></td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;,&quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxCounts_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a></td>
+                <td>Number of counts in the maximum TCSPC channel of detector 1/2/3 or the sum over all detectors for TCSPC histogram 1/2 (counts)</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_SumCounts_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Integral over the TCSPC histogram 1/2 (counts)</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvrRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate associated with the TCSPC histogram 1/2 (cps)</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_FWHM_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Full width half maximum of the decay curve for detector 1/2/3 or the sum over all detectors for TCSPC histogram 1/2</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_FastLT_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Fast lifetime for detector 1/2/3 or the sum over all detectors for TCSPC histogram 1/2</td>
+              </tr>
+              <tr bgcolor="lightgray">
+                <th align="left">TimeTrace:</th>
+                <td colspan="9">Sent for every active online analysis that calculates one or more time traces:</td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;TimeTrace&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Maximum counts rate over the visible time trace 1/2 (cps)</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TimeTrace&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvrRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate over the visible time trace 1/2 (cps)</td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cps&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Average count rate over the visible time trace 1/2 (cps)</td>
+              </tr>
+              <tr bgcolor="lightgray">
+                <th align="left">FCS:</th>
+                <td colspan="9">Sent for every active FCS online analysis:</td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;_A&quot;, &quot;_B&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Maximum counts rate for correlation channel A/B (cps)</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;_A&quot;, &quot;_B&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvrRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate  for correlation channel A/B (cps)</td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cps&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Average count rate  for correlation channel A/B (cps)</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;_A&quot;, &quot;_B&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MolCount_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Mean number of molecules within the focal volume for correlation channel A/B</td>
+             </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;_A&quot;, &quot;_B&quot;, &quot;_AB&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_G0_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>G(0) for correlation channel A/B and G(0) for the cross correlation function between A and B</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;_A&quot;, &quot;_B&quot;, &quot;_AB&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MolBrightn_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Molecular brightness for correlation channel A/B (cpm)</td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cpm&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Molecular brightness for correlation channel A/B (cpm)</td>
+              </tr>
+              <tr bgcolor="lightgray">
+                <th align="left">FastFLIM:</th>
+                <td colspan="9">Sent for every active imaging online analysis:</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxPhotons_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a></td>
+                <td>Current number of photons in the brightest image pixel (counts) for image online analysis 1/2</td>
+             </tr>
+               <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;maxcpp&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Current number of photons in the brightest image pixel (counts)</td>
+              </tr>
+             <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvgPhotons_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average number of photons per image pixel (counts) for image online analysis 1/2</td>
+             </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxCountRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a></td>
+                <td>Count rate in the brightest image pixel (cps) for image online analysis 1/2</td>
+             </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvgCountRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate (cps) for image online analysis 1/2</td>
+             </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cps&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Average count rate (cps) for image online analysis 1/2</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>  
+      </tr>
+    </table>
+
+    <h3>
+      Feedbacks in Measurement-Mode:
+    </h3>
+    <table width=100%>
+      <tr>
+        <td>
+          &nbsp;&nbsp;&nbsp;
+        </td>
+        <td>
+          <table border="0">
+            <colgroup>
+              <col width="100">
+              <col width="150">
+              <col>
+            </colgroup>
+            <tr>
+              <td valign="top">Only on start:</td>
+              <td valign="top">&quot;ServerVersion&quot;</td>
+              <td>Return value type is <a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a>. Byte[3] = Major Version No., 
+                  Byte[2] = Minor Version No., Byte[0] + 256 * Byte[1] = Word = Build No.</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&quot;sync&quot;</td>
+              <td>SYNC rate (Hz)</td>
+            </tr>
+            <tr>
+              <td>Always:</td>
+              <td>&quot;det&quot; + &lt;&quot;1&quot;&hellip;&quot;8&quot;&gt;</td>
+              <td>Countrate at detector (cps)</td>
+            </tr>
+          </table>
+          <br>
+          <table cellspacing="0" width=100% rules="rows" frame="box">
+            <colgroup>
+              <col width="130" style="background-color:darkgray; font-weight:bold">
+              <col width="100">
+              <col width="40">
+              <col width="75">
+              <col width="40">
+              <col width="100">
+              <col width="40">
+              <col width="280">
+              <col width="60" style="border-width:1px; border-style:solid;">
+              <col style="border-width:1px; border-style:solid;">
+            </colgroup>
+            <thead align="left" style="background-color:darkgray; font-weight:bold">
+              <th>&nbsp;</th>
+              <th>Analysis</th>
+              <th>&nbsp;</th>
+              <th>Curve Idx</th>
+              <th>&nbsp;</th>
+              <th>Value</th>
+              <th>&nbsp;</th>
+              <th>calculated from&hellip;</th>
+              <th>Type</th>
+              <th>Description</th>
+            </thead>
+            <tbody>
+              <tr bgcolor="lightgray">
+                <th align="left">TCSPCHist:</th>
+                <td colspan="9"></td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxCounts_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a></td>
+                <td>For each active TCSPC curve: Number of counts in the maximum TCSPC channel (counts) in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_SumCounts_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>For each active TCSPC curve: Integral over the TCSPC histogram (counts) in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_FWHM_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>For each active TCSPC curve: Full width half maximum of the decay curve in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TCSPCHist&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_FastLT_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>For each active TCSPC curve: Fast lifetime of the decay curve in slot <1/2/3/4></td>
+              </tr>
+              <tr bgcolor="lightgray">
+                <th align="left">TimeTrace:</th>
+                <td colspan="9"></td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;TimeTrace&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Max. count rate over the complete time trace (cps) for each active trace in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;TimeTrace&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvrRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate over the complete time trace (cps) for each active trace in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cps&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Average count rate over the complete time trace (if active) 1/2 (cps)<br>refer also to <sup>1</sup>)</td>
+             </tr>
+              <tr bgcolor="lightgray">
+                <th align="left">FCS:</th>
+                <td colspan="9"></td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Maximum counts rate for correlation channel A/B (cps) in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvrRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate for correlation channel A/B (cps) in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cps&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Average count rate for correlation channel A/B (cps) in slot <1/2><br>refer also to <sup>1</sup>)</td>
+             </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MolCount_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Mean number of molecules within the focal volume for correlation channel A/B in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_G0_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt; + <br> 
+                    &quot;_x_&quot; + &lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>G(0) for correlation channel A/B in slot <1/2/3/4> and G(0) for the cross correlation function between A and B in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FCS&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MolBrightn_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt; + <br>
+                    &quot;_x_&quot; + &lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Molecular brightness for correlation channel A/B (cpm) (in slot <1/2/3/4>) and Molecular brightness for correlation channel A/B (cpm) in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cpm&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Molecular brightness for correlation channel A/B (cpm)<br>refer also to <sup>1</sup>)</td>
+              </tr>
+              <tr bgcolor="lightgray">
+                <th align="left">FastFLIM:</th>
+                <td colspan="9"></td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxPhotons&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a></td>
+                <td>Current number of photons in the brightest image pixel (counts) for image online analysis in slot 1/2/3/4</td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;maxcpp&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Current number of photons in the brightest image pixel (counts)<br>refer also to <sup>1</sup>)</td>
+             </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvgPhotons&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average number of photons per image pixel (counts) for image online analysis in slot 1/2/3/4</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxCountRate&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a></td>
+                <td>Count rate in the brightest image pixel (cps) for image online analysis in slot 1/2/3/4</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;FastFLIM&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvgCountRate&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate (cps) for image online analysis in slot 1/2/3/4</td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cps1&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Average count rate (cps)<br>refer also to <sup>1</sup>)</td>
+              </tr>
+              <tr bgcolor="lightgray">
+                <th align="left">CountRates:</th>
+                <td colspan="9"></td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td>&quot;CountRates&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_MaxRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Max. count rate over the visible time trace (cps) for each active trace in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&quot;CountRates&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;&hellip;&quot;4&quot;&gt;</td>
+                <td align="center">+</td>
+                <td>&quot;_AvgRate_&quot;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;Sum&quot;, &quot;Sync&quot;, &quot;Ch1&quot;&hellip;&quot;Ch8&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftFloat</a></td>
+                <td>Average count rate over the visible time trace (cps) for each active trace in slot <1/2/3/4></td>
+              </tr>
+              <tr>
+                <td>(equals oldstyle)</td>
+                <td>&quot;cps&quot;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td align="center">+</td>
+                <td>&lt;&quot;1&quot;, &quot;2&quot;&gt;</td>
+                <td><a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a></td>
+                <td>Average count rate over the visible time trace (if active) 1/2 (cps)<br>refer also to <sup>1</sup>)</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <p>
+            <sup>1</sup>)&nbsp;&nbsp;&nbsp;Consider, that for downward compatibility with SPT32, the upper mentioned old
+            style names are still supported. However, since there may be more than one
+            analysis online, they are no longer unique per feedback frame but may occure
+            more than once in the frame, embedded in their respective context. So, if you
+            rely on the usage of old style names, you've to take care to know their real
+            context by their neighbour's names.
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+          [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;[<a href="apx_rprot_remotecontrol.html">Remote&nbsp;Control</a>]
+    &nbsp;&nbsp;&nbsp;[<a href="SPT64Server.html">Server&nbsp;Dialog</a>]    
+    &nbsp;&nbsp;&nbsp;[<a href="RemoteInterface.html">Remote&nbsp;Interface</a>]
+    &nbsp;&nbsp;&nbsp;[<a href="RIVarEntry.html">RIVarEntry</a>]
+    <br>&nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+    <br><font color=WHITE size=1></font>                                                  <!-- spoiled words repeated -->
+  </body>
+</html>

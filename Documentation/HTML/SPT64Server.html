@@ -1,0 +1,352 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   SymPhoTime Server (Dialog)                                                                               *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Main Window|Server Dialog" />
+    <meta name="IconCode"         id="11"  content="d" />
+    <meta name="PositionIndex"    id="12"  content="20" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Dialog" />
+    <meta name="Key"                       content="ServerDialog"> <!-- Key (mandatory)  -->
+    <meta name="Keywords"                  content="Server Dialog, remote control"> <!-- Keywords (optional)  -->
+<!--  ==============================================================================================================  -->
+    <title>SymPhoTime 64  Server (Dialog)</title>                              <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+    <style>
+      body {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      h1   {
+             position:relative;
+             left:1.3cm;
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:20pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h2   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:14pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h3   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:12pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h4   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:11pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h5   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      table{
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      p    {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      a    {
+             font-family:sans-serif;
+             font-size:10pt;
+             font-weight:normal;
+           }
+    </style>
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top" />
+    <table class=partable width=100% cellspacing=0 cellpadding=0>
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Dialog                                                             <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+<!--  ==============================================================================================================  -->
+            SymPhoTime&nbsp;64&nbsp; Server                                    <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+
+    <hr>                                                                       <!--                              BODY -->
+    <p>
+      To open this dialog by means of the main menu click on<br>
+      <nobr>&nbsp;&nbsp;&nbsp;&nbsp;&quot;<i>View&nbsp;|&nbsp;SymPhoTime&nbsp;64&nbsp;&nbsp;Server&hellip;</i>&quot;.</nobr><br>
+      It serves as a diagnosis tool for
+      <a href="fnd_remoteprocessing.html">remote processing</a>. For further
+      information on the remote protocol refer to the
+      <a href="apx_rprot_remotecontrol.html">appendix</a>.
+    </p>
+    <p>
+    <h3>User Interface:</h3>
+    <table class=partable width=100% cellspacing=0 cellpadding=0 >
+      <tr>
+        <td width=5%>
+          &nbsp;
+        </td>
+        <td width=95%>
+          <table class=partable width=95% border=1 cellspacing=0 cellpadding=3 >
+            <tr>
+              <th>Element</th>
+              <th>Description</th>
+            </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    <i>IP Address SymPhoTime:</i>
+                  </td>
+                  <td>
+                    Lists all IP addresses that are associated with the PC on which the SymPhoTime
+                    software is running.
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    <i>Data Transfer Record Version=</i>
+                  </td>
+                  <td>
+                    Displays the format version of the last received data transfer record.
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    <i>Received Data</i>
+                  </td>
+                  <td>
+                    Displays the data of the last measurement request:
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>Group:</i>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td valign=TOP >empty&nbsp;/<br>not&nbsp;transferred:</td>
+                        <td valign=TOP >Single measurement requested.</td>
+                      </tr>
+                      <tr>
+                      <tr>
+                        <td valign=TOP >else:</td>
+                        <td>
+                          Requested measurment is is part of a group with the name shown in <i>Group:</i>.
+                          If this group does not yet exist, a new group is created.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>File:</i>
+                  </td>
+                  <td>
+                    If transmitted: The name of the <a href="fnd_tttr.html">TTTR</a> file that will store the
+                    measurement data (valid for final measurements only).
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>Test Measurement</i>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td valign=TOP >
+                          Checked:
+                        </td>
+                        <td>
+                          The requested measurement is a &quot;test measurement&quot;:
+                          No data will be stored.
+                        </td>
+                      </tr>
+                      <tr>
+                      <tr>
+                        <td valign=TOP >
+                          Unchecked:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          The requested measurement is a &quot;final measurement&quot;:
+                          Data will recorded to the workspace.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>Point Measurement</i>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td valign=TOP >
+                          Checked:
+                        </td>
+                        <td>
+                          A <i>Point Measurement</i>, i.e. a time trace measurement, has been requested.
+                        </td>
+                      </tr>
+                      <tr>
+                      <tr>
+                        <td valign=TOP >
+                          Unchecked:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          An <i>Image Scan</i> has been requested.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>Image Scan</i>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td valign=TOP >
+                          Checked:
+                        </td>
+                        <td>
+                          An <i>Image Scan</i> has been requested.
+                        </td>
+                      </tr>
+                      <tr>
+                      <tr>
+                        <td valign=TOP >
+                          Unchecked:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          A <i>Point Measurement</i>, i.e. a time trace measurement, has been requested.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>Bidirectional</i>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td valign=TOP >
+                          Checked:
+                        </td>
+                        <td>
+                          The requested <i>Image Scan</i> is performed with a bidirectional scanning pattern.
+                        </td>
+                      </tr>
+                      <tr>
+                      <tr>
+                        <td valign=TOP >
+                          Unchecked:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          The requested <i>Image Scan</i> is performed with a monodirectional scanning pattern.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>Pixels:</i>
+                  </td>
+                  <td>
+                    Displays the number of pixels in X and Y direction for an <i>Image Scan</i>.
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i>Resolution:</i>
+                  </td>
+                  <td>
+                    Displays the spatial resolution for an <i>Image Scan</i>.
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    <i>Clear</i>
+                  </td>
+                  <td>
+                    Click this button to erase the remote processing messages and events log.
+                  </td>
+                </tr>
+                <tr valign=TOP>
+                  <td align=LEFT>
+                    <i>Events Log</i>
+                  </td>
+                  <td>
+                    Logs the remote processing messages and events.
+                  </td>
+                </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table class=partable width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+          [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;[<a href="RemoteInterface.html">Remote&nbsp;Interface</a>]
+    <br>&nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+  </body>
+</html>

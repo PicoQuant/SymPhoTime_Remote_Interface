@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Automated Online Help Creator">
+
+    <meta name="Topic"            id="20"  content="Scripting|Scripted Classes" />
+    <meta name="IconCode"         id="21"  content="d" />
+    <meta name="PositionIndex"    id="22"  content="0" />
+    <meta name="AddGroupToTitle"  id="23"  content="False" />
+
+    <meta name="Topic"            id="10"  content="Scripting|All Scripting Types (Alphabetically)" />
+    <meta name="IconCode"         id="11"  content="d" />
+    <meta name="PositionIndex"    id="12"  content="0" />
+    <meta name="AddGroupToTitle"  id="13"  content="True" />
+
+    <meta name="Group"                     content="Scripted Class" />
+    <meta name="Key"                       content="SC_RIRequestData" />
+    <meta name="Keywords"                  content="RIRequestData, scripted class, TCP/IP, measurement request, remote control, object" />
+    
+    <title>RIRequestData (Scripted Class)</title>
+    
+    <style type="text/css">
+      
+      .I-1 {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;font-weight:bold}
+      .I0  {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I1  {margin-left:0.2cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I2  {margin-left:0.4cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I3  {margin-left:0.6cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I4  {margin-left:0.8cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I5  {margin-left:1.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      
+      .bra {border-top:thin solid;border-bottom:thin solid;border-left:thin solid;border-color:black;border-left-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .cket {border-top:thin solid;border-bottom:thin solid;border-right:thin solid;border-color:black;border-right-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .vertline {border-left:thin solid;border-color:black;border-left-width:1px}
+      .partable {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+
+      
+      .lnbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;text-align:right;color:gray}
+      .invs {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;color:lightgray}
+      .neut {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:black}
+      .cmnd {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:black}
+      .comt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:green}
+      .cnst {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:gray}
+      .idnt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .keyw {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .type {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:blue}
+      .nmbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:blue}
+      .strg {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:purple}
+
+      
+      body  {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+      h1    {position:relative;left:1.3cm;font-family:"Arial,sans-serif";font-style:normal;font-size:20pt;font-weight:bold;text-decoration:none}
+      h2    {font-family:"Arial,sans-serif";font-style:normal;font-size:14pt;font-weight:bold;text-decoration:none}
+      h3    {font-family:"Arial,sans-serif";font-style:normal;font-size:12pt;font-weight:bold;text-decoration:none}
+      h4    {font-family:"Arial,sans-serif";font-style:normal;font-size:11pt;font-weight:bold;text-decoration:none}
+      h5    {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none}
+      p     {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+    </style>
+    
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top" />
+    <table class=partable width=100% cellspacing=0 cellpadding=0>
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+            Scripted Class
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+            RIRequestData
+          </h1>
+        </td>
+      </tr>
+    </table>
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]
+    <hr>
+    <br>
+<h4>Synopsis:</h4>
+<p>Interface to hold the measurement request data sent by the remote control
+client via <a href="fnd_tcpip.html">TCP/IP</a>. Mandatory parameters are held in fields, while
+optional parameters are supplied as array of named values.</p>
+<p>This is a private type, only used internally by the <code>RemoteInterface</code> object.
+You cannot create own instances of it and all fields are readonly.</p>
+    <br>
+<!-- +NotAnOverview -->
+
+
+
+<!-- +NoReferenceAtAll -->    <br>
+    <div id="Show"; onMouseDown="ScrSec.style.display='block'; Hide.style.display='block'; Show.style.display='none'"><a href="">[+] Scripting Reference</a></div>
+    <div id="Hide"; onMouseDown="ScrSec.style.display='none'; Hide.style.display='none'; Show.style.display='block'"; style="display:none"><a href="">[&minus;] Scripting Reference</a></div>
+    <div id="ScrSec"; style="display:none">
+ <!-- +OnlyFirstTable -->
+    <br>
+    <h3>Classname:&nbsp;&nbsp;&nbsp;RIRequestData</h3>
+    <h3>Fields:</h3> <!-- -OnlyFirstTable --> 
+    <h4>&nbsp;&nbsp;&nbsp;Public Fields</h4>
+    <table width=100% cellspacing=0 cellpadding=0 >
+      <tr>
+        <td width=5%>
+          &nbsp;
+        </td>
+        <td width=95%>  <!-- +FieldsFound -->
+          <table class=partable width=95% border=1 cellspacing=0 cellpadding=3 >
+            <tr>
+              <th>Ident</th>
+              <th>Type</th>
+              <th>Attributes</th>
+              <th>Description</th>
+            </tr> <!-- -FieldsFound -->
+ <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>TypeIdent</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="String.html">String</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Contains the type ident of the class.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>RecordVersion</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Int.html">Int</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Record version of the request received.<br>
+Current version supported is (bytewise hex-decoded): 0x01000200, i.e. <nobr>V1.0.2.0</nobr></td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>MeasTypeCode</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Int.html">Int</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Type of the measurement requested.<br>
+Legal values are listed <a href="AllConstantsOverview.html#RemoteInterfaceRequestedMeasurement">here</a>.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>IsTestMeas</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Bool.html">Bool</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP><span class=cnst>TRUE</span>&nbsp; if the measurement requested is a test measurement.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>IsPointMeas</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Bool.html">Bool</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP><span class=cnst>TRUE</span>&nbsp; if the measurement requested is a point measurement.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>PixelNumber_X</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Int.html">Int</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Number of pixels in x-direction for image scans.<br>
+Parameter is ignored for point measurements.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>PixelNumber_Y</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Int.html">Int</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Number of pixels in y-direction for image scans.<br>
+Parameter is ignored for point measurements.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>ScanningPattern</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Int.html">Int</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Scanner working mode for image scans.<br>
+Parameter is ignored for point measurements. Legal values are listed <a href="AllConstantsOverview.html#RemoteInterfaceScanPattern">here</a>.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>SpatialResolution</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Float.html">Float</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Pixelresolution for image scans in &mu;m.<br>
+Parameter is ignored for point measurements.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>OptionalParameters</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="MoreElaborated.html">HeaderEntry</a>[*]</nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Additional Parameters are added to the data file in creation as informative comments.
+The following two parameters, however, have additionally impact on the storage administration of the workspace:<br>
+&nbsp;<code>Filename&nbsp;&nbsp;&nbsp;</code>Name of the <a href="MoreElaborated.html">TTTR-file</a> (without the extension
+&quot;<code>*.</code><a href="MoreElaborated.html"><code>ptu</code></a>&quot;) to store the data measured<br>
+&nbsp;<code>Groupname&nbsp;&nbsp;</code>Name of the group (i.e. a subdirectory of the current
+<a href="MoreElaborated.html">working&nbsp;directory</a>) to add the file to</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+          </table> <!-- -FieldsFound -->
+        </td>
+      </tr>
+    </table> 
+    <br>
+    <br>
+  <!-- +OnlySecondTable -->
+    <br>
+    <div id="ShowPriv"; onMouseDown="ScrSecPriv.style.display='block'; HidePriv.style.display='block'; ShowPriv.style.display='none'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">[+]&nbsp;&nbsp;Show Private Fields</a></div>
+    <div id="HidePriv"; onMouseDown="ScrSecPriv.style.display='none'; HidePriv.style.display='none'; ShowPriv.style.display='block'"; style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">[&minus;]&nbsp;&nbsp;Hide Private Fields</a></div>
+    <div id="ScrSecPriv"; style="display:none">
+    <br> <!-- -OnlySecondTable -->
+    <h4>&nbsp;&nbsp;&nbsp;Private Fields</h4>
+    <table width=100% cellspacing=0 cellpadding=0 >
+      <tr>
+        <td width=5%>
+          &nbsp;
+        </td>
+        <td width=95%>  <!-- +FieldsFound -->
+          <table class=partable width=95% border=1 cellspacing=0 cellpadding=3 >
+            <tr>
+              <th>Ident</th>
+              <th>Type</th>
+              <th>Attributes</th>
+              <th>Description</th>
+            </tr> <!-- -FieldsFound -->
+ <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>TypeInfo</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Pointer.html">Pointer</a></nobr></code></td>
+              <td valign=TOP><font color="RED"><i>private</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Pointer to the core instance variable.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>CallingFieldIdent</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="String.html">String</a></nobr></code></td>
+              <td valign=TOP><font color="RED"><i>private</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Used internally for passing a field ident, e.g. during event processing.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>Meas_File</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="MoreElaborated.html">TTTRFile</a></nobr></code></td>
+              <td valign=TOP><font color="RED"><i>private</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font>&nbsp;&nbsp;<font color="BLUE"><i>pointer</i></font></td>
+              <td valign=TOP>Pointer to the logical <a href="MoreElaborated.html">TTTRFile</a> object wherein the measurement data should be stored.<br>
+This field is actualized on assignment of the <code>RemoteInterface</code> parent's <code>Meas_File</code> field</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+          </table> <!-- -FieldsFound -->
+        </td>
+      </tr>
+    </table> <!-- +OnlySecondTable -->
+    </div> <!-- -OnlySecondTable -->
+    <br>
+    <br>
+
+
+    <h3>Methods:</h3>
+    <table class=partable width=100% cellspacing=0 cellpadding=0 >
+      <tr>
+        <td width=5%>
+          &nbsp;
+        </td>
+        <td width=95%>
+          <table class=partable width=95% border=1 cellspacing=0 cellpadding=3 >
+            <tr>
+              <th>Method</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+
+            <tr>
+              <td valign=TOP><nobr><code>Reset</code></nobr></td>
+              <td valign=TOP><nobr><code><font color="GRAY">&lt;none&gt;</font>&nbsp;</code></nobr></td>
+              <td valign=TOP>Reinitializes the class.</td>
+            </tr>
+
+            <tr>
+              <td valign=TOP><nobr><code>PutToFileHeader</code></nobr></td>
+              <td valign=TOP><nobr><code><font color="GRAY">&lt;none&gt;</font>&nbsp;</code></nobr></td>
+              <td valign=TOP>Method to put these request data to measurement file header</td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+    <br>
+
+    </div>
+    <br>
+<!-- -NoReferenceAtAll -->
+    <br>
+
+    <br>
+<!-- -NotAnOverview -->    <hr>
+    <br>
+    <a name="RelatedTopics" />
+    <table class=partable width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+          [<a href="#Top">Top</a>]&nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+
+
+
+
+
+    &nbsp;&nbsp;&nbsp;<nobr>[<a href="RemoteInterface.html">Remote&nbsp;Interface</a>]</nobr>
+
+
+    <br>&nbsp;&nbsp;&nbsp;<nobr>[<a href="apx_support.html">Support</a>]</nobr>
+    <br>
+  </body>
+</html>
+

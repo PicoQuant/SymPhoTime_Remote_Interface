@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   Message Header (Appendix)                                                                                *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Appendices|Remote Control" />
+    <meta name="IconCode"         id="11"  content="i" />
+    <meta name="PositionIndex"    id="12"  content="30" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Remote Control" />
+    <meta name="Key"                       content="APX_RProt_MessageHeader" /> <!--                  Key (mandatory)  -->
+    <meta name="Keywords" content="remote control;message header (appendix)">  <!--            Keywords   (optional)  -->
+<!--  ==============================================================================================================  -->
+    <title>Message Header (appendix)</title>                                   <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+<!--  ==============================================================================================================  -->
+<!--  Fussnoten aus dem Original RTF-File -->
+<!--  ==============================================================================================================  -->
+    <style>
+      body {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      h1   {
+             position:relative;
+             left:1.3cm;
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:20pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h2   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:14pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h3   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:12pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h4   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:11pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h5   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      table{
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      p    {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      a    {
+             font-family:sans-serif;
+             font-size:10pt;
+             font-weight:normal;
+           }
+    </style>
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
+    <table width=100% cellpadding=0 >
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Remote Protocol                                                    <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+            &nbsp;
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+<!--  ==============================================================================================================  -->
+            Message Header                                                     <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+    <table width=100% cellpadding=0 >
+      <tr valign=TOP>
+        <td align=LEFT >
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+        </td>
+        <td align=RIGHT>
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    <hr>                                                                       <!--                              BODY -->
+    <h4>All messages start with an equally formed header:</h4>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>&nbsp;</td>
+          <td valign=top><br><code><b>&nbsp;T_MESSAGEHDR&nbsp;</b></code><br><br></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td><b>Name</b></td>
+                  <td><b>Type</b></td>
+                  <td><b>Containing</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>usMsgLen&nbsp;&nbsp;
+                  </td>
+                  <td><code>unsigned int16</code>
+                  </td>
+                  <td>brutto&nbsp;length&nbsp;of&nbsp;the&nbsp;message&nbsp;(including&nbsp;this&nbsp;header)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td>bMsgType
+                  </td>
+                  <td><code>E_PQ_MESSAGE_TYPE&nbsp;</code>
+                  </td>
+                  <td>identifies the  <a href="apx_rprot_messagetypes.html">message type</a>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>bMagic</td>
+                  <td><code>T_MESSAGE_MAGIC&nbsp;&nbsp;</code></td>
+                  <td>five byte magic string "PQSPT"</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      This static form allows early checks on corrupted or incomplete messages
+      or disturbances. Generally, all multibyte data have to be transmitted least
+      significant byte first. So e.g. a server request message (i.e. message
+      type code&nbsp; 'D'&nbsp;=&nbsp;0x44&nbsp;) of 385 byte total length will
+      result in a message header with the byte sequence 0x81, 0x01, 0x44, 0x50,
+      0x51, 0x53, 0x50 and 0x54  on the stream.
+    </p>
+    <p>
+      To inspect the streamed data comming in or sent out as well, you may invoke
+      the <a href="SPT64Server.html">SymPhoTime&nbsp;64&nbsp;&nbsp;Server</a>&nbsp; dialog.
+      All messages are logged here inclusive the time when they were sent or received.
+    </p>
+    <br>
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+<!--      [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;[<a href="SPT64Server.html">SymPhoTime&nbsp;64&nbsp;&nbsp;Server</a>]
+    <br>&nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+    <br><font color=WHITE size=1></font> <!-- spoiled words repeated -->
+  </body>
+</html>

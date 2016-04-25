@@ -1,0 +1,1961 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   Message Types (Appendix)                                                                                 *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Appendices|Remote Control" />
+    <meta name="IconCode"         id="11"  content="i" />
+    <meta name="PositionIndex"    id="12"  content="40" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Remote Control" />
+    <meta name="Key"                       content="APX_RProt_MessageTypes" /> <!--                  Key (mandatory)  -->
+    <meta name="Keywords" content="remote protocol;message types (appendix)">  <!--            Keywords   (optional)  -->
+
+<!--  ==============================================================================================================  -->
+    <title>Message Types (appendix)</title>                                    <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+    <style>
+      body {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      h1   {
+             position:relative;
+             left:1.3cm;
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:20pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h2   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:14pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h3   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:12pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h4   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:11pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h5   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      table{
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      p    {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      a    {
+             font-family:sans-serif;
+             font-size:10pt;
+             font-weight:normal;
+           }
+    </style>
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
+    <table width=100% cellpadding=0 >
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Remote Control                                                     <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+            &nbsp;
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+<!--  ==============================================================================================================  -->
+            Message Types                                                      <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+    <table width=100% cellpadding=0 >
+      <tr valign=TOP>
+        <td align=LEFT >
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+        </td>
+        <td align=RIGHT>
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    <hr>
+    <p>
+      This part of the documentation describes the low level communication protocol necessary to remote control 
+      SymPhoTime&nbsp;64. Since its existence, we had to realize that it seems to be a little cumbersome for 
+      non-PicoQuant-associates to get it implemented bug-free and stable. Subsequently we decided to provide a 
+      <a href="apx_rprot_remoteinterfacedll.html">library</a> (shipped as <a href="fnd_dll.html">DLL</a>) with some simplifying functions, that encapsulate the whole low level protocol.
+    </p>
+    <h4>There are seven types of messages:</h4>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>&nbsp;</td>
+          <td valign=top><br><code><b>&nbsp;E_PQ_MESSAGE_TYPE&nbsp;&nbsp;(unsigned int8)</b></code><br><br></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td><b>Symbol</b></td>
+                  <td><b>Code</b></td>
+                  <td><b>Meaning</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    PQ_MSGTYP_DATAFRAME_SRVREQUEST&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x44&nbsp;=&nbsp;'D'&nbsp;
+                  </td>
+                  <td valign=top >
+                    <a href="#ServerRequest">server request message</a><br>
+                    has&nbsp;to&nbsp;be&nbsp;answered&nbsp;with&nbsp;a&nbsp;server&nbsp;reply<br>
+                    (i.e. 'd'-typed message)
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_MSGTYP_DATAFRAME_SRVREPLY&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x64&nbsp;=&nbsp;'d'&nbsp;
+                  </td>
+                  <td valign=top >
+                    <a href="#StatusMessage">answer on a server request</a><br>
+                    (must not be answered)
+                  </td>
+                </tr>
+                  <td valign=top >
+                    PQ_MSGTYP_DATAFRAME_SRVNACK&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x78&nbsp;=&nbsp;'x'&nbsp;
+                  </td>
+                  <td valign=top >
+                    <a href="#NACKMessage">data frame sent by server</a><br>
+                    (must not be answered)
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_MSGTYP_ENCODED_STATUSMSG&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x43&nbsp;=&nbsp;'C'&nbsp;
+                  </td>
+                  <td valign=top >
+                    <a href="#StatusMessage">status message</a><br>
+                    has&nbsp;to&nbsp;be&nbsp;answered&nbsp;with&nbsp;a&nbsp;status&nbsp;reply&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                    (i.e. either 'c'-typed or 's'-typed message)
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_MSGTYP_ENCODED_STATUSREPLY&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x63&nbsp;=&nbsp;'c'&nbsp;
+                  </td>
+                  <td valign=top >
+                    <a href="#StatusMessage">answer on a status message</a><br>
+                    (must not be answered)
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_MSGTYP_EXPLAINED_STATUSMSG&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x53&nbsp;=&nbsp;'S'&nbsp;
+                  </td>
+                  <td valign=top >
+                    <a href="#StatusMessageExp">status message</a><br>
+                    enhanced by a free explaining text<br>
+                    has&nbsp;to&nbsp;be&nbsp;answered&nbsp;with&nbsp;a&nbsp;status&nbsp;reply<br>
+                    (i.e. either 'c'-typed or 's'-typed message)
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_MSGTYP_EXPLAINED_STATUSREPLY&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x73&nbsp;=&nbsp;'s'&nbsp;
+                  </td>
+                  <td valign=top >
+                    <a href="#StatusMessageExp">answer on a status message</a><br>
+                    enhanced by a free explaining text<br>
+                    (must not be answered)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      All messages that deserve a reply (i.e. types 'D', 'C' and 'S')
+      need to be answered to within a certain time out period (currently 4000&nbsp;msec).
+    </p>
+    <p>
+      Messages of the type server request ('D') are only sent by clients, messages of
+      the type server reply ('d') and server dataframe ('x') are only sent by servers.
+      The remaining message types may be sent by clients and servers as well.
+    <p>
+    </p>
+      The "&hellip;<code>EXPLAINED</code>&hellip;"-types differ from the
+      "&hellip;<code>ENCODED</code>&hellip;"-types only in an attached string
+      (uncoded text) preceded by one word of length specification.
+    </p>
+    <br>
+    <a name="ServerRequest"></a>
+    <h4>The message type "<code>PQ_MSGTYP_DATAFRAME_SRVREQUEST</code>":</h4>
+    <p>
+      This type of message is always sent by a client to request a server (SymPhoTime).
+      All data needed by the server to perform the measurement is transferred with
+      this request.
+    </p>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_DATAFRAME_SRVREQUEST&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    hdr&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_MESSAGEHDR</code>
+                  </td>
+                  <td valign=top >
+                    <a href="apx_rprot_messageheader.html">obligatory&nbsp;message&nbsp;header</a>
+                    identifying this message type&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    rvRecVersion&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_REC_VERSION</code>
+                  </td>
+                  <td valign=top >
+                    for future record version management<br>
+                    current record version is 1.0.2.0&nbsp;&nbsp;
+                    (i.e.&nbsp; 0x00,&nbsp;0x02,&nbsp;0x00,&nbsp;0x01&nbsp; on stream)
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >iMeasurementType</td>
+                  <td valign=top >
+                    <code>E_PQ_MEAS_TYPE&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#MeasType">type of requested measurement</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    iPixelNumber_X
+                  </td>
+                  <td valign=top >
+                    <code>int32&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    if type of measurement is image, this denotes the image width
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    iPixelNumber_Y
+                  </td>
+                  <td valign=top >
+                    <code>int32&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    if type of measurement is image, this denotes the image height
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    iScanningPattern
+                  </td>
+                  <td valign=top >
+                    <code>int32&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    <table>
+                      <tr>
+                        <td valign=top >
+                          0:&nbsp;
+                        </td>
+                        <td valign=top >
+                          monodirectional
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign=top >
+                          1:
+                        </td>
+                        <td valign=top >
+                          bi-directional
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    fSpatialResolution
+                  </td>
+                  <td valign=top >
+                    <code>float32&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    if type of measurement is image, this denotes the size of the pixels in units&nbsp;of&nbsp;<i>m</i>.
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    iOptRecordCount
+                  </td>
+                  <td valign=top >
+                    <code>int32&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    number of optional data records to follow
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    odOptional
+                  </td>
+                  <td valign=top >
+                    <code>array&nbsp;[1..iOptRecordCount]&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;of&nbsp;T_OPTIONAL_DATA</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#OptDataRec">optional data records</a>, identified by name;<br>
+                    if the name is <a href="#PredefOpt">introduced</a>, SymPhoTime will interpret the
+                    data, otherwise treat it as comment to the measurement.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <a name="NACKMessage"></a>
+    <h4>The message type "<code>PQ_MSGTYP_DATAFRAME_SRVNACK</code>":</h4>
+    <p>
+      This type of message is always sent by the server (SymPhoTime) and gives
+      a feedback on several quality describing parameters during the measurement.
+      All parameters are sent as optional data records. How many and which parameters
+      are compiled to each message depends on the type of the running measurement
+      and may be subject to change without notice.
+    </p>
+    <p>
+      The emission of those messages is time triggered with an interval of ca.
+      1&nbsp;sec but may vary depending on the processor load.
+      Clients must not answer this type of message to avoid slowing down the
+      running measurement process. To support the creation of log tables and the
+      detection of lost records on the client's site, the messages sent are
+      consecutively numbered.
+    </p>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_DATAFRAME_SRVNACK&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    hdr&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_MESSAGEHDR</code>
+                  </td>
+                  <td valign=top >
+                    <a href="apx_rprot_messageheader.html">obligatory&nbsp;message&nbsp;header</a>
+                    identifying this message type&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    rvRecVersion&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_REC_VERSION</code>
+                  </td>
+                  <td valign=top >
+                    for future record version management<br>
+                    current record version is 1.0.2.0&nbsp;&nbsp;
+                    (i.e.&nbsp; 0x00,&nbsp;0x02,&nbsp;0x00,&nbsp;0x01&nbsp; on stream)
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >iMeasurementType</td>
+                  <td valign=top >
+                    <code>E_PQ_MEAS_TYPE&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#MeasType">type of running measurement</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    iNACKRecNumber
+                  </td>
+                  <td valign=top >
+                    <code>int32&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    consecutive increasing record number
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    iOptRecordCount
+                  </td>
+                  <td valign=top >
+                    <code>int32&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    number of optional data records to follow
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    odOptional
+                  </td>
+                  <td valign=top >
+                    <code>array&nbsp;[1..iOptRecordCount]&nbsp;&nbsp;<br>
+                    &nbsp;&nbsp;&nbsp;of&nbsp;T_OPTIONAL_DATA</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#OptDataRec">optional data records</a>, identified by name;<br>
+                    if the name is <a href="#PredefOpt">introduced</a> to the client,
+                    it may interpret the record, otherwise it may skip it as unknown data.
+                    But even then every client has all information to at least display or
+                    print the data.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <a name="MeasType"></a>
+    <h4>Types of Measurement:</h4>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>&nbsp;</td>
+          <td valign=top><br><code><b>&nbsp;E_PQ_MEAS_TYPE&nbsp;&nbsp;(int32)</b></code><br><br></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td><b>Symbol</b></td>
+                  <td><b>Code</b></td>
+                  <td><b>Meaning</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    PQ_MEASTYPE_POINTMEAS&nbsp;&nbsp;
+                  </td>
+                  <td>
+                    &nbsp;0x00000000&nbsp;
+                  </td>
+                  <td>
+                    point measurement&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_MEASTYPE_IMAGESCAN&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x00000001&nbsp;
+                  </td>
+                  <td>
+                    image scan&nbsp;&nbsp;
+                  </td>
+                </tr>
+                  <td valign=top >
+                    PQ_MEASTYPE_TEST_POINTMEAS&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x00000080&nbsp;
+                  </td>
+                  <td>
+                    test run for a point measurement;<br>
+                    no data will be stored in workspace&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_MEASTYPE_TEST_IMAGESCAN&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x00000081&nbsp;
+                  </td>
+                  <td>
+                    test run for an image scan;<br>
+                    no data will be stored in workspace&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <a name="OptDataRec"></a>
+    <h4>Optional Data Records:</h4>
+    <p>
+      Even though some optional data records are <a href="#PredefOpt">predefined</a>,
+      a client could send whatever it deems to be important for the documentation
+      of the measurement. Each optional data record satisfies one of the following
+      three format descriptions:
+    </p>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_OPTIONAL_DATA&nbsp;(with data directly following)&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    cName&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>array [0..PQ_OPT_DATATYPE_NAME_MAXLEN]<br>
+                    of char</code>
+                  </td>
+                  <td valign=top >
+                    null terminated string&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    bType&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>E_PQ_OPT_DATATYPE</code>
+                  </td>
+                  <td valign=top >
+                    one of the following:&nbsp;&nbsp;
+                    <ul>
+                      <li>
+                        PQ_OPT_DATATYPE_FLOAT (4 bytes single precision)
+                      </li>
+                      <li>
+                        PQ_OPT_DATATYPE_LONG&nbsp; (4 bytes integer)
+                      </li>
+                      <li>
+                        PQ_OPT_DATATYPE_ULONG (4 bytes cardinal)
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    qbData&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_FOUR_BYTE_TYPES</code>
+                  </td>
+                  <td valign=top >
+                    four bytes of data&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_OPTIONAL_DATA&nbsp;(with array following)&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    cName&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>array [0..PQ_OPT_DATATYPE_NAME_MAXLEN]<br>
+                    of char</code>
+                  </td>
+                  <td valign=top >
+                    null terminated string&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    bType&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>E_PQ_OPT_DATATYPE</code>
+                  </td>
+                  <td valign=top >
+                    one of the following:&nbsp;&nbsp;
+                    <ul>
+                      <li>
+                        PQ_OPT_DATATYPE_FLOATS_ARRAY
+                      </li>
+                      <li>
+                        PQ_OPT_DATATYPE_LONGS_ARRAY
+                      </li>
+                      <li>
+                        PQ_OPT_DATATYPE_ULONGS_ARRAY
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    wCount&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>word</code>
+                  </td>
+                  <td valign=top >
+                    count of elements in array&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    arrData&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>array [1..wCount]<br>
+                    &nbsp;&nbsp;&nbsp;of T_FOUR_BYTE_TYPES</code>
+                  </td>
+                  <td valign=top >
+                    wCount elements of one of the following:<br>
+                    (wCount times four bytes of data, depending on bType)&nbsp;&nbsp;
+                    <ul>
+                      <li>
+                        PQ_OPT_DATATYPE_FLOAT (4 bytes single precision)
+                      </li>
+                      <li>
+                        PQ_OPT_DATATYPE_LONG&nbsp; (4 bytes integer)
+                      </li>
+                      <li>
+                        PQ_OPT_DATATYPE_ULONG (4 bytes cardinal)
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_OPTIONAL_DATA&nbsp;(with string following)&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    cName&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>array [0..PQ_OPT_DATATYPE_NAME_MAXLEN]<br>
+                    of char</code>
+                  </td>
+                  <td valign=top >
+                    null terminated string&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    bType&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>E_PQ_OPT_DATATYPE</code>
+                  </td>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_FIXED_LENGTH_STRING
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    wLen&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>word</code>
+                  </td>
+                  <td valign=top >
+                    count of characters in string&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    strText&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>char [0..wLen-1]</code>
+                  </td>
+                  <td valign=top >
+                    string with wLen characters&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <p>
+      In the current version of SymPhoTime the names of the optional data records
+      may be up to&nbsp; <code>PQ_OPT_DATATYPE_NAME_MAXLEN&nbsp;=&nbsp;30</code>&nbsp;
+      characters long. The unused space up to the PQ_OPT_DATATYPE_NAME_MAXLEN&nbsp;+&nbsp;1<sup>st</sup>
+      character has to be filled with NULL characters.
+    </p>
+    <br>
+    <a name="OptDataTypes"></a>
+    <h4>Types of Optional Data:</h4>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>&nbsp;</td>
+          <td valign=top><br><code><b>&nbsp;E_PQ_OPT_DATATYPE&nbsp;&nbsp;(unsigned int8)</b></code><br><br></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td><b>Symbol</b></td>
+                  <td><b>Code</b></td>
+                  <td><b>Meaning</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_FLOAT&nbsp;&nbsp;
+                  </td>
+                  <td>
+                    &nbsp;0x00&nbsp;
+                  </td>
+                  <td>
+                    floating point (4&nbsp;byte, single precision)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_LONG&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x01&nbsp;
+                  </td>
+                  <td>
+                    integer (4&nbsp;byte)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_ULONG&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0x02&nbsp;
+                  </td>
+                  <td>
+                    cardinal (unsigned integer, 4&nbsp;byte)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_FLOATS_ARRAY&nbsp;&nbsp;
+                  </td>
+                  <td>
+                    &nbsp;0xF0&nbsp;
+                  </td>
+                  <td>
+                    floating point array (n&nbsp;&times;&nbsp;4&nbsp;byte, single precision)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_LONGS_ARRAY&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0xF1&nbsp;
+                  </td>
+                  <td>
+                    integer array (n&nbsp;&times;&nbsp;4&nbsp;byte)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_ULONGS_ARRAY&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0xF2&nbsp;
+                  </td>
+                  <td>
+                    cardinal array (n&nbsp;&times;&nbsp;4&nbsp;byte)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                </tr>
+                  <td valign=top >
+                    PQ_OPT_DATATYPE_FIXED_LENGTH_STRING&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    &nbsp;0xFF&nbsp;
+                  </td>
+                  <td>
+                    character array (n&nbsp;byte string)<br>
+                    it is recommended to be terminated with a NULL character&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <br>
+    <a name="PredefOpt"></a>
+    <h4>Predefined Optional Data Records</h4>
+    <p>
+      Following the currently introduced optional data records are named. These 
+      are the records understood by SymPhoTime when received in server requests. 
+      A controlling application may or may not send others than these, but they 
+      will be treated as comments only and are semantically ignored. 
+      For names and types of optional data records in <a href="#NACKMessage">data frames</a> 
+      sent by the server during a running measurement (a.k.a. NACK frames), refer 
+      to the page on <a href="apx_rprot_feedbackvalues.html">feedback values</a>.
+    </p>
+    <p>
+      <table align=center cellspacing=1 cellpadding=2 >
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td width=1%>
+                    <b>max.&nbsp;Count&nbsp;/ max.&nbsp;Length</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    TimePerPixel
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FLOAT</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>1</code>
+                  </td>
+                  <td valign=top >
+                    time [s] required to measure a pixel&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    TimePerImageEstimated
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FLOAT</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>1</code>
+                  </td>
+                  <td valign=top >
+                    estimated time [s] for the measurement&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    Filename
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FIXED_LENGTH_STRING</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>255</code>
+                  </td>
+                  <td valign=top >
+                    name of the t3r-file to store the measurement without extension&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    Groupname
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FIXED_LENGTH_STRING</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>63</code>
+                  </td>
+                  <td valign=top >
+                    name of the group of measurements&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    Objective
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FIXED_LENGTH_STRING</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>255</code>
+                  </td>
+                  <td valign=top >
+                    description of the objective&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    Pinhole
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FIXED_LENGTH_STRING</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>255</code>
+                  </td>
+                  <td valign=top >
+                    description of the pinhole&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    MajorDichroic
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FIXED_LENGTH_STRING</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>255</code>
+                  </td>
+                  <td valign=top >
+                    description of the major dichroic&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    TimeStampArray
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FLOATS_ARRAY</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>512</code>
+                  </td>
+                  <td valign=top >
+                    time/pixel correction for nonlinear scanning<br>
+                    (reserved for future implementation)&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    Comment
+                  </td>
+                  <td valign=top >
+                    <code>PQ_OPT_DATATYPE_FIXED_LENGTH_STRING</code>
+                  </td>
+                  <td valign=top align=right >
+                    <code>65535</code>
+                  </td>
+                  <td valign=top >
+                    ad lib.&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <a name="StatusMessage"></a>
+    <h4>The message types
+      "<code>PQ_MSGTYP_DATAFRAME_SRVREPLY</code>",
+      "<code>PQ_MSGTYP_ENCODED_STATUSMSG</code>" and
+      "<code>PQ_MSGTYP_ENCODED_STATUSREPLY</code>"
+    </h4>
+    <p>
+      These types of message are sent by clients and server (SymPhoTime) as well.
+      They don't differ on a formal level but of cause send differently coded status values.
+    </p>
+    <br>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_ENCODED_STATUSMSG&nbsp;&nbsp;(if sent by server)&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    hdr&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_MESSAGEHDR</code>
+                  </td>
+                  <td valign=top >
+                    <a href="apx_rprot_messageheader.html">obligatory&nbsp;message&nbsp;header</a>
+                    identifying this message type&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    ecStatus&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>E_ERROR_CODES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#ErrorCodes">status&nbsp;code</a> sent by server
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_ENCODED_STATUSMSG&nbsp;&nbsp;(if sent by clients)&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    hdr&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_MESSAGEHDR</code>
+                  </td>
+                  <td valign=top >
+                    <a href="apx_rprot_messageheader.html">obligatory&nbsp;message&nbsp;header</a>
+                    identifying this message type&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    srStatus&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>E_STOPREASON_CODES</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#StopReasonCodes">stop&nbsp;reason&nbsp;code</a> sent by client
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <a name="StatusMessageExp"></a>
+    <h4>The message types
+      "<code>PQ_MSGTYP_EXPLAINED_STATUSMSG</code>" and 
+      "<code>PQ_MSGTYP_EXPLAINED_STATUSREPLY</code>"
+    </h4>
+    <p>
+      These types of message are sent by clients and server (SymPhoTime) as well.
+      They don't differ on a formal level but of cause send differently coded
+      status values. They are very similar to the <code>&hellip;ENCODED&hellip;</code>
+      message types, with the exception, that they come with an explaining free text.
+    </p>
+    <br>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_EXPLAINED_STATUSMSG&nbsp;&nbsp;(if sent by server)&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    hdr&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_MESSAGEHDR</code>
+                  </td>
+                  <td valign=top >
+                    <a href="apx_rprot_messageheader.html">obligatory&nbsp;message&nbsp;header</a>
+                    identifying this message type&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    ecStatus&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>E_ERROR_CODES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#ErrorCodes">status&nbsp;code</a> sent by server
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    usExpLength&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>word</code>
+                  </td>
+                  <td valign=top >
+                    length of explaining text
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    strExplanation&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>char [0..usExpLength-1]</code>
+                  </td>
+                  <td valign=top >
+                    explaining text
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td valign=top>
+            <br><code><b>&nbsp;T_EXPLAINED_STATUSMSG&nbsp;&nbsp;(if sent by clients)&nbsp;</b></code><br><br>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  <td>
+                    <b>Type</b>
+                  </td>
+                  <td>
+                    <b>Containing</b>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    hdr&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>T_MESSAGEHDR</code>
+                  </td>
+                  <td valign=top >
+                    <a href="apx_rprot_messageheader.html">obligatory&nbsp;message&nbsp;header</a>
+                    identifying this message type&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    srStatus&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>E_STOPREASON_CODES</code>
+                  </td>
+                  <td valign=top >
+                    <a href="#StopReasonCodes">stop&nbsp;reason&nbsp;code</a> sent by client
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    usExpLength&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>word</code>
+                  </td>
+                  <td valign=top >
+                    length of explaining text
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    strExplanation&nbsp;&nbsp;
+                  </td>
+                  <td valign=top >
+                    <code>char [0..usExpLength-1]</code>
+                  </td>
+                  <td valign=top >
+                    explaining text
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <br>
+    <a name="StopReasonCodes"></a>
+    <h4>Stop Reason Codes as sent by clients</h4>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>&nbsp;</td>
+          <td valign=top><br><code><b>&nbsp;E_STOPREASON_CODES&nbsp;&nbsp;(int16)</b></code><br><br></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td><b>Symbol</b></td>
+                  <td><b>Code</b></td>
+                  <td><b>Meaning</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    PQ_STOPREASON_CODE_CONTINUE_OK&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;0&nbsp;
+                  </td>
+                  <td>
+                    no error detected&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_STOPREASON_CODE_FINISHED_OK&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;1&nbsp;
+                  </td>
+                  <td>
+                    answer OK on finished server&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_STOPREASON_CODE_USER_BREAK&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;2&nbsp;
+                  </td>
+                  <td>
+                    signalling an user break from client's site&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_STOPREASON_CODE_ERROR&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;1&nbsp;
+                  </td>
+                  <td>
+                    signalling an error situation on client's site&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <a name="ErrorCodes"></a>
+    <h4>Error Codes as sent by server</h4>
+    <p>
+      <table align=center cellspacing=0 cellpadding=2 bgcolor=silver >
+        <tr>
+          <td>&nbsp;</td>
+          <td valign=top><br><code><b>&nbsp;E_ERROR_CODES&nbsp;&nbsp;(int16)</b></code><br><br></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+          <td>
+            <table border=1 cellspacing=0 cellpadding=4 bgcolor=white >
+              <thead  bgcolor=silver>
+                <tr>
+                  <td><b>Symbol</b></td>
+                  <td><b>Code</b></td>
+                  <td><b>Meaning</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_NO_ERROR&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;0&nbsp;
+                  </td>
+                  <td>
+                    no error detected&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_MEASUREMENT_READY&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;1&nbsp;
+                  </td>
+                  <td>
+                    server finished measurement without error&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_USER_BREAK&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;2&nbsp;
+                  </td>
+                  <td>
+                    signalling an user break from server's site&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_MESSAGE_CORRUPTED&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;1&nbsp;
+                  </td>
+                  <td>
+                    signalling reception of a corrupted message&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_SERVER_BUSY&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;2&nbsp;
+                  </td>
+                  <td>
+                    signalling server busy&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_MESSAGE_TIMEOUT&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;3&nbsp;
+                  </td>
+                  <td>
+                    client didn't answer within timeout interval&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_INVALID_REC_VERSION&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;10&nbsp;
+                  </td>
+                  <td>
+                    received message with invalid record version&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_MEASUREMENT_TIMEOUT&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;100&nbsp;
+                  </td>
+                  <td>
+                    measurement timed out&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_FIFO_OVERRUN&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;101&nbsp;
+                  </td>
+                  <td>
+                    <a href="msg_fifooverrun.html">FIFO overrun</a>&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_DMA_ERROR&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;102&nbsp;
+                  </td>
+                  <td>
+                    <a href="msg_dmaerror.html">DMA error</a>&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_OSCILLOSCOPE_RUNNING&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;103&nbsp;
+                  </td>
+                  <td>
+                    oscilloscope still running&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_HARDWARE_INIT&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;104&nbsp;
+                  </td>
+                  <td>
+                    couldn't initialise hardware&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_TTTR_INIT&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;105&nbsp;
+                  </td>
+                  <td>
+                    couldn't initialise TTTR measurement&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_TTTR_RUNNING&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;106&nbsp;
+                  </td>
+                  <td>
+                    TTTR measurement still running&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_NO_WORKSPACE&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;107&nbsp;
+                  </td>
+                  <td>
+                    no workspace was opened&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_FILE_EXISTS&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;108&nbsp;
+                  </td>
+                  <td>
+                    couldn't save measurement; file already exists&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_FILE_CREATE&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;109&nbsp;
+                  </td>
+                  <td>
+                    error on creating measurement file&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_GROUPNAME_TOO_LONG&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;110&nbsp;
+                  </td>
+                  <td>
+                    couldn't create new group: groupname too long&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_FILENAME_TOO_LONG&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;111&nbsp;
+                  </td>
+                  <td>
+                    couldn't create new file: filename too long&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_TIMESTAMP_ARRAY_TOO_LONG&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;112&nbsp;
+                  </td>
+                  <td>
+                    couldn't activate time correction: array too long&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_INVALID_LICENSE&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;999&nbsp;
+                  </td>
+                  <td>
+                    request rejected: invalid license&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td valign=top >
+                    PQ_ERRCODE_UNKNOWN_ERROR&nbsp;&nbsp;
+                  </td>
+                  <td align=right >
+                    &nbsp;&minus;9999&nbsp;
+                  </td>
+                  <td>
+                    unspecified error situation&nbsp;&nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <br>
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+<!--      [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+    <br><font color=WHITE size=1></font> <!-- spoiled words repeated -->
+  </body>
+</html>

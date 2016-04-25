@@ -1,0 +1,661 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   Handshake (Appendix)                                                                                     *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Appendices|Remote Control" />
+    <meta name="IconCode"         id="11"  content="i" />
+    <meta name="PositionIndex"    id="12"  content="20" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Remote Control" />
+    <meta name="Key"                       content="APX_RProt_Handshake" /> <!-- Key (mandatory)  -->
+    <meta name="Keywords" content="remote protocol (appendix), remote control">                <!--            Keywords   (optional)  -->
+<!--  ==============================================================================================================  -->
+    <title>Handshake (appendix)</title>                                        <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+    <style>
+      body {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      h1   {
+             position:relative;
+             left:1.3cm;
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:20pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h2   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:14pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h3   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:12pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h4   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:11pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h5   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      table{
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      p    {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      a    {
+             font-family:sans-serif;
+             font-size:10pt;
+             font-weight:normal;
+           }
+    </style>
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
+    <table width=100% cellpadding=0 >
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Remote Control                                                     <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+            &nbsp;
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+<!--  ==============================================================================================================  -->
+            Handshake                                                          <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+    <table width=100% cellpadding=0 >
+      <tr valign=TOP>
+        <td align=LEFT >
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+        </td>
+        <td align=RIGHT>
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    <hr>                                                                       <!--                              BODY -->
+    <p>
+      SymPhoTime is designed to work as a <a href="fnd_tcpip.html">TCP/IP</a>
+      remote server. It listens at <b>port&nbsp;6000</b> for client messages.
+      These messages have to perform a certain well-defined handshake. The time
+      sequence of a successful remote protocol reads as follows:
+    </p>
+    <br>
+
+
+    <h4><i>Connection Establishment:</i></h4>
+    <p>
+      <table width=100% cellspacing=0 cellpadding=0 >
+        <tr>
+          <td width=12%>
+            <!-- dummy -->
+            &nbsp;
+          </td>
+          <td width=93%>
+            <table width=87% border=1 cellspacing=0 cellpadding=5 >
+              <thead>
+                <tr>
+                  <th width=50%>
+                    Client
+                  </th>
+                  <th width=50%>
+                    Server&nbsp;&nbsp;&nbsp;(SymPhoTime)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=right>
+                    after starting up:<br>
+                    listening at port&nbsp;6000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Client establishes connection at port&nbsp;6000.
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=right>
+                    Server may (or may not) send a status message.<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSMSG
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#ErrorCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_ERRCODE_NO_ERROR
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    If sent, client answers the status message.<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSREPLY
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StopReasonCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_STOPREASON_CODE_CONTINUE_OK
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <br>
+
+
+    <h4><i>Measurement:</i></h4>
+    <p>
+      <table width=100% cellspacing=0 cellpadding=0 >
+        <tr>
+          <td width=12%>
+            <!-- dummy -->
+            &nbsp;
+          </td>
+          <td width=93%>
+            <table width=87% border=1 cellspacing=0 cellpadding=5 >
+              <thead>
+                <tr>
+                  <th width=50%>
+                    Client
+                  </th>
+                  <th width=50%>
+                    Server&nbsp;&nbsp;&nbsp;(SymPhoTime)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Client requests Measurement.<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#ServerRequest">type</a>:
+                        </td>
+                        <td>
+                          PQ_MSGTYP_DATAFRAME_SRVREQUEST
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;
+                        </td>
+                        <td>
+                          transfers all necessary data<br>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=right>
+                    Server acknowledges.<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_DATAFRAME_SRVREPLY
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#ErrorCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_ERRCODE_NO_ERROR
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=left>
+                    &hellip;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=right>
+                    Once the measurement is running, the server sends repeatedly
+                    unsolicited data frames. Which data they contain is only depending on the
+                    <a href="apx_rprot_messagetypes.html#MeasType">measurement&nbsp;type</a><br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#NACKMessage">type</a>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>
+                           PQ_MSGTYP_DATAFRAME_SRVNACK
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Client may (or may not) analyse the data sent,<br>
+                    but <font color=RED><b>must not</b></font> answer!
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <br>
+
+
+    <h4><i>On Error on Server:</i></h4>
+    <p>
+      <table width=100% cellspacing=0 cellpadding=0 >
+        <tr>
+          <td width=12%>
+            <!-- dummy -->
+            &nbsp;
+          </td>
+          <td width=93%>
+            <table width=87% border=1 cellspacing=0 cellpadding=5 >
+              <thead>
+                <tr>
+                  <th width=50%>
+                    Client
+                  </th>
+                  <th width=50%>
+                    Server&nbsp;&nbsp;&nbsp;(SymPhoTime)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=right>
+                    On error condition <nnn> the server sends a status message<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSMSG
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign=top>
+                          <a href="apx_rprot_messagetypes.html#ErrorCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_ERRCODE_nnn<br>
+                        </td>
+                      </tr>
+                    </table>
+                    <br>and quits the measurement.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Client acknowledges status message.<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSREPLY
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StopReasonCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_STOPREASON_CODE_ERROR
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <br>
+
+
+    <h4><i>On Measurement Complete:</i></h4>
+    <p>
+      <table width=100% cellspacing=0 cellpadding=0 >
+        <tr>
+          <td width=12%>
+            <!-- dummy -->
+            &nbsp;
+          </td>
+          <td width=93%>
+            <table width=87% border=1 cellspacing=0 cellpadding=5 >
+              <thead>
+                <tr>
+                  <th width=50%>
+                    Client
+                  </th>
+                  <th width=50%>
+                    Server&nbsp;&nbsp;&nbsp;(SymPhoTime)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=right>
+                    Server sends a status message<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSMSG
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign=top>
+                          <a href="apx_rprot_messagetypes.html#ErrorCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_ERRCODE_NO_ERROR
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Client acknowledges status message.<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSREPLY
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StopReasonCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_STOPREASON_CODE_FINISHED_OK
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <br>
+
+
+    <h4><i>On Stop-Measurement-Request by Client:</i></h4>
+    <p>
+      <table width=100% cellspacing=0 cellpadding=0 >
+        <tr>
+          <td width=12%>
+            <!-- dummy -->
+            &nbsp;
+          </td>
+          <td width=93%>
+            <table width=87% border=1 cellspacing=0 cellpadding=5 >
+              <thead>
+                <tr>
+                  <th width=50%>
+                    Client
+                  </th>
+                  <th width=50%>
+                    Server&nbsp;&nbsp;&nbsp;(SymPhoTime)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align=left>
+                    Client terminates measurement by sending a status message<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSMSG
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign=top>
+                          <a href="apx_rprot_messagetypes.html#StopReasonCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_STOPREASON_CODE_USER_BREAK
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td align=right>
+                    Server acknowledges<br><br>
+                    <table>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#StatusMessage">type</a>:
+                        </td>
+                        <td>
+                           PQ_MSGTYP_ENCODED_STATUSREPLY
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="apx_rprot_messagetypes.html#ErrorCodes">status</a>:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                          PQ_ERRCODE_NO_ERROR
+                        </td>
+                      </tr>
+                    </table>
+                    <br>and terminates measurement.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <br>
+
+
+    <h4><i>Connection Termination:</i></h4>
+    <p>
+      <table width=100% cellspacing=0 cellpadding=0 >
+        <tr>
+          <td width=12%>
+            <!-- dummy -->
+            &nbsp;
+          </td>
+          <td width=93%>
+            <table width=87% border=1 cellspacing=0 cellpadding=5 >
+              <tr>
+                <td>
+                  normal&nbsp;case:&nbsp;&nbsp;
+                </td>
+                <td>
+                  Client terminates connection.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  error&nbsp;case:<br>
+                  e.g.&nbsp;acknowledgement&nbsp;of&nbsp;a&nbsp;status&nbsp;message&nbsp;missing&nbsp;&nbsp;
+                </td>
+                <td valign=top>
+                  Server&nbsp;terminates&nbsp;connection&nbsp;after&nbsp;well&nbsp;defined&nbsp;timeout.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </p>
+    <br>
+    <p>
+      Invoking the <a href="SPT64Server.html">SymPhoTime&nbsp;64&nbsp;&nbsp;Server&nbsp;Dialog</a>
+      you may inspect all raw data transferred during this handshake. To ease
+      interpretation, the server request data of the current (last) request are
+      decoded and shown.
+    </p>
+    <br>
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+<!--      [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;[<a href="apx_rprot_remotecontrol.html">Remote&nbsp;Control</a>]
+    &nbsp;&nbsp;&nbsp;[<a href="SPT64Server.html">Server&nbsp;Dialog</a>]
+    &nbsp;&nbsp;&nbsp;[<a href="RemoteInterface.html">Remote&nbsp;Interface</a>]
+    <br>&nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+    <br><font color=WHITE size=1></font> <!-- spoiled words repeated -->
+  </body>
+</html>

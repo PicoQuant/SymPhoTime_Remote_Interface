@@ -1,0 +1,87 @@
+//------------------------------------------------------------------------------
+//
+//         Summary of the command line switches supported by the 
+//
+//             PicoQuant SymPhoTime Small Dark Client V1.0.8
+//
+//------------------------------------------------------------------------------
+//
+
+  CMDLINEPARAM_HOST_IP        = '-ip=';
+  CMDLINEPARAM_LOCALHOST      = '-ip=local';
+//
+// If you don't define the host IP address of your SPT server, this client 
+// will take the predefined one.
+//
+
+  HOST_IP_PREDEFINED          = '-ip=192.168.43.3';
+
+//
+//------------------------------------------------------------------------------
+//
+
+  CMDLINEPARAM_PORT_NR        = '-port=';
+
+//
+// If you don't define a port for your IP socket, this client will take the 
+// predefined one (i.e. 6000).
+//
+//------------------------------------------------------------------------------
+//
+
+  CMDLINEPARAM_REPEAT         = '-rep';
+  
+//
+// If you set the repeat switch, the client will start new measurements, 
+// until shut down. For FLIM measurements, it will start immediately after
+// clicking the "Stop" button, for FCS measurements immediately after the 
+// time given in  the "Record for ..." edit field.
+//
+// Notice: This will only work with empty filename or (for SPT64 only) with a 
+//         filename incorporating either a DateTimeCode-template, a TimeCode-
+//         template or a TickCode-template. 
+//         (Otherwise you'll get a "File exists" message)
+//
+//------------------------------------------------------------------------------
+//
+
+  CMDLINEPARAM_USE_LOG        = '-log';
+
+//
+// If you set the log switch, all actions and transmissions are logged into the 
+// logfile "LogFile.txt", situated at the same path as the client's EXE-file.
+//
+// Notice: The client will always append to this file; Letting it grow too much
+//         could cause a significant loss of performance. So, delete the leading
+//         lines from older sessions or even the whole file every now and then,
+//         if you frequently want to log your measurements.
+//
+//------------------------------------------------------------------------------
+//
+
+  CMDLINEPARAM_SHOW_DEBUGWIN  = '-dbgwin';
+
+//
+// For trouble-shooting or in case of serious handshake-problems, you can even
+// show the information logged instantely in an debug window.
+//
+// Notice: The debug window will show the same information as the log written to
+//         the logfile contains; In fact, it is showing the logfile itself.
+//         Pressing the "Clear" button will consequentially erase the logfile, too.
+//
+//------------------------------------------------------------------------------
+//
+
+  CMDLINEPARAM_STYLE          = '-style=';
+
+//
+// This switch enables you to choose from different skins. PicoQuant supports
+// these flavours:  
+//
+
+                                '-style=bright'
+                                '-style=dark'
+                                '-style=windows'
+
+//
+//------------------------------------------------------------------------------

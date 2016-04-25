@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   Remote Interface Documentation (Startpoint)                                                              *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Appendices|Remote Control" />
+    <meta name="IconCode"         id="11"  content="i" />
+    <meta name="PositionIndex"    id="12"  content="60" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Remote Control" />
+    <meta name="Key"                       content="APX_RProt_RemoteInterfaceDLL" /> <!--            Key (mandatory)  -->
+    <meta name="Keywords" content="remote protocol;remote interface DLL (appendix)">  <!--     Keywords   (optional)  -->
+
+<!--  ==============================================================================================================  -->
+    <title>Remote Interface Documentation</title>                              <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+    <style>
+      body {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      h1   {
+             position:relative;
+             left:1.3cm;
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:20pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h2   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:14pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h3   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:12pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h4   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:11pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h5   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      table{
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      p    {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      a    {
+             font-family:sans-serif;
+             font-size:10pt;
+             font-weight:normal;
+           }
+    </style>
+    
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
+    <table width=100% cellpadding=0 >
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Remote Control                                                     <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+            &nbsp;
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+<!--  ==============================================================================================================  -->
+            Remote Interface Documentation                                     <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+    <table width=100% cellpadding=0 >
+      <tr valign=TOP>
+        <td align=LEFT >
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+        </td>
+        <td align=RIGHT>
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    <hr>
+    <br>
+    <div style="background-color:#E0E0E0; width:90%; margin-left:auto; margin-right:auto; padding:20px; text-align:center">
+      <p>
+        The following remarks address to software developers assigned to integrate remote 
+        access on a SymPhoTime&nbsp;64 server into their (client-) application. 
+        We're desperately sorry, but we simply can't anticipate, which programming language 
+        developers might choose when it comes to implement remote control of our SymPhoTime&nbsp;64. 
+        So we chose a pseudo-code for our documentation. We assume that most of the 
+        experienced developers have at least adequate knowledge of the C/C++ language family. 
+        For all these, the supplied demo &quot;Client_w_Stress&quot; is directly understandable. 
+        But browsing the supplied material, you'll also find ready to use Object-Pascal import units 
+        for Delphi&nbsp;/&nbsp;Lazarus&nbsp;/&nbsp;Free-Pascal projects, too. 
+      </p>
+      <p>
+        <b>All information below is corresponding to PicoQuant's  RemoteInterface.DLL &nbsp;<span style="color:purple">V1.0.8</span></b><br><br>
+        For convenience, we will often use the abbreviation &quot;<b>RI</b>&quot;, standing for 
+        <b>R</b>emote&nbsp;<b>I</b>nterface.
+      </p>
+    </div>
+    <p>
+      The documentation in this directory concerns on the remote interface of the SymPhoTime&nbsp;64 
+      and was extracted from the more comprehensive online help of the SPT64 system. Consider, that 
+      <ol>
+        <li>there might be broken hypertext links due to extracted pages,</li>
+        <li>your preferred browser might have problems to properly show this docu.<br>
+          In case of spoiled formattings, we recommend to use the MS Internet Explorer&hellip;</li>
+      </ol>    
+    </p>
+    <p>
+      Use these items as entry points for your exploration:
+    </p>
+    <ul>
+      <li><a href="apx_rprot_remoteinterfacedll.html">Remote Interface API (DLL, outside SPT64)</a></li>
+      <li><a href="apx_rprot_remotecontrol.html">Remote Interface Protocol (between DLL and SPT64)</a></li>
+      <li><a href="RemoteInterface.html">Remote Interface scripted class (inside SPT64)</a></li>
+    </ul>
+    <p>
+      We hope, this little excursion made things easier for you. 
+      Enjoy remote controlling your SymPhoTime!
+    </p>
+    <br>
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+<!--      [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+    <br><font color=WHITE size=1></font> <!-- spoiled words repeated -->
+  </body>
+</html>

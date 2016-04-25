@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Automated Online Help Creator">
+
+    <meta name="Topic"            id="20"  content="Scripting|Scripted Classes" />
+    <meta name="IconCode"         id="21"  content="d" />
+    <meta name="PositionIndex"    id="22"  content="0" />
+    <meta name="AddGroupToTitle"  id="23"  content="False" />
+
+    <meta name="Topic"            id="10"  content="Scripting|All Scripting Types (Alphabetically)" />
+    <meta name="IconCode"         id="11"  content="d" />
+    <meta name="PositionIndex"    id="12"  content="0" />
+    <meta name="AddGroupToTitle"  id="13"  content="True" />
+
+    <meta name="Group"                     content="Scripted Class" />
+    <meta name="Key"                       content="SC_Event" />
+    <meta name="Keywords"                  content="Event, scripted class" />
+    
+    <title>Event (Scripted Class)</title>
+    
+    <style type="text/css">
+      
+      .I-1 {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;font-weight:bold}
+      .I0  {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I1  {margin-left:0.2cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I2  {margin-left:0.4cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I3  {margin-left:0.6cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I4  {margin-left:0.8cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I5  {margin-left:1.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      
+      .bra {border-top:thin solid;border-bottom:thin solid;border-left:thin solid;border-color:black;border-left-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .cket {border-top:thin solid;border-bottom:thin solid;border-right:thin solid;border-color:black;border-right-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .vertline {border-left:thin solid;border-color:black;border-left-width:1px}
+      .partable {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+
+      
+      .lnbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;text-align:right;color:gray}
+      .invs {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;color:lightgray}
+      .neut {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:black}
+      .cmnd {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:black}
+      .comt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:green}
+      .cnst {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:gray}
+      .idnt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .keyw {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .type {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:blue}
+      .nmbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:blue}
+      .strg {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:purple}
+
+      
+      body  {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+      h1    {position:relative;left:1.3cm;font-family:"Arial,sans-serif";font-style:normal;font-size:20pt;font-weight:bold;text-decoration:none}
+      h2    {font-family:"Arial,sans-serif";font-style:normal;font-size:14pt;font-weight:bold;text-decoration:none}
+      h3    {font-family:"Arial,sans-serif";font-style:normal;font-size:12pt;font-weight:bold;text-decoration:none}
+      h4    {font-family:"Arial,sans-serif";font-style:normal;font-size:11pt;font-weight:bold;text-decoration:none}
+      h5    {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none}
+      p     {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+    </style>
+    
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top" />
+    <table class=partable width=100% cellspacing=0 cellpadding=0>
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+            Scripted Class
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+            Event
+          </h1>
+        </td>
+      </tr>
+    </table>
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]
+    <hr>
+    <br>
+<h4>Synopsis:</h4>
+<p>Used to define a callback hook for eventhandling.</p>
+<p>Declaring a hook in the <code>def</code> section of a script:<br><br><code><nobr>OnDoSomething: Event public;</nobr></code></p>
+<p>Implementing an event handler in the <code>events</code> section:<br><br>
+<code><nobr>event SomeScriptInstance.OnDoSomething;<br>&nbsp;&nbsp;ViewString("Dunnit");<br>end;</nobr></code></p>
+<p>Calling an event handler from a code block:<br><br><code><nobr>&nbsp;&nbsp;OnDoSomething.ExecuteEvent();</nobr></code></p>
+    <br>
+<!-- +NotAnOverview -->
+
+
+
+<!-- +NoReferenceAtAll -->    <br>
+    <div id="Show"; onMouseDown="ScrSec.style.display='block'; Hide.style.display='block'; Show.style.display='none'"><a href="">[+] Scripting Reference</a></div>
+    <div id="Hide"; onMouseDown="ScrSec.style.display='none'; Hide.style.display='none'; Show.style.display='block'"; style="display:none"><a href="">[&minus;] Scripting Reference</a></div>
+    <div id="ScrSec"; style="display:none">
+ <!-- +OnlyFirstTable -->
+    <br>
+    <h3>Classname:&nbsp;&nbsp;&nbsp;Event</h3>
+    <h3>Fields:</h3> <!-- -OnlyFirstTable --> 
+    <h4>&nbsp;&nbsp;&nbsp;Public Fields</h4>
+    <table width=100% cellspacing=0 cellpadding=0 >
+      <tr>
+        <td width=5%>
+          &nbsp;
+        </td>
+        <td width=95%>  <!-- +FieldsFound -->
+          <table class=partable width=95% border=1 cellspacing=0 cellpadding=3 >
+            <tr>
+              <th>Ident</th>
+              <th>Type</th>
+              <th>Attributes</th>
+              <th>Description</th>
+            </tr> <!-- -FieldsFound -->
+ <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>TypeIdent</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="String.html">String</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Contains the type ident of the class.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+          </table> <!-- -FieldsFound -->
+        </td>
+      </tr>
+    </table> 
+    <br>
+    <br>
+  <!-- +OnlySecondTable -->
+    <br>
+    <div id="ShowPriv"; onMouseDown="ScrSecPriv.style.display='block'; HidePriv.style.display='block'; ShowPriv.style.display='none'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">[+]&nbsp;&nbsp;Show Private Fields</a></div>
+    <div id="HidePriv"; onMouseDown="ScrSecPriv.style.display='none'; HidePriv.style.display='none'; ShowPriv.style.display='block'"; style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">[&minus;]&nbsp;&nbsp;Hide Private Fields</a></div>
+    <div id="ScrSecPriv"; style="display:none">
+    <br> <!-- -OnlySecondTable -->
+    <h4>&nbsp;&nbsp;&nbsp;Private Fields</h4>
+    <table width=100% cellspacing=0 cellpadding=0 >
+      <tr>
+        <td width=5%>
+          &nbsp;
+        </td>
+        <td width=95%>  <!-- +FieldsFound -->
+          <table class=partable width=95% border=1 cellspacing=0 cellpadding=3 >
+            <tr>
+              <th>Ident</th>
+              <th>Type</th>
+              <th>Attributes</th>
+              <th>Description</th>
+            </tr> <!-- -FieldsFound -->
+ <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>TypeInfo</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Pointer.html">Pointer</a></nobr></code></td>
+              <td valign=TOP><font color="RED"><i>private</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Pointer to the core instance variable.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>CallingFieldIdent</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="String.html">String</a></nobr></code></td>
+              <td valign=TOP><font color="RED"><i>private</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Used internally for passing a field ident, e.g. during event processing.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>Body</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Pointer.html">Pointer</a></nobr></code></td>
+              <td valign=TOP><font color="RED"><i>private</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Execution block for the event handler.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>ProgramInstance</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="Pointer.html">Pointer</a></nobr></code></td>
+              <td valign=TOP><font color="RED"><i>private</i></font>&nbsp;&nbsp;<font color="GRAY"><i>readonly</i></font></td>
+              <td valign=TOP>Instance variable of the script, where the event handler is defined.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+          </table> <!-- -FieldsFound -->
+        </td>
+      </tr>
+    </table> <!-- +OnlySecondTable -->
+    </div> <!-- -OnlySecondTable -->
+    <br>
+    <br>
+
+
+    <h3>Methods:</h3>
+    <table class=partable width=100% cellspacing=0 cellpadding=0 >
+      <tr>
+        <td width=5%>
+          &nbsp;
+        </td>
+        <td width=95%>
+          <table class=partable width=95% border=1 cellspacing=0 cellpadding=3 >
+            <tr>
+              <th>Method</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+
+            <tr>
+              <td valign=TOP><nobr><code>Reset</code></nobr></td>
+              <td valign=TOP><nobr><code><font color="GRAY">&lt;none&gt;</font>&nbsp;</code></nobr></td>
+              <td valign=TOP>Reinitializes the class.</td>
+            </tr>
+
+            <tr>
+              <td valign=TOP><nobr><code>ExecuteEvent</code></nobr></td>
+              <td valign=TOP><nobr><code><font color="GRAY">&lt;none&gt;</font>&nbsp;</code></nobr></td>
+              <td valign=TOP>Executes the event <code>Body</code>.</td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+    <br>
+
+    </div>
+    <br>
+<!-- -NoReferenceAtAll -->
+    <br>
+
+    <br>
+<!-- -NotAnOverview -->    <hr>
+    <br>
+    <a name="RelatedTopics" />
+    <table class=partable width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+          [<a href="#Top">Top</a>]&nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+
+
+
+
+
+
+    <br>&nbsp;&nbsp;&nbsp;<nobr>[<a href="apx_support.html">Support</a>]</nobr>
+    <br>
+  </body>
+</html>
+

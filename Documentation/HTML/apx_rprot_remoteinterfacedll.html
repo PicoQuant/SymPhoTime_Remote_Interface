@@ -1,0 +1,487 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   Remote Interface DLL (Appendix)                                                                          *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Appendices|Remote Control" />
+    <meta name="IconCode"         id="11"  content="i" />
+    <meta name="PositionIndex"    id="12"  content="60" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Remote Control" />
+    <meta name="Key"                       content="APX_RProt_RemoteInterfaceDLL" /> <!--            Key (mandatory)  -->
+    <meta name="Keywords" content="remote protocol;remote interface DLL (appendix)">  <!--     Keywords   (optional)  -->
+
+<!--  ==============================================================================================================  -->
+    <title>Remote Interface DLL (appendix)</title>                             <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+    <style type="text/css">
+      
+      .I-1 {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;font-weight:bold}
+      .I0  {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I1  {margin-left:0.2cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I2  {margin-left:0.4cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I3  {margin-left:0.6cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I4  {margin-left:0.8cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      .I5  {margin-left:1.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
+      
+      .bra {border-top:thin solid;border-bottom:thin solid;border-left:thin solid;border-color:black;border-left-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .cket {border-top:thin solid;border-bottom:thin solid;border-right:thin solid;border-color:black;border-right-width:3px;border-top-width:1px;border-bottom-width:1px}
+      .vertline {border-left:thin solid;border-color:black;border-left-width:1px}
+      .partable {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+
+      
+      .lnbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;text-align:right;color:gray}
+      .invs {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;color:lightgray}
+      .neut {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:black}
+      .cmnd {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:black}
+      .comt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:green}
+      .cnst {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:gray}
+      .idnt {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .keyw {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:navy}
+      .type {font-family:"Courier New,Courier,cursive";font-style:italic;font-size:10pt;font-weight:bold;text-decoration:none;line-height:inherit;color:blue}
+      .nmbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:blue}
+      .strg {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:purple}
+
+      
+      body  {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+      h1    {position:relative;left:1.3cm;font-family:"Arial,sans-serif";font-style:normal;font-size:20pt;font-weight:bold;text-decoration:none}
+      h2    {font-family:"Arial,sans-serif";font-style:normal;font-size:14pt;font-weight:bold;text-decoration:none}
+      h3    {font-family:"Arial,sans-serif";font-style:normal;font-size:12pt;font-weight:bold;text-decoration:none}
+      h4    {font-family:"Arial,sans-serif";font-style:normal;font-size:11pt;font-weight:bold;text-decoration:none}
+      h5    {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:bold;text-decoration:none}
+      p     {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+      li    {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+      table {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
+      a     {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;}
+    </style>
+    
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
+    <table width=100% cellpadding=0 >
+      <tr valign=BOTTOM>
+        <td align=LEFT >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Remote Control                                                     <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+            &nbsp;
+          </h5>
+        </td>
+      </tr>
+      <tr valign=MIDDLE>
+        <td align=LEFT>
+          <h1>
+<!--  ==============================================================================================================  -->
+            Remote Interface DLL                                               <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+    <table width=100% cellpadding=0 >
+      <tr valign=TOP>
+        <td align=LEFT >
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+        </td>
+        <td align=RIGHT>
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    <hr>
+    <br>
+    <div style="background-color:#E0E0E0; width:90%; margin-left:auto; margin-right:auto; padding:20px; text-align:center">
+      <p>
+        The following remarks address to software developers assigned to integrate remote 
+        access on a SymPhoTime&nbsp;64 server into their (client-) application. 
+        We're desperately sorry, but we simply can't anticipate, which programming language 
+        developers might choose when it comes to implement remote control of our SymPhoTime&nbsp;64. 
+        So we chose a pseudo-code for our documentation. We assume that most of the 
+        experienced developers have at least adequate knowledge of the C/C++ language family. 
+        For all these, the supplied demo &quot;Client_w_Stress&quot; is directly understandable. 
+        But browsing the supplied material, you'll also find ready to use Object-Pascal import units 
+        for Delphi&nbsp;/&nbsp;Lazarus&nbsp;/&nbsp;Free-Pascal projects, too. 
+      </p>
+      <p>
+        <b>All information below is corresponding to PicoQuant's  RemoteInterface.DLL &nbsp;<span style="color:purple">V1.0.8</span></b><br><br>
+        For convenience, we will often use the abbreviation &quot;<b>RI</b>&quot;, standing for 
+        <b>R</b>emote&nbsp;<b>I</b>nterface.
+      </p>
+    </div>
+    <p>
+      The DLL was created to encapsulate the implementation of the entire protocol and especially 
+      granting for the delicate timing of the handshake. This is realized by introduction of 
+      its own threads for the communication via standard Windows&trade; sockets. From the user's 
+      point of view, all functions he directly invokes run in the context of the calling thread. 
+      To encouple the DLL from this thread, they only transfer data into the context of the 
+      DLL's main thread.
+    </p>
+    <p>
+      To receive feedback data from the DLL while a measurement is running, the developer has to 
+      provide a <b>call-back function</b>, which will be called approximately every 1.2 seconds. 
+      When called, this function is running in the context of the DLL. Consider, that the memory 
+      allocated for data exchange and the values assigned to this memory are only valid during the 
+      runtime of this function. Once terminated, the memory pointers and the contents are void. So, 
+      avoid direct access to GUI elements and time consumptive calculations inside this function, 
+      but arrange for <b>threadsave copying</b> the feedback data to the "outside". A lack of caution 
+      in this point could result in runtime errors hard to debug.
+    </p>
+    <p>
+      The DLL implements a state machine, which is - from the developer's point of view - much easier
+      to handle than the low level protocol machine. The following image illustrates this state machine.
+      <br><br>
+    </p>
+    <div align=center>
+      <img src="RI_StateMachine.png" alt="Remote-Interface DLL: State Machine" style="width:600px;height:450px;" >
+    </div>
+    <h3>Usage of the RemoteInterface DLL</h3>
+    <p>
+      Please understand all codelines hereafter as pseudo-code, and never intended to instantely run 
+      under whatsoever conditions. Instead, they are to picture out the in-general usage of the RI-DLL as 
+      supplied with SymPhoTime&nbsp;64. We hope this may reduce the time of familiarization with the DLL. 
+    </p>
+    <p>
+      There are many ways to do the import of functions provided by a DLL. In our example client application, 
+      called the &quot;Stress&nbsp;Client&quot;, as supplied with SymPhoTime&nbsp;64, we use an explicite 
+      linking mechanism, enabling the check for complete and successfull linking at initialization time of 
+      the client program. To follow this way, create an DLL import function analogous to 
+      &quot;<code>InitRemoteInterface_DLL</code>&quot; from the stress client example (as coded in 
+      <code>RemoteInterface_Lib.cpp<code>). 
+    </p>
+    <p>
+      All DLL functions use the calling convention &quot;<b>stdcall</b>&quot;. The functions' names all commence 
+      with "RI_" and they all return a <span class=type>long&nbsp;int</span> (i.e. a signed 32-bit integer), coding their result as either finished without 
+      error &nbsp;(&nbsp;<span class=neut>==</span>&nbsp;<span class=cnst>PQ_ERRCODE_NO_ERROR</span>&nbsp;)
+      or the error number, which might be decoded to a human readable string <span class=idnt>cErrText</span>, 
+      using the function &quot;<span class=cmnd>RI_GetErrorText</span>&quot;:
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=type>long int</span> <span class=idnt>lRet</span>;
+    <span class=type>char</span>     <span class=idnt>cErrText</span> [<span class=cnst>SPT_RI_ERRORTEXT_MAXLEN</span> + <span class=nmbr>1</span>];
+
+    <span class=keyw>if</span> (<span class=cnst>PQ_ERRCODE_NO_ERROR</span> != (<span class=idnt>lRet</span> = <span class=cmnd>InitRemoteInterface_DLL</span> ()))
+    {
+      <span class=cmnd>RI_GetErrorText</span> (<span class=idnt>lRet</span>, <span class=idnt>cErrText</span>);      <span class=comt>// - the meaning of the error code is copied to cErrText
+    }
+</span></pre></nobr></code></p>
+    <p>
+      Aside from bug fixes, the functionality of the DLL may or may not be subject to changes in future relases 
+      without any further announcements by PicoQuant. But PicoQuant will increase the major high version number on 
+      functional discontinuities and increase the major low version number on major functional enhancements. 
+      The minor high version number will be increased on fundamental changes to the implementation, that don't 
+      break interface continuity, whilst the minor low version number is a build or release counter, where 
+      differences are always tolerable.<br><br>
+      <b>Keeping this in mind, it should be common sense to check for version compatibility:</b>
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=type>char</span> <span class=idnt>cLibVersion</span> [<span class=cnst>SPT_RI_VERSIONSTRING_MAXLEN</span> + <span class=nmbr>1</span>];
+
+    <span class=cmnd>RI_GetLibVersion</span> (<span class=idnt>cLibVersion</span>);
+    <span class=keyw>if</span> (<span class=nmbr>0</span> != strncmp (<span class=idnt>cLibVersion</span>, <span class=cnst>LIB_VERSION_REFERENCE</span>, strlen (<span class=cnst>LIB_VERSION_REFERENCE</span>)))
+    {
+      <span class=comt>// handle robustness to version differences...</span>
+    }</span></pre></nobr></code></p>
+    <p>
+      At least if still in debugging process, provide a means to show the debugging window. You may 
+      C:\Users\Publicthen compare between the received data and the information sent by SPT64 as shown in the <a href="SPT64Server.html">server&nbsp;window</a>. 
+      While running with enabled log, all insertations to the log are recorded with timestamp.
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=keyw>if</span> (<span class=cnst>PQ_ERRCODE_NO_ERROR</span> == (<span class=idnt>lRet</span> = <span class=cmnd>RI_AssignLogFile</span> (<span class=strg>"C:\Users\Public\MyLog.txt"</span>)))
+    {
+      <span class=cmnd>RI_EnableLog</span> (<span class=cnst>true</span>);                   <span class=comt>// - using this function, the developer
+      //                                     //   selectively enables/disables logging</span>
+      <span class=cmnd>RI_AddLineToLog</span> (<span class=strg>"Begin of Session"</span>);  <span class=comt>// - using this function, the developer can
+      //                                     //   write additional information to the log</span>
+      <span class=cmnd>RI_ShowLogWin</span> ();                      <span class=comt>// - showing the current log in its own window</span>
+    }</span></pre></nobr></code></p>
+    <p>
+      Create a call-back function (or a maybe couple of specialized ones) with the footprint:
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=keyw>typedef</span> <span class=type>long&nbsp;int</span> (<span class=keyw>__stdcall</span> *<span class=type>TReceiveParamFunc</span>)(<span class=type>char</span>* <span class=idnt>pcIdent</span>,
+                                                    <span class=type>float</span> <span class=idnt>fValue</span>,
+                                                    <span class=type>long</span>  <span class=idnt>iRecNr</span>);
+</span></pre></nobr></code></p>
+    <p>
+      If passed over to the DLL with the start of a new measurement, they will be called on each incoming 
+      feedback frame (a.k.a. NACK-frame), once for each named value in each frame. These frames will be sent
+      by SPT64 and SPT32 as well in intervals of approx. 1.2 seconds. For the names of the values transmitted, 
+      refer to <a href="apx_rprot_feedbackvalues.html">feedback values</a>. The return value of this function 
+      in exchange is evaluated by the DLL and determines whether to continue with the measurement or not.
+      Let this call-back function have side effects, e.g.
+      <ul>
+        <li>
+          in copying the values received to certain memory locations depending
+          on the identifier recognized, for the usage outside e.g. for displaying in your GUI.<br>
+          <b>CAVEAT</b>: Since the function is called from the context of a DLL internal
+          thread, take care of <b>thread-saveness</b> (use e.g. Interlocked Exchange).<br>&nbsp;
+        </li>
+        <li>
+          in making the decision when to stop the measurement either directly inside the function 
+          by a certain feedback value or the record number passed into the function by the DLL 
+          or on a decision value handed over into the function by means of thread-save access on 
+          a global variable.<br>&nbsp;
+        </li>
+        <li>
+          in letting the function finally return the result of this decision to
+          the DLL using values as given by enumeration type <span class=type>E_SPT_RI_STOP_REASONS</span>
+          or else<br>&nbsp;
+        </li>
+        <li>
+          in letting the function always return <span class=cnst>SPT_RI_STOP_REASON_CONTINUE_OK</span>.
+          (In the later case, you have to terminate measurements explicitely by
+          calling the function "<span class=cmnd>RI_RequestStopMeas</span>".)
+        </li>
+      </ul>
+    </p>
+    <p>
+      The following example will only react on each feedback named <span class=strg>"maxcpp"</span> 
+      and on the record number. It will terminate the measurement if either the value of any 
+      <span class=strg>"maxcpp"</span> feedback increases <span class=nmbr>250</span> counts 
+      or if the record count increases <span class=nmbr>83</span> (i.e. more than 100 seconds). Consider, that this call-back 
+      function would never stop a time trace measurement, since there will never be a feedback 
+      named <span class=strg>"maxcpp"</span> sent during time trace measurements! (Refer to 
+      <a href="apx_rprot_feedbackvalues.html">feedback values</a>&hellip;)
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=type>long&nbsp;int</span> <span class=keyw>__stdcall</span> <span class=cmnd>MyImageParamCallBackFunc</span> (<span class=type>char*</span> <span class=idnt>pcIdent</span>, <span class=type>float</span> <span class=idnt>fValue</span>, <span class=type>long</span> <span class=idnt>iRecNr</span>)
+    {
+      <span class=type>long&nbsp;int</span> <span class=idnt>lStopReason</span>;
+      <span class=comt>//</span>
+      <span class=idnt>lStopReason</span> = <span class=cnst>SPT_RI_STOP_REASON_CONTINUE_OK</span>;
+      <span class=comt>//</span>
+      <span class=keyw>if</span> (<span class=idnt>iRecNr</span> &gt; <span class=nmbr>83</span>)
+      {
+        <span class=comt>// measurement already running for more than 100 seconds</span>
+        <span class=comt>// without reaching sufficient termination conditions?</span>
+        <span class=comt>// so let's better stop here...</span>
+        <span class=idnt>lStopReason</span> = <span class=cnst>SPT_RI_STOP_REASON_ERROR</span>;
+      }
+      <span class=keyw>else</span>
+      {
+        <span class=keyw>if</span> (<span class=nmbr>0</span> == strcmp (<span class=cnst>PQ_OPT_DATANAME_MAX_COUNTS_PER_PIXEL</span>, <span class=idnt>pcIdent</span>))
+        {
+          <span class=keyw>if</span> (<span class=idnt>fValue</span> &gt; <span class=nmbr>250.0f</span>)
+          {
+            <span class=comt>// measurement reached sufficient counts level</span>
+            <span class=idnt>lStopReason</span> = <span class=cnst>SPT_RI_STOP_REASON_FINISHED_OK</span>;
+          }
+        }
+      }
+      <span class=keyw>return</span> <span class=idnt>lStopReason</span>;
+    }
+</span></pre></nobr></code></p>
+    <p>
+      Then create the infrastructure (e.g. GUI-elements) to hand over individual optional 
+      parameters for the next measurement to be started. 
+      As already known from SPT32, this could be:<br>
+      <ul>
+        <li>
+        the desired file name for the raw data file (<span class=cnst>PQ_OPT_INFONAME_FILENAME</span>),<br>&nbsp;
+        </li>
+        <li>
+          a group name (<span class=cnst>PQ_OPT_INFONAME_GROUPNAME</span>, i.e. 
+          the name of a subdirectory to create, if not already
+          existing, within the current working directory in the SPT64 workspace,
+          where to insert the raw data file, the measurement process is about to
+          create)<br>&nbsp;
+        </li>
+        <li>
+          some measurement describing information, with predefined value names,
+          as there are e.g. information on<br>&nbsp;
+          <ul>
+            <li>
+              <pre><span class=strg>"Objective"</span>             (or <span class=cnst>PQ_OPT_INFONAME_OBJECTIVE</span>)      <span class=comt>// string</span></pre>
+            </li>
+            <li>
+              <pre><span class=strg>"Pinhole"</span>               (or <span class=cnst>PQ_OPT_INFONAME_PINHOLE</span>)        <span class=comt>// string</span></pre>
+            </li>
+            <li>
+              <pre><span class=strg>"MajorDichroic"</span>         (or <span class=cnst>PQ_OPT_INFONAME_MAJOR_DICHROIC</span>) <span class=comt>// string</span></pre>
+            </li>
+            <li>
+              <pre><span class=strg>"TimePerPixel"</span>          (or <span class=cnst>PQ_OPT_INFONAME_TIME_PER_PIXEL</span>) <span class=comt>// float, set in seconds</span></pre>
+            </li>
+            <li>
+              <pre><span class=strg>"TimePerImageEstimated"</span> (or <span class=cnst>PQ_OPT_INFONAME_TIME_PER_IMAGE</span>) <span class=comt>// float, set in seconds</span></pre>
+            </li>
+          </ul>
+          Future releases may or may not provide retrieval capabilities for these.<br>&nbsp;
+        </li>
+        <li>
+          comments for documentation purposes (<span class=cnst>PQ_OPT_INFONAME_COMMENT</span>), 
+          that will be inserted into the resulting raw data files, too. 
+          Other than the prementioned, comments are not scanned nor interpreted, neither now, 
+          nor is this planned for future releases. But they may contain a huge amount of 
+          measurement related information, given in human readable format. They may even
+          contain formatting tabs or line feeds (DOS-style recommended: <span class=strg>&lt;CR&gt;&lt;LF&gt;</span>).
+          Although they could be stored right away, it is stongly disencouraged to use 
+          local special characters or MBCS like Unicode, UTF-8, etc. since this would result 
+          in potentially unreadable comments if copied to a foreign region (e.g. in a support 
+          case or for an international collaboration).<br>&nbsp;
+        </li>
+      </ul>
+    </p>
+    <p>
+      Now, for the opening handshake, call the init function "<span class=cmnd>RI_Initialize</span>"
+      where the <span class=type>char*</span> parameter <span class=idnt>cHost</span> should contain the IP address, like e.g.
+      <span class=strg>"127.0.0.1"</span>, the <span class=type>long&nbsp;int</span> parameter 
+      <span class=idnt>lPort</span> contains the port number to be used for
+      the comunication, (should equal <span class=nmbr>6000</span>). 
+      If the return code equals <span class=cnst>PQ_ERRCODE_NO_ERROR</span>, 
+      you may rely on the SPT64 version string returned in <span class=idnt>cSPTVersion</span>.
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=type>char</span>     <span class=idnt>cHost</span> [<span class=cnst>SPT_RI_HOSTNAME_MAXLEN</span>];
+    <span class=type>long&nbsp;int</span> <span class=idnt>lPort</span>;
+    <span class=type>char</span>     <span class=idnt>cSPTVersion</span> [<span class=cnst>SPT_RI_VERSIONSTRING_MAXLEN</span>];
+
+    strcpy (<span class=idnt>cHost</span>, <span class=strg>"127.0.0.1"</span>);
+    <span class=idnt>lPort</span> = <span class=nmbr>6000</span>;
+    <span class=idnt>lRet</span>  = <span class=cmnd>RI_Initialize</span> (<span class=idnt>cHost</span>, <span class=idnt>lPort</span>, <span class=idnt>cSPTVersion</span>);
+</span></pre></nobr></code></p>
+    <p>
+      If terminated without error, continue, else react on the error and maybe
+      retry. An error frequently made is to forget to open a workspace on the 
+      server site, resulting in the errocode <span class=cnst>PQ_ERRCODE_NO_WORKSPACE</span>.
+    </p>
+    <p>
+      As now the connection is approved to be free of errors, you may sent the
+      upper mentioned optional parameters to the DLL, e.g.:
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=cmnd>RI_SetOptionalString</span> (<span class=cnst>PQ_OPT_INFONAME_GROUPNAME</span>, <span class=strg>"MySubdir"</span>);
+    <span class=cmnd>RI_SetOptionalString</span> (<span class=cnst>PQ_OPT_INFONAME_FILENAME</span>,  <span class=strg>"MyRawData"</span>);
+    <span class=cmnd>RI_SetOptionalFloat</span>  (<span class=cnst>PQ_OPT_INFONAME_TIME_PER_IMAGE</span>, <span class=nmbr>2.56</span>);
+</span></pre></nobr></code></p>
+    <p>
+      Consider, if there is already a file with the given name in the subdirectory, 
+      on start request the measurement will terminate with an error <span class=cnst>PQ_ERRCODE_FILE_EXISTS</span>. 
+      Notice, that the registration of optional parameters for the next measurement 
+      to start isn't causing any traffic with the server, since other than during 
+      &nbsp;<span class=cmnd>RI_Initialize</span>, for this purpose your application 
+      is solely communicating with the DLL.<br><br>
+      Now, if the DLL signals to be in <span class=cnst>SPT_RI_STATUS_IDLE</span> state, 
+      we are ready to start a measurement, in this example let's record for an image.
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=type>long int</span>          <span class=idnt>lState</span>;
+    <span class=type>longbool</span>          <span class=idnt>bRecord</span>;
+    <span class=type>long int</span>          <span class=idnt>lPixX</span>;
+    <span class=type>long int</span>          <span class=idnt>lPixY</span>;
+    <span class=type>float</span>             <span class=idnt>fResol</span>;
+    <span class=type>longbool</span>          <span class=idnt>bBiDirectionalScan</span>;
+    <span class=type>TReceiveParamFunc</span> <span class=idnt>MyPCBFunc</span>;
+
+    <span class=idnt>lState</span>      = <span class=cnst>SPT_RI_STATUS_UNKNOWN</span>;
+    <span class=idnt>bRecord</span>     = <span class=cnst>true</span>;                     <span class=comt>// i.e. measurement mode; false would request for test mode</span>
+    <span class=idnt>lPixX</span>       = <span class=nmbr>128</span>;
+    <span class=idnt>lPixY</span>       = <span class=nmbr>128</span>;
+    <span class=idnt>fResol</span>      = <span class=nmbr>1.0e-6f</span>;                  <span class=comt>// given in meter</span>
+    <span class=idnt>bBiDirScan</span>  = <span class=cnst>false</span>;                    <span class=comt>// mono-directional scan</span>
+    <span class=idnt>MyPCBFunc</span>   = <span class=idnt>MyImageParamCallBackFunc</span>; <span class=comt>// see above</span>
+
+    <span class=keyw>do</span>
+    {
+      <span class=keyw>if</span> (<span class=cnst>SPT_RI_STATUS_IDLE</span> == (<span class=idnt>lState</span> = <span class=cmnd>RI_GetStatus</span> ()))
+      {
+        <span class=idnt>lRet</span>   = <span class=cmnd>RI_RequestImage</span> (<span class=idnt>bRecord</span>, <span class=idnt>lPixX</span>, <span class=idnt>lPixY</span>, <span class=idnt>fResol</span>, <span class=idnt>bBiDirScan</span>, <span class=idnt>MyPCBFunc</span>);
+        <span class=idnt>lState</span> = <span class=cmnd>RI_GetStatus</span> ();
+      }
+      <span class=keyw>else</span>
+      {
+        <span class=idnt>lRet</span>   = <span class=cmnd>RI_GetStatusText</span> (<span class=idnt>lState</span>, <span class=idnt>cStatus</span>);
+        <span class=comt>//</span>
+        <span class=comt>// show cStatus in GUI</span>
+        <span class=comt>//</span>
+        <span class=cmnd>Sleep</span> (<span class=nmbr>1000</span>);
+        <span class=comt>//</span>
+        <span class=comt>// IMPORTANT: Especially if there was a measurement running before:</span>
+        <span class=comt>//            Give SPT64 some time for the après measurement work;</span>
+        <span class=comt>//            Don't poll too fast, because this would hinder SPT64</span>
+        <span class=comt>//            ever to get ready for the next measurement, again!</span>
+      }
+    } 
+    <span class=keyw>while</span> ( (<span class=idnt>lRet</span> == <span class=cnst>PQ_ERRCODE_NO_ERROR</span>) && (<span class=idnt>lState</span> != <span class=cnst>SPT_RI_STATUS_MEAS_RUNNING</span>) )
+</span></pre></nobr></code></p>
+    <p>
+      Supposed that 
+      <ol type="a">
+        <li>the return value is <span class=cnst>PQ_ERRCODE_NO_ERROR</span>&nbsp; and</li>
+        <li>the state is <span class=cnst>SPT_RI_STATUS_MEAS_RUNNING</span>,</li>
+      </ol>
+    </p>
+    <p>
+      the measurement is accepted and running, else decode the return value and
+      state code and act appropriately. The illustrated state machine shall only
+      show the in principle possibility of reaction on changes of the state.
+      You should properly design your own machine according to the demands of your
+      respective application.
+    </p>
+    <p>
+      Assuming, the measurement is running, the function MyImageParamCallBackFunc
+      will be called for feedback transmission. If a pixel reaches more than
+      <span class=nmbr>250</span> counts or the measurement is running for more 
+      than 100 seconds (i.e. approx. <span class=nmbr>83</span> feedback cycles), 
+      it will be terminated, right according to plan. But it might also happen, 
+      that a user wants to stop the running measurement, for he or she realizes 
+      a mistake in the supplied parameter set or perhaps the preview provided by 
+      the SPT64 shows poor imaging conditions. On behalf of this, you should provide 
+      e.g. a button, which on click launches a stop measurement request:
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=keyw>if</span> (<span class=cnst>PQ_ERRCODE_NO_ERROR</span> == (<span class=idnt>lRet</span> = <span class=cmnd>RI_RequestStopMeas</span> ()))
+    {
+      <span class=cmnd>RI_AddLineToLog</span> (<span class=strg>"Measurement stopped by user!"</span>);
+    }
+</span></pre></nobr></code></p>
+    <p>
+      As shown in the state machine diagram, you may - in absence of error conditions - 
+      cycle these steps <i>ad infinutum</i>. Any error detected by the DLL, however, will 
+      change its state to "Unknown", giving you the opportunity for recovering measures. 
+      With stable working conditions accomplished again, you may then restart with the 
+      initializing sequence.
+    </p>
+    <p>
+      Before shut-down at last, if running under debugging conditions, don't forget to 
+      release the logfile:
+    </p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=cmnd>RI_AddLineToLog</span> (<span class=strg>"End of Session"</span>);
+    <span class=cmnd>RI_EnableLog</span> (<span class=cnst>false</span>);
+    <span class=cmnd>RI_HideLogWin</span> ();
+</span></pre></nobr></code></p>
+    <p>
+      We hope, this little excursion made things easier for you. 
+      Enjoy remote controlling your SymPhoTime!
+    </p>
+    <br>
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table width=100%>
+      <tr>
+        <td align=LEFT>
+          <b>Related Topics:</b>
+        </td>
+        <td align=RIGHT>
+<!--      [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+    <br><font color=WHITE size=1></font> <!-- spoiled words repeated -->
+  </body>
+</html>

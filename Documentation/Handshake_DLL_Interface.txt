@@ -1,0 +1,409 @@
+  //
+  // This information is corresponding to PicoQuant's  RemoteInterface.DLL  V1.0.8
+  //
+  // ************************************************************************************************
+  // constants definitions                                                                           
+  // ************************************************************************************************
+  
+  SPT_RI_VERSIONSTRING_MAXLEN       = 31;
+  SPT_RI_STATUSTEXT_MAXLEN          = 31;
+  SPT_RI_HOSTNAME_MAXLEN            = 63;
+  SPT_RI_FILENAME_MAXLEN            = 255;
+  SPT_RI_GROUPNAME_MAXLEN           = 63;
+  SPT_RI_COMMENT_MAXLEN             = 32767;
+  SPT_RI_OPT_DATATYPE_NAME_MAXLEN   = 30;
+  SPT_RI_ERRORTEXT_MAXLEN           = 63;
+  
+  PQ_OPT_INFONAME_FILENAME          = 'Filename';
+  PQ_OPT_INFONAME_GROUPNAME         = 'Groupname';
+  PQ_OPT_INFONAME_COMMENT           = 'Comment';
+  
+  
+  // ************************************************************************************************
+  // type definitions                                                                                
+  // ************************************************************************************************
+  
+  E_SPT_RI_STOP_REASONS             = (SPT_RI_STOP_REASON_CONTINUE_OK      =       0,
+                                       SPT_RI_STOP_REASON_FINISHED_OK      =       1,
+                                       SPT_RI_STOP_REASON_USER_BREAK       =       2,
+                                       SPT_RI_STOP_REASON_ERROR            =      -1);
+    
+  E_PQ_ERROR_CODES                  = (PQ_ERRCODE_NO_ERROR                 =       0,
+                                       PQ_ERRCODE_MEASUREMENT_READY        =       1,
+                                       PQ_ERRCODE_USER_BREAK               =       2,
+                                       PQ_ERRCODE_PREDEFINED_PARAM         =       3,
+                                       PQ_ERRCODE_REDEFINED_PARAM          =       4,
+                                       PQ_ERRCODE_UNKNOWN_PARAM            =       5,
+                                       PQ_ERRCODE_FUNCTION_BLOCKED         =       9,
+                                       PQ_ERRCODE_MESSAGE_CORRUPTED        =      -1,
+                                       PQ_ERRCODE_SERVER_BUSY              =      -2,
+                                       PQ_ERRCODE_MESSAGE_TIMEOUT          =      -3,
+                                       PQ_ERRCODE_TYPE_MISMATCH            =      -7,
+                                       PQ_ERRCODE_INVALID_REC_VERSION      =     -10,
+                                       PQ_ERRCODE_MEASUREMENT_TIMEOUT      =    -100,
+                                       PQ_ERRCODE_FIFO_OVERRUN             =    -101,
+                                       PQ_ERRCODE_DMA_ERROR                =    -102,
+                                       PQ_ERRCODE_OSCILLOSCOPE_RUNNING     =    -103,
+                                       PQ_ERRCODE_HARDWARE_INIT            =    -104,
+                                       PQ_ERRCODE_TTTR_INIT                =    -105,
+                                       PQ_ERRCODE_TTTR_RUNNING             =    -106,
+                                       PQ_ERRCODE_NO_WORKSPACE             =    -107,
+                                       PQ_ERRCODE_FILE_EXISTS              =    -108,
+                                       PQ_ERRCODE_FILE_CREATE              =    -109,
+                                       PQ_ERRCODE_GROUPNAME_TOO_LONG       =    -110,
+                                       PQ_ERRCODE_FILENAME_TOO_LONG        =    -111,
+                                       PQ_ERRCODE_TIMESTAMP_ARRAY_TOO_LONG =    -112,
+                                       PQ_ERRCODE_OPEN_LOGFILE_FAILED      =    -113,
+                                       PQ_ERRCODE_MEASUREMENT_RUNNING      =    -114,
+                                       PQ_ERRCODE_NO_MEASUREMENT_RUNNING   =    -115,
+                                       PQ_ERRCODE_INVALID_PARAMETERNAME    =    -116,
+                                       PQ_ERRCODE_UNSUPPORTED_MEASUREMENT  =    -117,
+                                       PQ_ERRCODE_SERVER_NOT_INITIALISED   =    -118,
+                                       PQ_ERRCODE_TCSPCSYSTEM_ERROR        =    -119,
+                                       PQ_ERRCODE_MEMORY_ACCESS_ERROR      =    -120,
+                                       PQ_ERRCODE_CLIENT_NOT_INITIALISED   =    -121,
+                                       PQ_ERRCODE_INVALID_LICENSE          =    -999,
+                                       PQ_ERRCODE_HANDSHAKE_ERROR          =   -1000,
+                                       PQ_ERRCODE_GENERAL_SOCKET_ERROR     =   -1100,
+                                       PQ_ERRCODE_SOCKET_ERROR_SEND        =   -1101,
+                                       PQ_ERRCODE_SOCKET_ERROR_RECEIVE     =   -1102,
+                                       PQ_ERRCODE_SOCKET_ERROR_CONNECT     =   -1103,
+                                       PQ_ERRCODE_SOCKET_ERROR_DISCONNECT  =   -1104,
+                                       PQ_ERRCODE_SOCKET_ERROR_ACCEPT      =   -1105,
+                                       PQ_ERRCODE_SOCKET_ERROR_LOOKUP      =   -1106,
+                                       PQ_ERRCODE_DLL_NOT_FOUND            =   -9100,
+                                       PQ_ERRCODE_UNKNOWN_FUNCTION         =   -9110,
+                                       PQ_ERRCODE_UNKNOWN_ERROR            =   -9999);
+  
+  E_SPT_RI_STATUS                   = (SPT_RI_STATUS_UNKNOWN               =       0,
+                                       SPT_RI_STATUS_IDLE                  =       1,
+                                       SPT_RI_STATUS_MEAS_RUNNING          =       2,
+                                       SPT_RI_STATUS_MEAS_TERMINATING      =       3);
+
+
+// ************************************************************************************************
+// call-back function type                                                                         
+// ************************************************************************************************
+
+  TReceiveParamFunc = int function (PAnsiChar pcIdent; single fValue; int iRecNumber); stdcall;
+    { Synopsis: Callback-Type;
+        Function invoked by SPT RemoteInterface DLL, if provided by the client application; 
+        Called on incoming data frames (NACK-frames), once for each parameter in the frame received.
+      Blocking / Synchronizing:
+        This function will be cslled and run in the context of a DLL internal thread 
+          (herein after referred to as the "NACK-thread"). 
+        The implementation by all means has to take care of synchronizing with the external threads.
+      Parameters:
+        pcIdent                 : pointer to a buffer of AnsiChar, containing the parameter name
+                                    Only valid within the scope of the call back function;
+                                    To save the string for client global scope, you've to copy it
+                                    to globally allocated memory. 
+                                   (max. length to be granted by client application: PQ_OPT_DATATYPE_NAME_MAXLEN+1)
+        fValue                  : single; 
+        iRecNumber              : integer
+      Returns:
+        E_SPT_RI_STOP_REASONS   : code to control the on-going measurement; 
+                                    the measurement will be stopped if the client returnes another value 
+                                    than SPT_RI_STOP_REASON_CONTINUE_OK. The DLL will still complete the 
+                                    whole NACK-frame processing in calling this function more than once, 
+                                    but after completion it will autonomously send a stop message with 
+                                    the stop reason of the highest priority received during the completed 
+                                    NACK-frame processing. The priority order from highest to lowest is:
+                                       SPT_RI_STOP_REASON_ERROR,
+                                       SPT_RI_STOP_REASON_USER_BREAK,
+                                       SPT_RI_STOP_REASON_FINISHED_OK.
+                                    Note: If the client application launches by other reason (e.g. a timer) 
+                                    a concurrent call to RI_RequestStopMeas, this could result in a racing 
+                                    condition with unpredictable results and may or may not interfere with 
+                                    the autonomous launched request, thus returning PQ_ERRCODE_FUNCTION_BLOCKED.
+    }
+
+
+// ************************************************************************************************
+// debugging functions
+// ************************************************************************************************
+
+  int function RI_AssignLogFile (pAnsiChar pcFileName); stdcall;
+    { Synopsis:
+        assigns the file identified by pcFileName to append all logging information
+        if the file does not exist, it will be created
+      Blocking:
+        function establishes intertask communication with a DLL internal thread
+          (herein after referred to as the "socket-thread").
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        pcFileName              : pointer to a buffer of AnsiChar, containing the logfile name;
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+        anything else           : Error
+    }
+
+  int function RI_AddLineToLog (pAnsiChar pcNewLine); stdcall;
+    { Synopsis:
+        appends a new line to the log; full timing info will be preceded. if e.g. called preceding
+        every new measurement, this function should help not getting the increasing log out of hands 
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        pcNewLine               : pointer to a buffer of AnsiChar, containing the line to append;
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+    }
+
+  int function RI_ShowLogWin (void); stdcall;
+    { Synopsis:
+        for debugging purposes: showing a log window with a readonly memofield containing the
+        complete handshake protocol messages as Hex-Dump
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+        anything else           : Error
+    }
+
+  int function RI_HideLogWin (void); stdcall;
+    { Synopsis:
+        for debugging purposes: 
+        hiding the log window again
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+        anything else           : Error
+    }
+
+  int function RI_EnableLog (Bool bEnableLog); stdcall;
+    { Synopsis:
+        for debugging purposes: 
+        enabling / disabling the log (no handshake traffic)
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        bEnableLog              : boolean, false to disable logging
+                                           true  to enable  logging
+      Returns:
+        STP_RI_NO_ERROR         : OK
+        STP_RI_ERROR            : Error
+    }
+
+
+// ************************************************************************************************
+// initialising and supporting functions
+// ************************************************************************************************
+
+  int function RI_GetLibVersion (pAnsiChar pcLibVersion); stdcall;
+    { Synopsis:
+        retrieves library version
+      Blocking:
+        function solely runs in the context of the calling thread.
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        pcLibVersion            : pointer to a buffer of AnsiChar, returning the library version
+                                    (max. length to be granted by client application: PQ_VERSIONSTRING_MAXLEN+1)
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+        anything else           : Error
+    }
+
+  int function RI_GetErrorText (E_PQ_ERROR_CODES eec; pAnsiChar pcErrorText); stdcall;
+    { Synopsis:
+        retrieves human readable error text by error code (no handshake traffic) 
+      Blocking:
+        function solely runs in the context of the calling thread.
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        eec                     : error code
+        pcErrorText             : pointer to a buffer of AnsiChar, returning the decoded error text
+                                    (max. length to be granted by client application: PQ_ERRORTEXT_MAXLEN+1)
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+        anything else           : Error
+    }
+
+  int function RI_GetStatus (void); stdcall;
+    { Synopsis:
+        for controlling purposes: returns the internal status of the DLL
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Returns:
+        E_SPT_RI_STATUS
+    }
+
+  int function RI_GetStatusText (E_SPT_RI_STATUS estc; pAnsiChar pcStatusText); stdcall;
+    { Synopsis:
+        retrieves human readable status text by status code (no handshake traffic)
+      Blocking:
+        function solely runs in the context of the calling thread.
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        estc                    : status code
+        pcErrorText             : pointer to a buffer of AnsiChar, returning the decoded status text
+                                    (max. length to be granted by client application: PQ_STATUSTEXT_MAXLEN+1)
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+        PQ_ERRCODE_UNKNOWN_PARAM: estc is no valid status code
+    }
+
+  int function RI_Initialize (pAnsiChar pcHost; int iPort; PAnsiChar pcSPTVersion); stdcall;
+    { Synopsis:
+        etablishes connection and retrieves SPT version,
+        informs SPT on existing DLL-partner on client's site,
+        releases connection
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        pcHost                  : pointer to a buffer of AnsiChar, identifying the server;
+                                    may contain either an IP-Adress or a symbol like e.g. 'local'
+        iPort                   : integer, identifying the port to be used by the connection
+        pcSPTVersion            : pointer to a buffer of AnsiChar, to receive the version of the SPT connected.
+                                    (max. length to be granted by client application: PQ_OPT_DATATYPE_NAME_MAXLEN+1)
+      Returns:
+        PQ_ERRCODE_NO_ERROR     : OK
+        anything else           : Error
+    }
+
+  int function RI_SetOptionalFloat (PAnsiChar pcIdent; single fValue; int iArrIdx); stdcall;
+    { Synopsis:
+        stores optional float parameters for the next measurement
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        pcIdent                 : pointer to a buffer of AnsiChar, identifying the optional float parameter;
+        fValue                  : single, containing the float parameter value;
+        iArrIdx                 : integer, if the parameter identified isn't an array : -1,
+                                           else : array index (zero-based) to write the value to
+      Returns:
+        PQ_ERRCODE_NO_ERROR        : ( 0) OK, if parameter is known and valid
+        PQ_ERRCODE_REDEFINED_PARAM : ( 4) Warning, if parameter is valid but already set
+        PQ_ERRCODE_UNKNOWN_PARAM   : ( 5) Warning, if parameter is unknown but valid
+        PQ_ERRCODE_TYPE_MISMATCH   : (-7) Errorcode, if parameter is known but typecheck failed
+    }
+    
+  int function RI_SetOptionalInt (PAnsiChar pcIdent; int iValue; int iArrIdx); stdcall;
+    { Synopsis:
+        stores optional integer parameters for the next measurement
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        pcIdent                 : pointer to a buffer of AnsiChar, identifying the optional int parameter;
+        iValue                  : integer, containing the int parameter value;
+        iArrIdx                 : integer, if the parameter identified isn't an array : -1,
+                                           else : array index (zero-based) to write the value to
+      Returns:
+        PQ_ERRCODE_NO_ERROR        : ( 0) OK, if parameter is known and valid
+        PQ_ERRCODE_REDEFINED_PARAM : ( 4) Warning, if parameter is valid but already set
+        PQ_ERRCODE_UNKNOWN_PARAM   : ( 5) Warning, if parameter is unknown but valid
+        PQ_ERRCODE_TYPE_MISMATCH   : (-7) Errorcode, if parameter is known but typecheck failed
+    } 
+
+  int function RI_SetOptionalString (PAnsiChar pcIdent; PAnsiChar pcValue); stdcall;
+    { Synopsis:
+        stores optional string parameters for the next measurement
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        pcIdent                 : pointer to a buffer of AnsiChar, identifying the optional string parameter;
+        pcValue                 : pointer to a buffer of AnsiChar, containing the string parameter value;
+      Returns:
+        PQ_ERRCODE_NO_ERROR        : ( 0) OK, if parameter is known and valid
+        PQ_ERRCODE_REDEFINED_PARAM : ( 4) Warning, if parameter is valid but already set
+        PQ_ERRCODE_UNKNOWN_PARAM   : ( 5) Warning, if parameter is unknown but valid
+        PQ_ERRCODE_TYPE_MISMATCH   : (-7) Errorcode, if parameter is known but typecheck failed
+    } 
+
+
+// ************************************************************************************************
+// measurement handshake functions
+// ************************************************************************************************
+
+  int function RI_RequestTimeTrace(Bool bRecordFile; TReceiveParameter ParamCallbackFunc); stdcall;
+    { Synopsis:
+        establishes connection,
+        transfers optional parameters collected and starts measurement,
+        clears the optional parameter buffer,
+        waits for reply
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+        refer also to the note on TReceiveParamFunc-typed callback functions
+      Parameters:
+        bRecordFile             : boolean, false for test measurement (i.e. data measured will not be stored)
+                                           true  for regular measurement
+        ParamCallbackFunc       : function pointer to the call back function 
+                                    to be called by the NACK-thread of the DLL on incoming online parameters
+      Returns:
+        E_PQ_ERROR_CODES        : detailed error code
+
+  int function RI_RequestImage(Bool bRecordFile; int iPixX, iPixY; single fResol: single; Bool bBiDirectionalScan; TReceiveParameter ParamCallbackFunc); stdcall;
+    { Synopsis:
+        establishes connection,
+        transfers optional parameters collected and starts measurement,
+        clears the optional parameter buffer,
+        waits for reply
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+        refer also to the note on TReceiveParamFunc-typed callback functions
+      Parameters:
+        bRecordFile             : boolean, false for test measurement (i.e. data measured will not be stored)
+                                           true  for regular measurement
+        iPixX, iPixY            : integer, dimensions of the image to scan in pixel counts
+        fResol                  : single, pixel resolution in µm
+        bBiDirectionalScan      : boolean, sets the scanning mode
+        ParamCallbackFunc       : function pointer to the call back function 
+                                    to be called by the NACK-thread of the DLL on incoming online parameters
+      Returns:
+        E_PQ_ERROR_CODES        : detailed error code
+    }
+
+  int function RI_RequestStopMeas (void); stdcall;
+    { Synopsis:
+        sends stop request,
+        waits for acknowledging reply or timeout
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Returns:
+        E_PQ_ERROR_CODES        : detailed error code
+    }
