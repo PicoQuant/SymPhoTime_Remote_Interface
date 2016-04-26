@@ -154,7 +154,7 @@ Now, if the SPT signals to be in IDLE state, we are ready to start a measurement
           //
           Sleep 1000;
           //
-          // IMPORTANT: Give SPT some time for the apr�s measurement work;
+          // IMPORTANT: Give SPT some time for the measurement work;
           //            Don't poll too fast, because this would hinder SPT
           //            ever to get ready for the next measurement, again!
         }
