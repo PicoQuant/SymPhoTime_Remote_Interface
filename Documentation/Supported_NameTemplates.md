@@ -23,13 +23,13 @@ Notice that there are no restrictions, neither on the count nor on the position 
 
 Let's assume the preamble being "NameTest_"; With a measurement started on 04.02.2014 at 1:28:13 PM we might get the filenames:
 
-  +------------------------------------+--------------------------------+
+
   | Filename with template sent:       | resulting Filename:            |
-  +------------------------------------+--------------------------------+
+  |------------------------------------|--------------------------------|
   | NameTest_{$DateCode}               | NameTest_20140204.ptu          |
   | NameTest_{$DateTimeCode}           | NameTest_20140204132813.ptu    |
   | NameTest_{$TimeCode}               | NameTest_132813.ptu            |
   | NameTest_{$TickCode}               | NameTest_0016616009.ptu        |
-  +------------------------------------+--------------------------------+
-  | FLIM_{$DateCode}_64px_{$TimeCode} | FLIM_20140204_64px�_132813.ptu |
-  +------------------------------------+--------------------------------+
+  |------------------------------------|--------------------------------|
+  | FLIM_{$DateCode}_64px_{$TimeCode}  | FLIM_20140204_64px_132813.ptu  |
+  |------------------------------------|--------------------------------|
