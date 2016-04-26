@@ -43,7 +43,7 @@ with the footprint
                                                 float fValue,
                                                 long  iRecNr);
 ```
-If passed over to the DLL with the start of a new measurement, they will be called on each incoming feedback frame, once for each named value in each frame. These frames will be sent by SPT64 and SPT32 as well in intervals of approx. 1.2 seconds. For the names of the values transmitted, refer to the document [](Feedback_Values.txt)
+If passed over to the DLL with the start of a new measurement, they will be called on each incoming feedback frame, once for each named value in each frame. These frames will be sent by SPT64 and SPT32 as well in intervals of approx. 1.2 seconds. For the names of the values transmitted, refer to the document [Feedback_Values.txt](Feedback_Values.txt)
 
 Let this call-back function have side effects, e.g.
 
