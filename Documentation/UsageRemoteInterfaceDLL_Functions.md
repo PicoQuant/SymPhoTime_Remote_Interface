@@ -176,7 +176,7 @@ Assuming, the measurement is running, the function ```AnImageParamCallBackFunc``
       RI_AddLineToLog ("Measurement stopped by user!");
     }
 ```
-![State machine diagram](images/images/RI_StateMachine.png)
+![State machine diagram](images/RI_StateMachine.png)
 
 As shown in the state machine diagram, you may - in absence of error conditions -cycle these steps ad infinutum. Any error detected by the DLL, however, will change its state to "Unknown", giving you the opportunity for recovering
 measures. With stable working conditions accomplished again, you may then restart with the initializing sequence.
