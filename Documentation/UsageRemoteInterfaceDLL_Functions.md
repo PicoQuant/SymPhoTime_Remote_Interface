@@ -5,7 +5,7 @@ Recommended steps for a painless usage of the SymPhoTime 64 RemoteInterface-DLL 
 Please understand all codelines herein as pseudo-code, and never intended to instantely run under whatsoever conditions. Instead, they are to picture out the in-general usage of the RemoteInterface DLL as supplied with SymPhoTime 64. We hope this document may reduce the time of familiarization with the DLL.
 
 
-Create an DLL import function analogous to ```InitRemoteInterface_DLL ()`` from the stress client example. All DLL functions return a long int, coding their result as either finished without error or the error number which might be decoded to a human readable string cErrText, using the function ```RI_GetErrorText``"``:
+Create an DLL import function analogous to ```InitRemoteInterface_DLL ()``` from the stress client example. All DLL functions return a long int, coding their result as either finished without error or the error number which might be decoded to a human readable string cErrText, using the function ```RI_GetErrorText```:
 
 ```
     long int lRet;
