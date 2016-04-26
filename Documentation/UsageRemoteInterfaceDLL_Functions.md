@@ -1,9 +1,10 @@
 
-Recommended steps for a painless usage of the SymPhoTime 64 RemoteInterface-DLL functions
-=============================================
+# Recommended steps for a painless usage of the SymPhoTime 64 RemoteInterface-DLL functions
+
 
 Please understand all codelines herein as pseudo-code, and never intended to instantely run under whatsoever conditions. Instead, they are to picture out the in-general usage of the RemoteInterface DLL as supplied with SymPhoTime 64. We hope this document may reduce the time of familiarization with the DLL.
 
+![State machine diagram](images/RI_StateMachine.png)
 
 Create an DLL import function analogous to ```InitRemoteInterface_DLL ()``` from the stress client example. All DLL functions return a long int, coding their result as either finished without error or the error number which might be decoded to a human readable string cErrText, using the function ```RI_GetErrorText```:
 
@@ -176,9 +177,9 @@ Assuming, the measurement is running, the function ```AnImageParamCallBackFunc``
       RI_AddLineToLog ("Measurement stopped by user!");
     }
 ```
-![State machine diagram](images/RI_StateMachine.png)
 
-As shown in the state machine diagram, you may - in absence of error conditions -cycle these steps ad infinutum. Any error detected by the DLL, however, will change its state to "Unknown", giving you the opportunity for recovering
+
+As shown in the above state machine diagram, you may - in absence of error conditions -cycle these steps ad infinutum. Any error detected by the DLL, however, will change its state to "Unknown", giving you the opportunity for recovering
 measures. With stable working conditions accomplished again, you may then restart with the initializing sequence.
 
 At last, if running under debugging conditions, release the logfile:
