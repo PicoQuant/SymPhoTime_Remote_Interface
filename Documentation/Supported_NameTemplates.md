@@ -20,8 +20,7 @@ where "ticks" are the amount of milliseconds since the last bootstrap of the PC 
 Consider a name with a given preambling sequence that should be extended by nonambiguous completions to form unique filenames, allowing for recognition, context adapted sorting, etc.
 
 Notice that there are no restrictions, neither on the count nor on the position of the templates within a filename.
-
-Let's assume the preamble being "NameTest_"; With a measurement started on 04.02.2014 at 1:28:13 PM we might get the filenames:
+Let's assume the preamble being ```NameTest_```; With a measurement started on 04.02.2014 at 1:28:13 PM we might get the filenames:
 
 
 | Filename with template sent:       | resulting Filename:            |
@@ -30,6 +29,4 @@ Let's assume the preamble being "NameTest_"; With a measurement started on 04.02
 | NameTest_{$DateTimeCode}           | NameTest_20140204132813.ptu    |
 | NameTest_{$TimeCode}               | NameTest_132813.ptu            |
 | NameTest_{$TickCode}               | NameTest_0016616009.ptu        |
-|------------------------------------|--------------------------------|
 | FLIM_{$DateCode}_64px_{$TimeCode}  | FLIM_20140204_64px_132813.ptu  |
-|------------------------------------|--------------------------------|
