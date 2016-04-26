@@ -9,13 +9,13 @@ Please understand all codelines herein as pseudo-code, and never intended to ins
 Create an DLL import function analogous to ```InitRemoteInterface_DLL ()``` from the stress client example. All DLL functions return a long int, coding their result as either finished without error or the error number which might be decoded to a human readable string cErrText, using the function ```RI_GetErrorText```:
 
 ```
-    long int lRet;
-    char     cErrText [SPT_RI_ERRORTEXT_MAXLEN+1];
+long int lRet;
+char     cErrText [SPT_RI_ERRORTEXT_MAXLEN+1];
 
-    if (PQ_ERRCODE_NO_ERROR != (lRet = InitRemoteInterface_DLL ()))
-    {
-      RI_GetErrorText (lRet, cErrText);
-    }
+if (PQ_ERRCODE_NO_ERROR != (lRet = InitRemoteInterface_DLL ()))
+{
+  RI_GetErrorText (lRet, cErrText);
+}
 ```
 
 Check for version compatibility:
