@@ -177,8 +177,8 @@ Assuming, the measurement is running, the function ```AnImageParamCallBackFunc``
     }
 ```
 
-After checking
-
+As shown in the state machine diagram, you may - in absence of error conditions -cycle these steps ad infinutum. Any error detected by the DLL, however, will change its state to "Unknown", giving you the opportunity for recovering
+measures. With stable working conditions accomplished again, you may then restart with the initializing sequence.
 
 At last, if running under debugging conditions, release the logfile:
 
