@@ -12,7 +12,8 @@ namespace Client_w_Stress {
   using namespace msclr::interop;
 
   
-  long __stdcall MyParamCBFunc (char* pcIdent, float fValue, long iRecNr);
+  long __stdcall MyNumParamCBFunc (char* pcIdent, float  fValue, long iRecNr);
+  long __stdcall MyStrParamCBFunc (char* pcIdent, char* pcValue, long iRecNr); 
 
   #define STOP_FIRED_BY_USER       0
   #define STOP_FIRED_BY_TIMER     -1
@@ -71,6 +72,8 @@ namespace Client_w_Stress {
   private: System::Windows::Forms::CheckBox^  chkComment;
   private: System::Windows::Forms::CheckBox^  chkGroupname;
   private: System::Windows::Forms::CheckBox^  chkFilename;
+  private: System::Windows::Forms::GroupBox^  grpLaserInfos;
+  private: System::Windows::Forms::CheckBox^  chkLaserInfos;
   private: System::Windows::Forms::GroupBox^  grpConnection;
   public protected: System::Windows::Forms::RadioButton^  rbtnOtherHost;
   public protected: System::Windows::Forms::RadioButton^  rbtnLocal;
@@ -111,6 +114,7 @@ namespace Client_w_Stress {
   public:  System::String^ strServerVersion;
   public:  bool bSyncResultMemo;
   public:  System::String^ strResultMemo;
+  public:  long iOnStopSendStopReasonIdx;
 
   private: System::String^ strSPT_RI_STATUS_UNKNOWN;
   private: System::String^ strSPT_RI_STATUS_IDLE;
@@ -132,9 +136,39 @@ namespace Client_w_Stress {
   public protected: System::Windows::Forms::NumericUpDown^  sedtNACKRecords;
   public protected: System::Windows::Forms::ComboBox^  cbxStopReason;
   private: System::Windows::Forms::Timer^  tmrSynchronize;
-public protected: 
+  private: System::Windows::Forms::Label^  lblPerCent4;
 
-  private: TReceiveParamFunc ParamCBFunc;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn4;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity4;
+  private: System::Windows::Forms::Label^  lblPerCent3;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn3;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity3;
+  private: System::Windows::Forms::Label^  lblPerCent2;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn2;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity2;
+  private: System::Windows::Forms::Label^  lblPerCent1;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn1;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity1;
+  private: System::Windows::Forms::Label^  lblPerCent8;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn8;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity8;
+  private: System::Windows::Forms::Label^  lblPerCent7;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn7;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity7;
+  private: System::Windows::Forms::Label^  lblPerCent6;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn6;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity6;
+  private: System::Windows::Forms::Label^  lblPerCent5;
+  private: System::Windows::Forms::CheckBox^  chkLaserOn5;
+  private: System::Windows::Forms::NumericUpDown^  sedtLaserIntensity5;
+  private: System::Windows::Forms::Label^  lblPulsePattern;
+  private: System::Windows::Forms::ComboBox^  cbxPulsePattern;
+  private: System::Windows::Forms::Label^  lblRepetitionRate;
+  private: System::Windows::Forms::NumericUpDown^  sedtRepetitionRate;
+  private: System::Windows::Forms::Label^  lblMHz;
+public protected: 
+  private: TReceiveNumParamFunc NumParamCBFunc;
+  private: TReceiveStrParamFunc StrParamCBFunc;
   public:  System::Void rbtnLocal_InvokeCheckedChanged() {
           System::EventArgs^  e;
           Client_LSM_SymPhoTime_Dlg::rbtnLocal_CheckedChanged (this->rbtnOtherHost, e);
@@ -173,6 +207,37 @@ public protected:
       this->sedtTimePerPixel = (gcnew System::Windows::Forms::NumericUpDown());
       this->chkTimePerPixel = (gcnew System::Windows::Forms::CheckBox());
       this->grpOptional = (gcnew System::Windows::Forms::GroupBox());
+      this->grpLaserInfos = (gcnew System::Windows::Forms::GroupBox());
+      this->lblRepetitionRate = (gcnew System::Windows::Forms::Label());
+      this->lblMHz = (gcnew System::Windows::Forms::Label());
+      this->sedtRepetitionRate = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPulsePattern = (gcnew System::Windows::Forms::Label());
+      this->cbxPulsePattern = (gcnew System::Windows::Forms::ComboBox());
+      this->lblPerCent8 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn8 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity8 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPerCent7 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn7 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity7 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPerCent6 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn6 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity6 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPerCent5 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn5 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity5 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPerCent4 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn4 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity4 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPerCent3 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn3 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity3 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPerCent2 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn2 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity2 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->lblPerCent1 = (gcnew System::Windows::Forms::Label());
+      this->chkLaserOn1 = (gcnew System::Windows::Forms::CheckBox());
+      this->sedtLaserIntensity1 = (gcnew System::Windows::Forms::NumericUpDown());
+      this->chkLaserInfos = (gcnew System::Windows::Forms::CheckBox());
       this->edtComment = (gcnew System::Windows::Forms::TextBox());
       this->edtGroupname = (gcnew System::Windows::Forms::TextBox());
       this->edtFilename = (gcnew System::Windows::Forms::TextBox());
@@ -227,6 +292,16 @@ public protected:
       (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtTimePerImage))->BeginInit();
       (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtTimePerPixel))->BeginInit();
       this->grpOptional->SuspendLayout();
+      this->grpLaserInfos->SuspendLayout();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtRepetitionRate))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity8))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity7))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity6))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity5))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity4))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity3))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity2))->BeginInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity1))->BeginInit();
       this->grpConnection->SuspendLayout();
       (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtPort))->BeginInit();
       this->grpMeasurement->SuspendLayout();
@@ -380,7 +455,7 @@ public protected:
       this->rbtnPointMeas->AutoSize = true;
       this->rbtnPointMeas->Location = System::Drawing::Point(290, 20);
       this->rbtnPointMeas->Name = L"rbtnPointMeas";
-      this->rbtnPointMeas->Size = System::Drawing::Size(116, 17);
+      this->rbtnPointMeas->Size = System::Drawing::Size(116, 18);
       this->rbtnPointMeas->TabIndex = 2;
       this->rbtnPointMeas->Text = L"Point Measurement";
       this->rbtnPointMeas->UseVisualStyleBackColor = true;
@@ -390,9 +465,9 @@ public protected:
       this->rbtnImageScan->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
       this->rbtnImageScan->AutoSize = true;
       this->rbtnImageScan->Checked = true;
-      this->rbtnImageScan->Location = System::Drawing::Point(165, 20);
+      this->rbtnImageScan->Location = System::Drawing::Point(166, 20);
       this->rbtnImageScan->Name = L"rbtnImageScan";
-      this->rbtnImageScan->Size = System::Drawing::Size(82, 17);
+      this->rbtnImageScan->Size = System::Drawing::Size(81, 18);
       this->rbtnImageScan->TabIndex = 1;
       this->rbtnImageScan->TabStop = true;
       this->rbtnImageScan->Text = L"Image Scan";
@@ -404,7 +479,7 @@ public protected:
       this->chkTestMeas->AutoSize = true;
       this->chkTestMeas->Location = System::Drawing::Point(17, 20);
       this->chkTestMeas->Name = L"chkTestMeas";
-      this->chkTestMeas->Size = System::Drawing::Size(114, 17);
+      this->chkTestMeas->Size = System::Drawing::Size(114, 18);
       this->chkTestMeas->TabIndex = 0;
       this->chkTestMeas->Text = L"Test Measurement";
       this->chkTestMeas->UseVisualStyleBackColor = true;
@@ -467,7 +542,7 @@ public protected:
       this->chkTimePerImage->AutoSize = true;
       this->chkTimePerImage->Location = System::Drawing::Point(17, 45);
       this->chkTimePerImage->Name = L"chkTimePerImage";
-      this->chkTimePerImage->Size = System::Drawing::Size(153, 17);
+      this->chkTimePerImage->Size = System::Drawing::Size(155, 18);
       this->chkTimePerImage->TabIndex = 16;
       this->chkTimePerImage->Text = L"Time per Image (estimated)";
       this->chkTimePerImage->UseVisualStyleBackColor = true;
@@ -501,7 +576,7 @@ public protected:
       this->chkTimePerPixel->AutoSize = true;
       this->chkTimePerPixel->Location = System::Drawing::Point(17, 22);
       this->chkTimePerPixel->Name = L"chkTimePerPixel";
-      this->chkTimePerPixel->Size = System::Drawing::Size(92, 17);
+      this->chkTimePerPixel->Size = System::Drawing::Size(92, 18);
       this->chkTimePerPixel->TabIndex = 1;
       this->chkTimePerPixel->Text = L"Time per Pixel";
       this->chkTimePerPixel->UseVisualStyleBackColor = true;
@@ -510,6 +585,8 @@ public protected:
       // 
       this->grpOptional->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
         | System::Windows::Forms::AnchorStyles::Right));
+      this->grpOptional->Controls->Add(this->grpLaserInfos);
+      this->grpOptional->Controls->Add(this->chkLaserInfos);
       this->grpOptional->Controls->Add(this->edtComment);
       this->grpOptional->Controls->Add(this->edtGroupname);
       this->grpOptional->Controls->Add(this->edtFilename);
@@ -518,21 +595,379 @@ public protected:
       this->grpOptional->Controls->Add(this->chkFilename);
       this->grpOptional->Location = System::Drawing::Point(24, 235);
       this->grpOptional->Name = L"grpOptional";
-      this->grpOptional->Size = System::Drawing::Size(423, 125);
+      this->grpOptional->Size = System::Drawing::Size(423, 259);
       this->grpOptional->TabIndex = 2;
       this->grpOptional->TabStop = false;
       this->grpOptional->Text = L"   Optional  (exemplarly; others could easily be added…)   ";
+      // 
+      // grpLaserInfos
+      // 
+      this->grpLaserInfos->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
+        | System::Windows::Forms::AnchorStyles::Right));
+      this->grpLaserInfos->Controls->Add(this->lblRepetitionRate);
+      this->grpLaserInfos->Controls->Add(this->lblMHz);
+      this->grpLaserInfos->Controls->Add(this->sedtRepetitionRate);
+      this->grpLaserInfos->Controls->Add(this->lblPulsePattern);
+      this->grpLaserInfos->Controls->Add(this->cbxPulsePattern);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent8);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn8);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity8);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent7);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn7);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity7);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent6);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn6);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity6);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent5);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn5);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity5);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent4);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn4);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity4);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent3);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn3);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity3);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent2);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn2);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity2);
+      this->grpLaserInfos->Controls->Add(this->lblPerCent1);
+      this->grpLaserInfos->Controls->Add(this->chkLaserOn1);
+      this->grpLaserInfos->Controls->Add(this->sedtLaserIntensity1);
+      this->grpLaserInfos->Location = System::Drawing::Point(99, 117);
+      this->grpLaserInfos->Name = L"grpLaserInfos";
+      this->grpLaserInfos->Size = System::Drawing::Size(320, 136);
+      this->grpLaserInfos->TabIndex = 9;
+      this->grpLaserInfos->TabStop = false;
+      this->grpLaserInfos->Text = L"   Laser Infos   ";
+      // 
+      // lblRepetitionRate
+      // 
+      this->lblRepetitionRate->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->lblRepetitionRate->Location = System::Drawing::Point(149, 24);
+      this->lblRepetitionRate->Name = L"lblRepetitionRate";
+      this->lblRepetitionRate->Size = System::Drawing::Size(82, 15);
+      this->lblRepetitionRate->TabIndex = 60;
+      this->lblRepetitionRate->Text = L"Repetition Rate:";
+      this->lblRepetitionRate->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // lblMHz
+      // 
+      this->lblMHz->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->lblMHz->Location = System::Drawing::Point(290, 24);
+      this->lblMHz->Name = L"lblMHz";
+      this->lblMHz->Size = System::Drawing::Size(28, 15);
+      this->lblMHz->TabIndex = 59;
+      this->lblMHz->Text = L"MHz";
+      this->lblMHz->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      // 
+      // sedtRepetitionRate
+      // 
+      this->sedtRepetitionRate->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->sedtRepetitionRate->DecimalPlaces = 2;
+      this->sedtRepetitionRate->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtRepetitionRate->Location = System::Drawing::Point(230, 20);
+      this->sedtRepetitionRate->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {80, 0, 0, 0});
+      this->sedtRepetitionRate->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 131072});
+      this->sedtRepetitionRate->Name = L"sedtRepetitionRate";
+      this->sedtRepetitionRate->Size = System::Drawing::Size(61, 20);
+      this->sedtRepetitionRate->TabIndex = 58;
+      this->sedtRepetitionRate->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      this->sedtRepetitionRate->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {80, 0, 0, 0});
+      // 
+      // lblPulsePattern
+      // 
+      this->lblPulsePattern->Location = System::Drawing::Point(6, 24);
+      this->lblPulsePattern->Name = L"lblPulsePattern";
+      this->lblPulsePattern->Size = System::Drawing::Size(44, 15);
+      this->lblPulsePattern->TabIndex = 57;
+      this->lblPulsePattern->Text = L"Pattern:";
+      this->lblPulsePattern->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // cbxPulsePattern
+      // 
+      this->cbxPulsePattern->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+      this->cbxPulsePattern->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->cbxPulsePattern->FormattingEnabled = true;
+      this->cbxPulsePattern->Items->AddRange(gcnew cli::array< System::Object^  >(2) {L"Standard", L"PIE"});
+      this->cbxPulsePattern->Location = System::Drawing::Point(55, 20);
+      this->cbxPulsePattern->MaxDropDownItems = 6;
+      this->cbxPulsePattern->Name = L"cbxPulsePattern";
+      this->cbxPulsePattern->Size = System::Drawing::Size(86, 22);
+      this->cbxPulsePattern->TabIndex = 56;
+      // 
+      // lblPerCent8
+      // 
+      this->lblPerCent8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->lblPerCent8->Location = System::Drawing::Point(303, 114);
+      this->lblPerCent8->Name = L"lblPerCent8";
+      this->lblPerCent8->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent8->TabIndex = 55;
+      this->lblPerCent8->Text = L"%";
+      this->lblPerCent8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn8
+      // 
+      this->chkLaserOn8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->chkLaserOn8->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn8->Location = System::Drawing::Point(163, 113);
+      this->chkLaserOn8->Name = L"chkLaserOn8";
+      this->chkLaserOn8->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn8->TabIndex = 54;
+      this->chkLaserOn8->Text = L"Laser 8:  On";
+      this->chkLaserOn8->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn8->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity8
+      // 
+      this->sedtLaserIntensity8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->sedtLaserIntensity8->DecimalPlaces = 1;
+      this->sedtLaserIntensity8->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity8->Location = System::Drawing::Point(253, 111);
+      this->sedtLaserIntensity8->Name = L"sedtLaserIntensity8";
+      this->sedtLaserIntensity8->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity8->TabIndex = 53;
+      this->sedtLaserIntensity8->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      // 
+      // lblPerCent7
+      // 
+      this->lblPerCent7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->lblPerCent7->Location = System::Drawing::Point(303, 94);
+      this->lblPerCent7->Name = L"lblPerCent7";
+      this->lblPerCent7->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent7->TabIndex = 52;
+      this->lblPerCent7->Text = L"%";
+      this->lblPerCent7->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn7
+      // 
+      this->chkLaserOn7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->chkLaserOn7->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn7->Location = System::Drawing::Point(163, 93);
+      this->chkLaserOn7->Name = L"chkLaserOn7";
+      this->chkLaserOn7->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn7->TabIndex = 51;
+      this->chkLaserOn7->Text = L"Laser 7:  On";
+      this->chkLaserOn7->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn7->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity7
+      // 
+      this->sedtLaserIntensity7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->sedtLaserIntensity7->DecimalPlaces = 1;
+      this->sedtLaserIntensity7->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity7->Location = System::Drawing::Point(253, 91);
+      this->sedtLaserIntensity7->Name = L"sedtLaserIntensity7";
+      this->sedtLaserIntensity7->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity7->TabIndex = 50;
+      this->sedtLaserIntensity7->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      // 
+      // lblPerCent6
+      // 
+      this->lblPerCent6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->lblPerCent6->Location = System::Drawing::Point(303, 74);
+      this->lblPerCent6->Name = L"lblPerCent6";
+      this->lblPerCent6->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent6->TabIndex = 49;
+      this->lblPerCent6->Text = L"%";
+      this->lblPerCent6->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn6
+      // 
+      this->chkLaserOn6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->chkLaserOn6->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn6->Location = System::Drawing::Point(163, 73);
+      this->chkLaserOn6->Name = L"chkLaserOn6";
+      this->chkLaserOn6->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn6->TabIndex = 48;
+      this->chkLaserOn6->Text = L"Laser 6:  On";
+      this->chkLaserOn6->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn6->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity6
+      // 
+      this->sedtLaserIntensity6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->sedtLaserIntensity6->DecimalPlaces = 1;
+      this->sedtLaserIntensity6->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity6->Location = System::Drawing::Point(253, 71);
+      this->sedtLaserIntensity6->Name = L"sedtLaserIntensity6";
+      this->sedtLaserIntensity6->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity6->TabIndex = 47;
+      this->sedtLaserIntensity6->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      // 
+      // lblPerCent5
+      // 
+      this->lblPerCent5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->lblPerCent5->Location = System::Drawing::Point(303, 53);
+      this->lblPerCent5->Name = L"lblPerCent5";
+      this->lblPerCent5->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent5->TabIndex = 46;
+      this->lblPerCent5->Text = L"%";
+      this->lblPerCent5->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn5
+      // 
+      this->chkLaserOn5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->chkLaserOn5->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn5->Location = System::Drawing::Point(163, 52);
+      this->chkLaserOn5->Name = L"chkLaserOn5";
+      this->chkLaserOn5->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn5->TabIndex = 45;
+      this->chkLaserOn5->Text = L"Laser 5:  On";
+      this->chkLaserOn5->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn5->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity5
+      // 
+      this->sedtLaserIntensity5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+      this->sedtLaserIntensity5->DecimalPlaces = 1;
+      this->sedtLaserIntensity5->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity5->Location = System::Drawing::Point(253, 50);
+      this->sedtLaserIntensity5->Name = L"sedtLaserIntensity5";
+      this->sedtLaserIntensity5->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity5->TabIndex = 44;
+      this->sedtLaserIntensity5->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      // 
+      // lblPerCent4
+      // 
+      this->lblPerCent4->Location = System::Drawing::Point(143, 114);
+      this->lblPerCent4->Name = L"lblPerCent4";
+      this->lblPerCent4->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent4->TabIndex = 43;
+      this->lblPerCent4->Text = L"%";
+      this->lblPerCent4->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn4
+      // 
+      this->chkLaserOn4->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn4->Location = System::Drawing::Point(3, 113);
+      this->chkLaserOn4->Name = L"chkLaserOn4";
+      this->chkLaserOn4->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn4->TabIndex = 42;
+      this->chkLaserOn4->Text = L"Laser 4:  On";
+      this->chkLaserOn4->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn4->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity4
+      // 
+      this->sedtLaserIntensity4->DecimalPlaces = 1;
+      this->sedtLaserIntensity4->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity4->Location = System::Drawing::Point(93, 111);
+      this->sedtLaserIntensity4->Name = L"sedtLaserIntensity4";
+      this->sedtLaserIntensity4->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity4->TabIndex = 41;
+      this->sedtLaserIntensity4->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      // 
+      // lblPerCent3
+      // 
+      this->lblPerCent3->Location = System::Drawing::Point(143, 94);
+      this->lblPerCent3->Name = L"lblPerCent3";
+      this->lblPerCent3->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent3->TabIndex = 40;
+      this->lblPerCent3->Text = L"%";
+      this->lblPerCent3->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn3
+      // 
+      this->chkLaserOn3->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn3->Location = System::Drawing::Point(3, 93);
+      this->chkLaserOn3->Name = L"chkLaserOn3";
+      this->chkLaserOn3->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn3->TabIndex = 39;
+      this->chkLaserOn3->Text = L"Laser 3:  On";
+      this->chkLaserOn3->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn3->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity3
+      // 
+      this->sedtLaserIntensity3->DecimalPlaces = 1;
+      this->sedtLaserIntensity3->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity3->Location = System::Drawing::Point(93, 91);
+      this->sedtLaserIntensity3->Name = L"sedtLaserIntensity3";
+      this->sedtLaserIntensity3->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity3->TabIndex = 38;
+      this->sedtLaserIntensity3->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      // 
+      // lblPerCent2
+      // 
+      this->lblPerCent2->Location = System::Drawing::Point(143, 74);
+      this->lblPerCent2->Name = L"lblPerCent2";
+      this->lblPerCent2->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent2->TabIndex = 37;
+      this->lblPerCent2->Text = L"%";
+      this->lblPerCent2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn2
+      // 
+      this->chkLaserOn2->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn2->Location = System::Drawing::Point(3, 73);
+      this->chkLaserOn2->Name = L"chkLaserOn2";
+      this->chkLaserOn2->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn2->TabIndex = 36;
+      this->chkLaserOn2->Text = L"Laser 2:  On";
+      this->chkLaserOn2->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn2->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity2
+      // 
+      this->sedtLaserIntensity2->DecimalPlaces = 1;
+      this->sedtLaserIntensity2->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity2->Location = System::Drawing::Point(93, 71);
+      this->sedtLaserIntensity2->Name = L"sedtLaserIntensity2";
+      this->sedtLaserIntensity2->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity2->TabIndex = 35;
+      this->sedtLaserIntensity2->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      this->sedtLaserIntensity2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {40, 0, 0, 0});
+      // 
+      // lblPerCent1
+      // 
+      this->lblPerCent1->Location = System::Drawing::Point(143, 53);
+      this->lblPerCent1->Name = L"lblPerCent1";
+      this->lblPerCent1->Size = System::Drawing::Size(14, 15);
+      this->lblPerCent1->TabIndex = 34;
+      this->lblPerCent1->Text = L"%";
+      this->lblPerCent1->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+      // 
+      // chkLaserOn1
+      // 
+      this->chkLaserOn1->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn1->Location = System::Drawing::Point(3, 52);
+      this->chkLaserOn1->Name = L"chkLaserOn1";
+      this->chkLaserOn1->Size = System::Drawing::Size(86, 17);
+      this->chkLaserOn1->TabIndex = 9;
+      this->chkLaserOn1->Text = L"Laser 1:  On";
+      this->chkLaserOn1->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+      this->chkLaserOn1->UseVisualStyleBackColor = true;
+      // 
+      // sedtLaserIntensity1
+      // 
+      this->sedtLaserIntensity1->DecimalPlaces = 1;
+      this->sedtLaserIntensity1->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
+      this->sedtLaserIntensity1->Location = System::Drawing::Point(93, 50);
+      this->sedtLaserIntensity1->Name = L"sedtLaserIntensity1";
+      this->sedtLaserIntensity1->Size = System::Drawing::Size(52, 20);
+      this->sedtLaserIntensity1->TabIndex = 7;
+      this->sedtLaserIntensity1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+      this->sedtLaserIntensity1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {666, 0, 0, 65536});
+      // 
+      // chkLaserInfos
+      // 
+      this->chkLaserInfos->Location = System::Drawing::Point(17, 124);
+      this->chkLaserInfos->Name = L"chkLaserInfos";
+      this->chkLaserInfos->Size = System::Drawing::Size(88, 17);
+      this->chkLaserInfos->TabIndex = 8;
+      this->chkLaserInfos->Text = L"Laser Infos";
+      this->chkLaserInfos->UseVisualStyleBackColor = true;
       // 
       // edtComment
       // 
       this->edtComment->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
         | System::Windows::Forms::AnchorStyles::Right));
       this->edtComment->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
-      this->edtComment->Location = System::Drawing::Point(110, 66);
+      this->edtComment->Location = System::Drawing::Point(99, 66);
       this->edtComment->Multiline = true;
       this->edtComment->Name = L"edtComment";
       this->edtComment->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-      this->edtComment->Size = System::Drawing::Size(306, 49);
+      this->edtComment->Size = System::Drawing::Size(319, 49);
       this->edtComment->TabIndex = 7;
       // 
       // edtGroupname
@@ -540,9 +975,9 @@ public protected:
       this->edtGroupname->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
         | System::Windows::Forms::AnchorStyles::Right));
       this->edtGroupname->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
-      this->edtGroupname->Location = System::Drawing::Point(110, 43);
+      this->edtGroupname->Location = System::Drawing::Point(99, 43);
       this->edtGroupname->Name = L"edtGroupname";
-      this->edtGroupname->Size = System::Drawing::Size(306, 20);
+      this->edtGroupname->Size = System::Drawing::Size(319, 20);
       this->edtGroupname->TabIndex = 6;
       // 
       // edtFilename
@@ -550,9 +985,9 @@ public protected:
       this->edtFilename->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left) 
         | System::Windows::Forms::AnchorStyles::Right));
       this->edtFilename->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
-      this->edtFilename->Location = System::Drawing::Point(110, 20);
+      this->edtFilename->Location = System::Drawing::Point(99, 20);
       this->edtFilename->Name = L"edtFilename";
-      this->edtFilename->Size = System::Drawing::Size(306, 20);
+      this->edtFilename->Size = System::Drawing::Size(319, 20);
       this->edtFilename->TabIndex = 5;
       // 
       // chkComment
@@ -601,7 +1036,7 @@ public protected:
       this->grpConnection->Controls->Add(this->lblIPAdress);
       this->grpConnection->Controls->Add(this->rbtnOtherHost);
       this->grpConnection->Controls->Add(this->rbtnLocal);
-      this->grpConnection->Location = System::Drawing::Point(24, 368);
+      this->grpConnection->Location = System::Drawing::Point(24, 500);
       this->grpConnection->Name = L"grpConnection";
       this->grpConnection->Size = System::Drawing::Size(423, 69);
       this->grpConnection->TabIndex = 3;
@@ -792,7 +1227,7 @@ public protected:
       this->rbtnLocal->Checked = true;
       this->rbtnLocal->Location = System::Drawing::Point(17, 14);
       this->rbtnLocal->Name = L"rbtnLocal";
-      this->rbtnLocal->Size = System::Drawing::Size(47, 17);
+      this->rbtnLocal->Size = System::Drawing::Size(47, 18);
       this->rbtnLocal->TabIndex = 7;
       this->rbtnLocal->TabStop = true;
       this->rbtnLocal->Text = L"local";
@@ -860,12 +1295,12 @@ public protected:
         | System::Windows::Forms::AnchorStyles::Left) 
         | System::Windows::Forms::AnchorStyles::Right));
       this->memoResults->Font = (gcnew System::Drawing::Font(L"Courier New", 8));
-      this->memoResults->Location = System::Drawing::Point(24, 554);
+      this->memoResults->Location = System::Drawing::Point(24, 687);
       this->memoResults->Multiline = true;
       this->memoResults->Name = L"memoResults";
       this->memoResults->ReadOnly = true;
       this->memoResults->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-      this->memoResults->Size = System::Drawing::Size(423, 193);
+      this->memoResults->Size = System::Drawing::Size(423, 160);
       this->memoResults->TabIndex = 27;
       // 
       // tmrStatusPoll
@@ -877,7 +1312,7 @@ public protected:
       // 
       this->btnClear->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
       this->btnClear->Font = (gcnew System::Drawing::Font(L"Arial", 8));
-      this->btnClear->Location = System::Drawing::Point(406, 534);
+      this->btnClear->Location = System::Drawing::Point(406, 666);
       this->btnClear->Name = L"btnClear";
       this->btnClear->Size = System::Drawing::Size(41, 20);
       this->btnClear->TabIndex = 30;
@@ -900,7 +1335,7 @@ public protected:
       this->grpMeasurement->Controls->Add(this->lblSeconds);
       this->grpMeasurement->Controls->Add(this->chkAutoStop);
       this->grpMeasurement->Controls->Add(this->btnStartMeas);
-      this->grpMeasurement->Location = System::Drawing::Point(24, 448);
+      this->grpMeasurement->Location = System::Drawing::Point(24, 580);
       this->grpMeasurement->Name = L"grpMeasurement";
       this->grpMeasurement->Size = System::Drawing::Size(423, 85);
       this->grpMeasurement->TabIndex = 31;
@@ -918,6 +1353,7 @@ public protected:
       this->cbxStopReason->Name = L"cbxStopReason";
       this->cbxStopReason->Size = System::Drawing::Size(83, 22);
       this->cbxStopReason->TabIndex = 38;
+      this->cbxStopReason->SelectedIndexChanged += gcnew System::EventHandler(this, &Client_LSM_SymPhoTime_Dlg::cbxStopReason_SelectedIndexChanged);
       // 
       // lblNACKRec
       // 
@@ -1030,7 +1466,7 @@ public protected:
       // lblProtocoll
       // 
       this->lblProtocoll->AutoSize = true;
-      this->lblProtocoll->Location = System::Drawing::Point(23, 538);
+      this->lblProtocoll->Location = System::Drawing::Point(23, 670);
       this->lblProtocoll->Name = L"lblProtocoll";
       this->lblProtocoll->Size = System::Drawing::Size(58, 14);
       this->lblProtocoll->TabIndex = 32;
@@ -1050,7 +1486,7 @@ public protected:
       // 
       this->AutoScaleDimensions = System::Drawing::SizeF(6, 14);
       this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-      this->ClientSize = System::Drawing::Size(468, 764);
+      this->ClientSize = System::Drawing::Size(468, 859);
       this->Controls->Add(this->lblProtocoll);
       this->Controls->Add(this->grpMeasurement);
       this->Controls->Add(this->btnClear);
@@ -1087,6 +1523,16 @@ public protected:
       (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtTimePerPixel))->EndInit();
       this->grpOptional->ResumeLayout(false);
       this->grpOptional->PerformLayout();
+      this->grpLaserInfos->ResumeLayout(false);
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtRepetitionRate))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity8))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity7))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity6))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity5))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity4))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity3))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity2))->EndInit();
+      (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtLaserIntensity1))->EndInit();
       this->grpConnection->ResumeLayout(false);
       this->grpConnection->PerformLayout();
       (cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->sedtPort))->EndInit();
@@ -1144,8 +1590,9 @@ private: System::Void Client_LSM_SymPhoTime_Dlg_Load(System::Object^  sender, Sy
            //
            this->bLoaded = false;
            //
-           ParamCBFunc = MyParamCBFunc;
-
+           NumParamCBFunc = MyNumParamCBFunc;
+           StrParamCBFunc = MyStrParamCBFunc;
+           //
            if (PQ_ERRCODE_NO_ERROR != (lRet = InitRemoteInterface_DLL ()))
            {
              switch (lRet)
@@ -1209,6 +1656,10 @@ private: System::Void Client_LSM_SymPhoTime_Dlg_Load(System::Object^  sender, Sy
            this->cbxTimePerPixelUnit->SelectedIndex = 1;
            this->cbxTimePerImageUnit->SelectedIndex = 1;
            this->cbxStopReason->SelectedIndex = 1;
+           this->iOnStopSendStopReasonIdx = 1;
+           //
+           this->cbxPulsePattern->SelectedIndex = 0;
+           this->chkLaserOn1->Checked = true;
            //
            this->bLoaded = true;
            delete context;
@@ -1321,8 +1772,7 @@ private: System::Void btnInitConnection_Click(System::Object^  sender, System::E
            pcTemp = context->marshal_as <const char*> (this->lblIPAdress->Text);
            strcpy_s (cHostName, SPT_RI_HOSTNAME_MAXLEN, pcTemp);
            //
-           pcTemp = context->marshal_as <const char*> (this->sedtPort->Text);
-           iPort = atoi (pcTemp);
+           iPort = Decimal::ToInt32 (this->sedtPort->Value);
            //
            _strset_s (cSPTVersion, SPT_RI_VERSIONSTRING_MAXLEN+1, 0);
            //
@@ -1438,18 +1888,24 @@ private: System::Void edtState_TextChanged(System::Object^  sender, System::Even
          }
 private: System::Void btnStartMeas_Click(System::Object^  sender, System::EventArgs^  e) {
            const char* pcTemp;
-           char  cErrText    [SPT_RI_ERRORTEXT_MAXLEN + 1];
-           char  cFileName   [SPT_RI_FILENAME_MAXLEN  + 1];
-           char  cGroupName  [SPT_RI_GROUPNAME_MAXLEN + 1];
-           char  cComment    [SPT_RI_COMMENT_MAXLEN   + 1];
-           char  cFloatParam [50];
-           int   iTrys = 0;
-           long  lRet;
-           long  iPixX;
-           long  iPixY;
-           float fTimePix;
-           float fTimeImg;
-           float fResol;
+           char   cErrText    [SPT_RI_ERRORTEXT_MAXLEN + 1];
+           char   cFileName   [SPT_RI_FILENAME_MAXLEN  + 1];
+           char   cGroupName  [SPT_RI_GROUPNAME_MAXLEN + 1];
+           char   cComment    [SPT_RI_COMMENT_MAXLEN   + 1];
+           char   cNumParam   [50];
+           char*  pc_Temp = cNumParam; 
+           int    iTrys = 0;
+           long   lRet;
+           long   iPixX;
+           long   iPixY;
+           long   iPatternIdx;
+           long   iRepRate;
+           float  fTimePix;
+           float  fTimeImg;
+           float  fResol;
+           float  fLaserIntens;
+           bool   bLaserOn;
+           System::Windows::Forms::NumericUpDown^ psedt;
            //
            marshal_context^ context = gcnew marshal_context();
            bool             bImage  = this->rbtnImageScan->Checked;
@@ -1460,8 +1916,7 @@ private: System::Void btnStartMeas_Click(System::Object^  sender, System::EventA
            // Compile optional parameters
            if (bImage)
            {
-             pcTemp = context->marshal_as <const char*> (this->sedtTimePerPixel->Text);
-             fTimePix = 1.0f * atoi (pcTemp);
+             fTimePix = Decimal::ToSingle (this->sedtTimePerPixel->Value);
              for (int i=0; i <= this->cbxTimePerPixelUnit->SelectedIndex; i++)
              {
                fTimePix *= 1.0e-3f;
@@ -1470,24 +1925,23 @@ private: System::Void btnStartMeas_Click(System::Object^  sender, System::EventA
              if (this->chkTimePerPixel->Checked)
              {
                lRet = RI_SetOptionalFloat (PQ_OPT_INFONAME_TIME_PER_PIXEL, fTimePix, -1);
-               sprintf_s (cFloatParam, 14, "%12.3e", fTimePix);
+               sprintf_s (cNumParam, 14, "%12.3e", fTimePix);
                //
                RI_GetErrorText (lRet, cErrText);
-               memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalFloat : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_TIME_PER_PIXEL + L" = " +  marshal_as<String^> (cFloatParam) + L")");
+               memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalFloat : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_TIME_PER_PIXEL + L" = " +  marshal_as<String^> (cNumParam) + L")");
              }
              if (this->chkTimePerImage->Checked)
              {
-               pcTemp = context->marshal_as <const char*> (this->sedtTimePerImage->Text);
-               fTimeImg = 1.0f * atoi (pcTemp);
+               fTimeImg = Decimal::ToSingle (this->sedtTimePerImage->Value);
                for (int i=1; i <= this->cbxTimePerImageUnit->SelectedIndex; i++)
                {
                  fTimeImg *= 1.0e-3f;
                }
                lRet = RI_SetOptionalFloat (PQ_OPT_INFONAME_TIME_PER_IMAGE, fTimeImg, -1);
-               sprintf_s (cFloatParam, 14, "%12.3e", fTimeImg);
+               sprintf_s (cNumParam, 14, "%12.3e", fTimeImg);
                //
                RI_GetErrorText (lRet, cErrText);
-               memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalFloat : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_TIME_PER_IMAGE + L" = " +  marshal_as<String^> (cFloatParam) + L")");
+               memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalFloat : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_TIME_PER_IMAGE + L" = " +  marshal_as<String^> (cNumParam) + L")");
              }
            }
            if (this->chkFilename->Checked)
@@ -1508,6 +1962,61 @@ private: System::Void btnStartMeas_Click(System::Object^  sender, System::EventA
              RI_GetErrorText (lRet, cErrText);
              memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalString : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_GROUPNAME + L" = " +  marshal_as<String^> (cGroupName) + L")");
            }
+           if (this->chkLaserInfos->Checked)
+           {
+             //
+             // Transmit Laser-Infos:
+             //
+             // Laser On State
+             //
+             for (int i=0; i<8; i++)
+             {
+               switch (i)
+               {
+                 case 0: bLaserOn = this->chkLaserOn1->Checked; psedt = this->sedtLaserIntensity1; break;
+                 case 1: bLaserOn = this->chkLaserOn2->Checked; psedt = this->sedtLaserIntensity2; break;
+                 case 2: bLaserOn = this->chkLaserOn3->Checked; psedt = this->sedtLaserIntensity3; break;
+                 case 3: bLaserOn = this->chkLaserOn4->Checked; psedt = this->sedtLaserIntensity4; break;
+                 case 4: bLaserOn = this->chkLaserOn5->Checked; psedt = this->sedtLaserIntensity5; break;
+                 case 5: bLaserOn = this->chkLaserOn6->Checked; psedt = this->sedtLaserIntensity6; break;
+                 case 6: bLaserOn = this->chkLaserOn7->Checked; psedt = this->sedtLaserIntensity7; break;
+                 case 7: bLaserOn = this->chkLaserOn8->Checked; psedt = this->sedtLaserIntensity8; break;
+               }
+               //
+               fLaserIntens = Decimal::ToSingle (psedt->Value);
+               lRet = RI_SetOptionalFloat (PQ_OPT_INFONAME_LASERINTENS, fLaserIntens, i);
+               sprintf_s (cNumParam, 19, "[%1d] = %12.1f", i+1, fLaserIntens);
+               //
+               RI_GetErrorText (lRet, cErrText);
+               memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalFloat : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_LASERINTENS + marshal_as<String^> (cNumParam) + L")");
+               //
+               //
+               lRet = RI_SetOptionalInt (PQ_OPT_INFONAME_LASERON, bLaserOn ? 1 : 0, i);
+               sprintf_s (cNumParam, 19, "[%1d] = %-12s", i+1, bLaserOn ? " true" : "false");
+               //
+               RI_GetErrorText (lRet, cErrText);
+               memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalInt : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_LASERON + marshal_as<String^> (cNumParam) + L")");
+             }
+             //
+             // Laser Repetition Rate
+             //
+             iRepRate = Decimal::ToInt32 (Decimal(1000000.0) * this->sedtRepetitionRate->Value);
+             //
+             lRet = RI_SetOptionalInt (PQ_OPT_INFONAME_LASERREPRATE, iRepRate, -1);
+             sprintf_s (cNumParam, 14, "%12d", iRepRate);
+             //
+             RI_GetErrorText (lRet, cErrText);
+             memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalInt : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_LASERREPRATE + L" = " +  marshal_as<String^> (cNumParam) + L")");
+             //
+             // Laser Pulse-Pattern
+             //
+             iPatternIdx = this->cbxPulsePattern->SelectedIndex;
+             lRet = RI_SetOptionalInt (PQ_OPT_INFONAME_LASERPATTERNIDX, iPatternIdx, -1);
+             sprintf_s (cNumParam, 14, "%12d", iPatternIdx);
+             //
+             RI_GetErrorText (lRet, cErrText);
+             memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalInt : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_LASERPATTERNIDX + L" = " +  marshal_as<String^> (cNumParam) + L")");
+           }
            if (this->chkComment->Checked)
            {
              pcTemp = context->marshal_as <const char*> (this->edtComment->Text);
@@ -1518,28 +2027,28 @@ private: System::Void btnStartMeas_Click(System::Object^  sender, System::EventA
              memoResults->AppendText (Environment::NewLine +  L"RI_SetOptionalString : \"" + marshal_as<String^> (cErrText) + L"\"" + Environment::NewLine +  L"   (" + PQ_OPT_INFONAME_COMMENT + L" = " +  marshal_as<String^> (cComment) + L")");
            }
            //
+           //
+           RI_RegisterStringHandler (this->StrParamCBFunc);
+           //
            // Invoke measurement request function
            if (bImage)
            {
-             pcTemp = context->marshal_as <const char*> (this->sedtPixX->Text);
-             iPixX = atoi (pcTemp);
-             pcTemp = context->marshal_as <const char*> (this->sedtPixY->Text);
-             iPixY = atoi (pcTemp);
-             pcTemp = context->marshal_as <const char*> (this->sedtResol->Text);
-             fResol = 1.0f * atoi (pcTemp);
+             iPixX  = Decimal::ToInt32  (this->sedtPixX->Value);
+             iPixY  = Decimal::ToInt32  (this->sedtPixY->Value);
+             fResol = Decimal::ToSingle (this->sedtResol->Value);
              for (int i=0; i <= this->cbxResolUnit->SelectedIndex; i++)
              {
                fResol *= 1.0e-3f;
              }
-             // (longbool bRecordFile, long iPixX, long iPixY, float fResol, longbool bBiDirectionalScan, TReceiveParamFunc ParamCallbackFunc);
-             lRet = RI_RequestImage (bRecord, iPixX, iPixY, fResol, this->rbtnBiDirectional->Checked, this->ParamCBFunc);
+             // long RI_RequestImage (longbool bRecordFile, long iPixX, long iPixY, float fResol, longbool bBiDirectionalScan, TReceiveNumParamFunc NumParamCallbackFunc);
+             lRet = RI_RequestImage (bRecord, iPixX, iPixY, fResol, this->rbtnBiDirectional->Checked, this->NumParamCBFunc);
              //
              RI_GetErrorText (lRet, cErrText);
              memoResults->AppendText (Environment::NewLine +  L"RI_RequestImage : \"" + marshal_as<String^> (cErrText) + L"\"");
            }
            else
            {
-             lRet = RI_RequestTimeTrace (bRecord, this->ParamCBFunc);
+             lRet = RI_RequestTimeTrace (bRecord, this->NumParamCBFunc);
              //
              RI_GetErrorText (lRet, cErrText);
              memoResults->AppendText (Environment::NewLine +  L"RI_RequestTimeTrace : \"" + marshal_as<String^> (cErrText) + L"\"");
@@ -1548,8 +2057,7 @@ private: System::Void btnStartMeas_Click(System::Object^  sender, System::EventA
            {
              char cDebugOutStr [64];
              //
-             pcTemp = context->marshal_as <const char*> (this->sedtAutoStopTime->Text);
-             this->tmrAutoStop->Interval = 1000 * atoi (pcTemp);
+             this->tmrAutoStop->Interval = 1000 * Decimal::ToInt32 (this->sedtAutoStopTime->Value);
              sprintf_s (cDebugOutStr, 63, "Client launches Stop Timer : %d msec", this->tmrAutoStop->Interval);
              memoResults->AppendText (Environment::NewLine + marshal_as<String^> (cDebugOutStr));
              RI_AddLineToLog (cDebugOutStr);
@@ -1690,16 +2198,18 @@ private: System::Void tmrSynchronize_Tick(System::Object^  sender, System::Event
            //
            this->tmrSynchronize->Enabled = bWasEnabled;
          }
+private: System::Void cbxStopReason_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+           this->iOnStopSendStopReasonIdx = this->cbxStopReason->SelectedIndex;
+         }
 };
 
   Client_LSM_SymPhoTime_Dlg^ *PClient_Dlg;
 
-  long __stdcall MyParamCBFunc (char* pcIdent, float fValue, long iRecNr) {
+  long __stdcall MyNumParamCBFunc (char* pcIdent, float fValue, long iRecNr) {
            char             cParamOutStr [0x100FF];
            String ^         s;
            long             lRet;
            long             lTemp;
-           const char*      pcTemp;
            marshal_context^ context      = gcnew marshal_context();
            //
            if (L"ServerVersion" == marshal_as<String^> (pcIdent))
@@ -1769,12 +2279,85 @@ private: System::Void tmrSynchronize_Tick(System::Object^  sender, System::Event
            //
            if ((*Client_w_Stress::PClient_Dlg)->chkFeedbackConditionedStop->Checked)
            {
-             pcTemp = context->marshal_as <const char*> ((*Client_w_Stress::PClient_Dlg)->sedtNACKRecords->Text);
-             lTemp  = atoi (pcTemp);
+             lTemp  =  Decimal::ToInt32 ((*Client_w_Stress::PClient_Dlg)->sedtNACKRecords->Value);
              //
              if (lTemp <= iRecNr)
              {
-               switch ((*Client_w_Stress::PClient_Dlg)->cbxStopReason->SelectedIndex)
+               // switch ((*Client_w_Stress::PClient_Dlg)->cbxStopReason->SelectedIndex)
+               switch ((*Client_w_Stress::PClient_Dlg)->iOnStopSendStopReasonIdx)
+               {
+                 case 0: 
+                   lRet = SPT_RI_STOP_REASON_FINISHED_OK; 
+                   // //(*Client_w_Stress::PClient_Dlg)->memoResults->AppendText (Environment::NewLine + "Callback registers SPT_RI_STOP_REASON_FINISHED_OK");
+                   //(*Client_w_Stress::PClient_Dlg)->strResultMemo += (Environment::NewLine + "Callback registers SPT_RI_STOP_REASON_FINISHED_OK");
+                   //RI_AddLineToLog ("Callback registers SPT_RI_STOP_REASON_FINISHED_OK");
+                 break;
+                 case 1: 
+                   lRet = SPT_RI_STOP_REASON_USER_BREAK;  
+                   // //(*Client_w_Stress::PClient_Dlg)->memoResults->AppendText (Environment::NewLine + "Callback registers SPT_RI_STOP_REASON_USER_BREAK");
+                   //(*Client_w_Stress::PClient_Dlg)->strResultMemo += (Environment::NewLine + "Callback registers SPT_RI_STOP_REASON_USER_BREAK");
+                   //RI_AddLineToLog ("Callback registers SPT_RI_STOP_REASON_USER_BREAK");
+                 break;
+                 case 2: 
+                   lRet = SPT_RI_STOP_REASON_ERROR;  
+                   //(*Client_w_Stress::PClient_Dlg)->memoResults->AppendText (Environment::NewLine + "Callback registers SPT_RI_STOP_REASON_ERROR");
+                   //(*Client_w_Stress::PClient_Dlg)->strResultMemo += (Environment::NewLine + "Callback registers SPT_RI_STOP_REASON_ERROR");
+                   //RI_AddLineToLog ("Callback registers SPT_RI_STOP_REASON_ERROR");
+                 break;
+               }
+               (*Client_w_Stress::PClient_Dlg)->iStopFired = STOP_FIRED_BY_FEEDBACK;
+             }
+             else
+             {
+               lRet = SPT_RI_STOP_REASON_CONTINUE_OK;
+             }
+           }
+           else
+           {
+             lRet = SPT_RI_STOP_REASON_CONTINUE_OK;
+           }
+           delete context;
+           return lRet;
+         }
+
+  long __stdcall MyStrParamCBFunc (char* pcIdent, char* pcValue, long iRecNr) {
+           char             cParamOutStr [0x100FF];
+           String ^         s;
+           long             lRet;
+           long             lTemp;
+           marshal_context^ context      = gcnew marshal_context();
+           //
+           if (0 == strncmp ("LaserName", pcIdent, 9))
+           {
+             // i.e. LaserName1 ... LaserName8
+             sprintf_s (cParamOutStr, 99, "%3.3d: %-31s = '%s'", iRecNr, pcIdent, pcValue);
+           }
+           else
+           {
+             // all other string parameters
+             sprintf_s (cParamOutStr, 99, "%3.3d: %-31s = '%s'", iRecNr, pcIdent, pcValue);
+           }
+           s = marshal_as<String^> (cParamOutStr);
+           //
+           // what we want to do is simply this:
+           //
+           //(*Client_w_Stress::PClient_Dlg)->memoResults->AppendText (Environment::NewLine + s);
+           //(*Client_w_Stress::PClient_Dlg)->memoResults->SelectionStart = (*Client_w_Stress::PClient_Dlg)->memoResults->Text->Length + 1;
+           //
+           // But this style it is not threaddsave. So we have to do it e.g. like this...
+           (*Client_w_Stress::PClient_Dlg)->strResultMemo += (Environment::NewLine + s);
+           (*Client_w_Stress::PClient_Dlg)->bSyncResultMemo = true;
+           // ...and the client dialogue has to refresh his memo in his own context.
+           // see also:  tmrSynchronize_Tick
+           //
+           if ((*Client_w_Stress::PClient_Dlg)->chkFeedbackConditionedStop->Checked)
+           {
+             lTemp  =  Decimal::ToInt32 ((*Client_w_Stress::PClient_Dlg)->sedtNACKRecords->Value);
+             //
+             if (lTemp <= iRecNr)
+             {
+               // switch ((*Client_w_Stress::PClient_Dlg)->cbxStopReason->SelectedIndex)
+               switch ((*Client_w_Stress::PClient_Dlg)->iOnStopSendStopReasonIdx)
                {
                  case 0: 
                    lRet = SPT_RI_STOP_REASON_FINISHED_OK; 

@@ -114,7 +114,7 @@
         for Delphi&nbsp;/&nbsp;Lazarus&nbsp;/&nbsp;Free-Pascal projects, too. 
       </p>
       <p>
-        <b>All information below is corresponding to PicoQuant's  RemoteInterface.DLL &nbsp;<span style="color:purple">V1.0.8</span></b><br><br>
+        <b>All information below is corresponding to PicoQuant's  RemoteInterface.DLL &nbsp;<span style="color:purple">V1.0.9</span></b><br><br>
         For convenience, we will often use the abbreviation &quot;<b>RI</b>&quot;, standing for 
         <b>R</b>emote&nbsp;<b>I</b>nterface.
       </p>
@@ -188,7 +188,7 @@
     <pre><span class=neut>    <span class=type>char</span> <span class=idnt>cLibVersion</span> [<span class=cnst>SPT_RI_VERSIONSTRING_MAXLEN</span> + <span class=nmbr>1</span>];
 
     <span class=cmnd>RI_GetLibVersion</span> (<span class=idnt>cLibVersion</span>);
-    <span class=keyw>if</span> (<span class=nmbr>0</span> != strncmp (<span class=idnt>cLibVersion</span>, <span class=cnst>LIB_VERSION_REFERENCE</span>, strlen (<span class=cnst>LIB_VERSION_REFERENCE</span>)))
+    <span class=keyw>if</span> (<span class=nmbr>0</span> != <span class=cmnd>strncmp</span> (<span class=idnt>cLibVersion</span>, <span class=cnst>LIB_VERSION_REFERENCE</span>, <span class=cmnd>strlen</span> (<span class=cnst>LIB_VERSION_REFERENCE</span>)))
     {
       <span class=comt>// handle robustness to version differences...</span>
     }</span></pre></nobr></code></p>
@@ -207,12 +207,17 @@
       <span class=cmnd>RI_ShowLogWin</span> ();                      <span class=comt>// - showing the current log in its own window</span>
     }</span></pre></nobr></code></p>
     <p>
-      Create a call-back function (or a maybe couple of specialized ones) with the footprint:
+      Create a call-back function (or even more, specialized ones) with the respective footprints:
     </p>
     <p><code><nobr>
-    <pre><span class=neut>    <span class=keyw>typedef</span> <span class=type>long&nbsp;int</span> (<span class=keyw>__stdcall</span> *<span class=type>TReceiveParamFunc</span>)(<span class=type>char</span>* <span class=idnt>pcIdent</span>,
-                                                    <span class=type>float</span> <span class=idnt>fValue</span>,
-                                                    <span class=type>long</span>  <span class=idnt>iRecNr</span>);
+    <pre><span class=neut>    <span class=keyw>typedef</span> <span class=type>long&nbsp;int</span> (<span class=keyw>__stdcall</span> *<span class=type>TReceiveNumParamFunc</span>)(<span class=type>char</span>* <span class=idnt>pcIdent</span>,
+                                                       <span class=type>float</span> <span class=idnt>fValue</span>,
+                                                       <span class=type>long</span>  <span class=idnt>iRecNr</span>);
+</span></pre></nobr></code></p><p>and</p>
+    <p><code><nobr>
+    <pre><span class=neut>    <span class=keyw>typedef</span> <span class=type>long&nbsp;int</span> (<span class=keyw>__stdcall</span> *<span class=type>TReceiveStrParamFunc</span>)(<span class=type>char</span>* <span class=idnt>pcIdent</span>,
+                                                       <span class=type>char</span>* <span class=idnt>pcValue</span>,
+                                                       <span class=type>long</span>  <span class=idnt>iRecNr</span>);
 </span></pre></nobr></code></p>
     <p>
       If passed over to the DLL with the start of a new measurement, they will be called on each incoming 
@@ -256,7 +261,7 @@
       <a href="apx_rprot_feedbackvalues.html">feedback values</a>&hellip;)
     </p>
     <p><code><nobr>
-    <pre><span class=neut>    <span class=type>long&nbsp;int</span> <span class=keyw>__stdcall</span> <span class=cmnd>MyImageParamCallBackFunc</span> (<span class=type>char*</span> <span class=idnt>pcIdent</span>, <span class=type>float</span> <span class=idnt>fValue</span>, <span class=type>long</span> <span class=idnt>iRecNr</span>)
+    <pre><span class=neut>    <span class=type>long&nbsp;int</span> <span class=keyw>__stdcall</span> <span class=cmnd>MyImageNumParamCallBackFunc</span> (<span class=type>char</span>* <span class=idnt>pcIdent</span>, <span class=type>float</span> <span class=idnt>fValue</span>, <span class=type>long</span> <span class=idnt>iRecNr</span>)
     {
       <span class=type>long&nbsp;int</span> <span class=idnt>lStopReason</span>;
       <span class=comt>//</span>
@@ -271,7 +276,7 @@
       }
       <span class=keyw>else</span>
       {
-        <span class=keyw>if</span> (<span class=nmbr>0</span> == strcmp (<span class=cnst>PQ_OPT_DATANAME_MAX_COUNTS_PER_PIXEL</span>, <span class=idnt>pcIdent</span>))
+        <span class=keyw>if</span> (<span class=nmbr>0</span> == <span class=cmnd>strcmp</span> (<span class=cnst>PQ_OPT_DATANAME_MAX_COUNTS_PER_PIXEL</span>, <span class=idnt>pcIdent</span>))
         {
           <span class=keyw>if</span> (<span class=idnt>fValue</span> &gt; <span class=nmbr>250.0f</span>)
           {
@@ -282,6 +287,37 @@
       }
       <span class=keyw>return</span> <span class=idnt>lStopReason</span>;
     }
+
+
+    <span class=type>char</span> <span class=idnt>cFileName</span>[<span class=nmbr>256</span>];
+    <span class=type>char</span> <span class=idnt>cGroupName</span>[<span class=nmbr>64</span>];
+    <span class=type>char</span> <span class=idnt>cLaserName</span>[<span class=nmbr>8</span>][<span class=nmbr>256</span>];
+    
+    <span class=neut><span class=type>long&nbsp;int</span> <span class=keyw>__stdcall</span> <span class=cmnd>AStrParamCallBackFunc</span> (<span class=type>char</span>* <span class=idnt>pcIdent</span>, <span class=type>char</span>* <span class=idnt>pcValue</span>, <span class=type>long</span> <span class=idnt>iRecNr</span>)
+    {
+      <span class=type>long&nbsp;int</span> <span class=idnt>lStopReason</span>;
+      <span class=comt>//</span>
+      <span class=idnt>lStopReason</span> = <span class=cnst>SPT_RI_STOP_REASON_CONTINUE_OK</span>;
+      <span class=comt>//</span>
+      <span class=keyw>if</span> (<span class=nmbr>0</span> == <span class=cmnd>strcmp</span> (<span class=cnst>PQ_OPT_DATANAME_RESULTINGFILENAME</span>, <span class=idnt>pcIdent</span>))
+      {
+        <span class=cmnd>strcpy</span> (<span class=idnt>cFileName</span>, <span class=idnt>pcValue</span>);
+      }
+      <span class=comt>//</span>
+      <span class=keyw>if</span> (<span class=nmbr>0</span> == <span class=cmnd>strcmp</span> (<span class=cnst>PQ_OPT_DATANAME_RESULTINGGROUPNAME</span>, <span class=idnt>pcIdent</span>))
+      {
+        <span class=cmnd>strcpy</span> (<span class=idnt>cGroupName</span>, <span class=idnt>pcValue</span>);
+      }
+      <span class=comt>//</span>
+      <span class=keyw>if</span> (<span class=nmbr>0</span> == <span class=cmnd>strncmp</span> (<span class=cnst>PQ_OPT_DATANAME_LASERNAME</span>, <span class=idnt>pcIdent</span>, <span class=cmnd>strlen</span>(<span class=cnst>PQ_OPT_DATANAME_LASERNAME</span>)))
+      { 
+        <span class=type>long&nbsp;int</span> <span class=idnt>iLaserIdx</span> =  (<span class=idnt>pcIdent</span> [<span class=cmnd>strlen</span>(<span class=cnst>PQ_OPT_DATANAME_LASERNAME</span>)] - <span class=strg>'1'</span>);      
+        <span class=cmnd>strcpy</span> (<span class=idnt>cLaserName</span>[<span class=idnt>iLaserIdx</span>], <span class=idnt>pcValue</span>);
+      }
+      <span class=comt>//</span>
+      <span class=keyw>return</span> <span class=idnt>lStopReason</span>;
+    }
+    
 </span></pre></nobr></code></p>
     <p>
       Then create the infrastructure (e.g. GUI-elements) to hand over individual optional 
@@ -336,7 +372,7 @@
     </p>
     <p>
       Now, for the opening handshake, call the init function "<span class=cmnd>RI_Initialize</span>"
-      where the <span class=type>char*</span> parameter <span class=idnt>cHost</span> should contain the IP address, like e.g.
+      where the <span class=type>char</span>* parameter <span class=idnt>cHost</span> should contain the IP address, like e.g.
       <span class=strg>"127.0.0.1"</span>, the <span class=type>long&nbsp;int</span> parameter 
       <span class=idnt>lPort</span> contains the port number to be used for
       the comunication, (should equal <span class=nmbr>6000</span>). 
@@ -348,7 +384,7 @@
     <span class=type>long&nbsp;int</span> <span class=idnt>lPort</span>;
     <span class=type>char</span>     <span class=idnt>cSPTVersion</span> [<span class=cnst>SPT_RI_VERSIONSTRING_MAXLEN</span>];
 
-    strcpy (<span class=idnt>cHost</span>, <span class=strg>"127.0.0.1"</span>);
+    <span class=cmnd>strcpy</span> (<span class=idnt>cHost</span>, <span class=strg>"127.0.0.1"</span>);
     <span class=idnt>lPort</span> = <span class=nmbr>6000</span>;
     <span class=idnt>lRet</span>  = <span class=cmnd>RI_Initialize</span> (<span class=idnt>cHost</span>, <span class=idnt>lPort</span>, <span class=idnt>cSPTVersion</span>);
 </span></pre></nobr></code></p>
@@ -358,8 +394,9 @@
       server site, resulting in the errocode <span class=cnst>PQ_ERRCODE_NO_WORKSPACE</span>.
     </p>
     <p>
-      As now the connection is approved to be free of errors, you may sent the
-      upper mentioned optional parameters to the DLL, e.g.:
+      As now the connection is approved to be free of errors (i.e. the DLL signals to be in
+      <span class=cnst>SPT_RI_STATUS_IDLE</span> state), you may sent the upper mentioned 
+      optional parameters to the DLL, e.g.:
     </p>
     <p><code><nobr>
     <pre><span class=neut>    <span class=cmnd>RI_SetOptionalString</span> (<span class=cnst>PQ_OPT_INFONAME_GROUPNAME</span>, <span class=strg>"MySubdir"</span>);
@@ -373,31 +410,37 @@
       to start isn't causing any traffic with the server, since other than during 
       &nbsp;<span class=cmnd>RI_Initialize</span>, for this purpose your application 
       is solely communicating with the DLL.<br><br>
-      Now, if the DLL signals to be in <span class=cnst>SPT_RI_STATUS_IDLE</span> state, 
-      we are ready to start a measurement, in this example let's record for an image.
+      Now, that all necessary parameters are registered, 
+      we are ready to register a string handler and then start a measurement, 
+      in this example let's record for an image.
     </p>
     <p><code><nobr>
-    <pre><span class=neut>    <span class=type>long int</span>          <span class=idnt>lState</span>;
-    <span class=type>longbool</span>          <span class=idnt>bRecord</span>;
-    <span class=type>long int</span>          <span class=idnt>lPixX</span>;
-    <span class=type>long int</span>          <span class=idnt>lPixY</span>;
-    <span class=type>float</span>             <span class=idnt>fResol</span>;
-    <span class=type>longbool</span>          <span class=idnt>bBiDirectionalScan</span>;
-    <span class=type>TReceiveParamFunc</span> <span class=idnt>MyPCBFunc</span>;
+    <pre><span class=neut>    <span class=type>long int</span>             <span class=idnt>lState</span>;
+    <span class=type>longbool</span>             <span class=idnt>bRecord</span>;
+    <span class=type>long int</span>             <span class=idnt>lPixX</span>;
+    <span class=type>long int</span>             <span class=idnt>lPixY</span>;
+    <span class=type>float</span>                <span class=idnt>fResol</span>;
+    <span class=type>longbool</span>             <span class=idnt>bBiDirectionalScan</span>;
+    <span class=type>TReceiveNumParamFunc</span> <span class=idnt>MyNPCBFunc</span>;
+    <span class=type>TReceiveStrParamFunc</span> <span class=idnt>MySPCBFunc</span>;
 
     <span class=idnt>lState</span>      = <span class=cnst>SPT_RI_STATUS_UNKNOWN</span>;
-    <span class=idnt>bRecord</span>     = <span class=cnst>true</span>;                     <span class=comt>// i.e. measurement mode; false would request for test mode</span>
+    <span class=idnt>bRecord</span>     = <span class=cnst>true</span>;                        <span class=comt>// i.e. measurement mode; false would request for test mode</span>
     <span class=idnt>lPixX</span>       = <span class=nmbr>128</span>;
     <span class=idnt>lPixY</span>       = <span class=nmbr>128</span>;
-    <span class=idnt>fResol</span>      = <span class=nmbr>1.0e-6f</span>;                  <span class=comt>// given in meter</span>
-    <span class=idnt>bBiDirScan</span>  = <span class=cnst>false</span>;                    <span class=comt>// mono-directional scan</span>
-    <span class=idnt>MyPCBFunc</span>   = <span class=idnt>MyImageParamCallBackFunc</span>; <span class=comt>// see above</span>
+    <span class=idnt>fResol</span>      = <span class=nmbr>1.0e-6f</span>;                     <span class=comt>// given in meter</span>
+    <span class=idnt>bBiDirScan</span>  = <span class=cnst>false</span>;                       <span class=comt>// mono-directional scan</span>
+    <span class=idnt>MyNPCBFunc</span>  = <span class=idnt>MyImageNumParamCallBackFunc</span>; <span class=comt>// see above</span>
+    <span class=idnt>MySPCBFunc</span>  = <span class=idnt>AStrParamCallBackFunc</span>;       <span class=comt>// see above</span>
+
+
+    <span class=idnt>lRet</span>        = <span class=cmnd>RI_RegisterStringHandler</span>  (<span class=idnt>MySPCBFunc</span>);
 
     <span class=keyw>do</span>
     {
       <span class=keyw>if</span> (<span class=cnst>SPT_RI_STATUS_IDLE</span> == (<span class=idnt>lState</span> = <span class=cmnd>RI_GetStatus</span> ()))
       {
-        <span class=idnt>lRet</span>   = <span class=cmnd>RI_RequestImage</span> (<span class=idnt>bRecord</span>, <span class=idnt>lPixX</span>, <span class=idnt>lPixY</span>, <span class=idnt>fResol</span>, <span class=idnt>bBiDirScan</span>, <span class=idnt>MyPCBFunc</span>);
+        <span class=idnt>lRet</span>   = <span class=cmnd>RI_RequestImage</span> (<span class=idnt>bRecord</span>, <span class=idnt>lPixX</span>, <span class=idnt>lPixY</span>, <span class=idnt>fResol</span>, <span class=idnt>bBiDirScan</span>, <span class=idnt>MyNPCBFunc</span>);
         <span class=idnt>lState</span> = <span class=cmnd>RI_GetStatus</span> ();
       }
       <span class=keyw>else</span>
@@ -431,7 +474,7 @@
       respective application.
     </p>
     <p>
-      Assuming, the measurement is running, the function MyImageParamCallBackFunc
+      Assuming, the measurement is running, the function MyImageNumParamCallBackFunc
       will be called for feedback transmission. If a pixel reaches more than
       <span class=nmbr>250</span> counts or the measurement is running for more 
       than 100 seconds (i.e. approx. <span class=nmbr>83</span> feedback cycles), 
@@ -449,7 +492,7 @@
 </span></pre></nobr></code></p>
     <p>
       As shown in the state machine diagram, you may - in absence of error conditions - 
-      cycle these steps <i>ad infinutum</i>. Any error detected by the DLL, however, will 
+      cycle these steps <i>ad infinitum</i>. Any error detected by the DLL, however, will 
       change its state to "Unknown", giving you the opportunity for recovering measures. 
       With stable working conditions accomplished again, you may then restart with the 
       initializing sequence.

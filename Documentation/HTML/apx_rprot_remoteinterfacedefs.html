@@ -23,7 +23,7 @@
 <!--  ==============================================================================================================  -->
 
     <style type="text/css">
-      
+
       .I-1 {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;font-weight:bold}
       .I0  {margin-left:0.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
       .I1  {margin-left:0.2cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
@@ -31,13 +31,13 @@
       .I3  {margin-left:0.6cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
       .I4  {margin-left:0.8cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
       .I5  {margin-left:1.0cm;margin-top:0cm;margin-bottom:0cm;font-style:italic;}
-      
+
       .bra {border-top:thin solid;border-bottom:thin solid;border-left:thin solid;border-color:black;border-left-width:3px;border-top-width:1px;border-bottom-width:1px}
       .cket {border-top:thin solid;border-bottom:thin solid;border-right:thin solid;border-color:black;border-right-width:3px;border-top-width:1px;border-bottom-width:1px}
       .vertline {border-left:thin solid;border-color:black;border-left-width:1px}
       .partable {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
 
-      
+
       .lnbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;text-align:right;color:gray}
       .invs {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;background-color:lightgray;line-height:inherit;color:lightgray}
       .neut {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:black}
@@ -51,7 +51,7 @@
       .nmbr {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:blue}
       .strg {font-family:"Courier New,Courier,monospace";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none;line-height:inherit;color:purple}
 
-      
+
       body  {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
       h1    {position:relative;left:1.3cm;font-family:"Arial,sans-serif";font-style:normal;font-size:20pt;font-weight:bold;text-decoration:none}
       h2    {font-family:"Arial,sans-serif";font-style:normal;font-size:14pt;font-weight:bold;text-decoration:none}
@@ -63,7 +63,7 @@
       table {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;text-decoration:none}
       a     {font-family:"Arial,sans-serif";font-style:normal;font-size:10pt;font-weight:normal;}
     </style>
-    
+
   </head>
   <body bgcolor=WHITE >
     <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
@@ -104,49 +104,77 @@
     <br>
     <div style="background-color:#E0E0E0; width:90%; margin-left:auto; margin-right:auto; padding:20px; text-align:center">
       <p>
-        The following remarks address to software developers assigned to integrate remote 
-        access on a SymPhoTime&nbsp;64 server into their (client-) application. 
-        We're desperately sorry, but we simply can't anticipate, which programming language 
-        developers might choose when it comes to implement remote control of our SymPhoTime&nbsp;64. 
-        So we chose a pseudo-code for our documentation. We assume that most of the 
-        experienced developers have at least adequate knowledge of the C/C++ language family. 
-        For all these, the supplied demo &quot;Client_w_Stress&quot; is directly understandable. 
-        But browsing the supplied material, you'll also find ready to use Object-Pascal import units 
-        for Delphi&nbsp;/&nbsp;Lazarus&nbsp;/&nbsp;Free-Pascal projects, too. 
+        The following remarks address to software developers assigned to integrate remote
+        access on a SymPhoTime&nbsp;64 server into their (client-) application.
+        We're desperately sorry, but we simply can't anticipate, which programming language
+        developers might choose when it comes to implement remote control of our SymPhoTime&nbsp;64.
+        So we chose a pseudo-code for our documentation. We assume that most of the
+        experienced developers have at least adequate knowledge of the C/C++ language family.
+        For all these, the supplied demo &quot;Client_w_Stress&quot; is directly understandable.
+        But browsing the supplied material, you'll also find ready to use Object-Pascal import units
+        for Delphi&nbsp;/&nbsp;Lazarus&nbsp;/&nbsp;Free-Pascal projects, too.
       </p>
       <p>
-        <b>All information below is corresponding to PicoQuant's  RemoteInterface.DLL &nbsp;<span style="color:purple">V1.0.8</span></b><br><br>
-        For convenience, we will often use the abbreviation &quot;<b>RI</b>&quot;, standing for 
+        <b>All information below is corresponding to PicoQuant's  RemoteInterface.DLL &nbsp;<span style="color:purple">V1.0.9</span></b><br><br>
+        For convenience, we will often use the abbreviation &quot;<b>RI</b>&quot;, standing for
         <b>R</b>emote&nbsp;<b>I</b>nterface.
       </p>
     </div>
     <p>
-      The following definitions could be found in the C/C++ header files &quot;RemoteInterface_Def.h&quot; and &quot;RemoteInterface_Lib.h&quot; 
+      The following definitions could be found in the C/C++ header files &quot;RemoteInterface_Def.h&quot; and &quot;RemoteInterface_Lib.h&quot;
       of the stress client demo or (with identical semantics) in the &quot;RemoteInterfaceImportUnit.pas&quot; for Pascal projects. They are added
       here for documentation purposes only.
     </p>
-    
+
     <p><code><nobr>
     <pre><span class=neut>    <span class=comt>// ************************************************************************************************
-    // constants definitions                                                                           
+    // constants definitions
     // ************************************************************************************************</span>
-    
-    <span class=cnst>SPT_RI_VERSIONSTRING_MAXLEN</span>       =                      <span class=nmbr>31</span>;
-    <span class=cnst>SPT_RI_STATUSTEXT_MAXLEN</span>          =                      <span class=nmbr>31</span>;
-    <span class=cnst>SPT_RI_HOSTNAME_MAXLEN</span>            =                      <span class=nmbr>63</span>;
-    <span class=cnst>SPT_RI_FILENAME_MAXLEN</span>            =                     <span class=nmbr>255</span>;
-    <span class=cnst>SPT_RI_GROUPNAME_MAXLEN</span>           =                      <span class=nmbr>63</span>;
-    <span class=cnst>SPT_RI_COMMENT_MAXLEN</span>             =                   <span class=nmbr>32767</span>;
-    <span class=cnst>SPT_RI_OPT_DATATYPE_NAME_MAXLEN</span>   =                      <span class=nmbr>30</span>;
-    <span class=cnst>SPT_RI_ERRORTEXT_MAXLEN</span>           =                      <span class=nmbr>63</span>;
-                                                                           
-    <span class=cnst>PQ_OPT_INFONAME_FILENAME</span>          =              <span class=strg>'Filename'</span>;
-    <span class=cnst>PQ_OPT_INFONAME_GROUPNAME</span>         =             <span class=strg>'Groupname'</span>;
-    <span class=cnst>PQ_OPT_INFONAME_COMMENT</span>           =               <span class=strg>'Comment'</span>;
-    <span class=cnst>PQ_OPT_INFONAME_PINHOLE</span>           =               <span class=strg>'Pinhole'</span>;
-    <span class=cnst>PQ_OPT_INFONAME_MAJOR_DICHROIC</span>    =         <span class=strg>'MajorDichroic'</span>;
-    <span class=cnst>PQ_OPT_INFONAME_TIME_PER_PIXEL</span>    =          <span class=strg>'TimePerPixel'</span>;
-    <span class=cnst>PQ_OPT_INFONAME_TIME_PER_IMAGE</span>    = <span class=strg>'TimePerImageEstimated'</span>;
+
+    <span class=cnst>SPT_RI_VERSIONSTRING_MAXLEN</span>             =                             <span class=nmbr>31</span>;
+    <span class=cnst>SPT_RI_STATUSTEXT_MAXLEN</span>                =                             <span class=nmbr>31</span>;
+    <span class=cnst>SPT_RI_HOSTNAME_MAXLEN</span>                  =                             <span class=nmbr>63</span>;
+    <span class=cnst>SPT_RI_FILENAME_MAXLEN</span>                  =                            <span class=nmbr>255</span>;
+    <span class=cnst>SPT_RI_GROUPNAME_MAXLEN</span>                 =                             <span class=nmbr>63</span>;
+    <span class=cnst>SPT_RI_COMMENT_MAXLEN</span>                   =                          <span class=nmbr>32767</span>;
+    <span class=cnst>SPT_RI_OPT_DATATYPE_NAME_MAXLEN</span>         =                             <span class=nmbr>30</span>;
+    <span class=cnst>SPT_RI_ERRORTEXT_MAXLEN</span>                 =                             <span class=nmbr>63</span>;
+                                                                          
+    <span class=cnst>PQ_OPT_INFONAME_FILENAME</span>                =                     <span class=strg>'Filename'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_GROUPNAME</span>               =                    <span class=strg>'Groupname'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_COMMENT</span>                 =                      <span class=strg>'Comment'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_OBJECTIVE</span>               =                    <span class=strg>'Objective'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_PINHOLE</span>                 =                      <span class=strg>'Pinhole'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_MAJOR_DICHROIC</span>          =                <span class=strg>'MajorDichroic'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_TIME_PER_PIXEL</span>          =                 <span class=strg>'TimePerPixel'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_TIME_PER_IMAGE</span>          =        <span class=strg>'TimePerImageEstimated'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_LASERREPRATE</span>            =          <span class=strg>'LaserRepetitionRate'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_LASERPATTERNIDX</span>         =       <span class=strg>'LaserPulsePatternIndex'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_LASERON</span>                 =                      <span class=strg>'LaserOn'</span>;
+    <span class=cnst>PQ_OPT_INFONAME_LASERINTENS</span>             =               <span class=strg>'LaserIntensity'</span>;
+
+    <span class=cnst>PQ_OPT_DATANAME_SPT_VERSION</span>             =                <span class=strg>'ServerVersion'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_CH1_COUNTS_PER_MOLECULE</span> =                         <span class=strg>'cpm1'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_CH2_COUNTS_PER_MOLECULE</span> =                         <span class=strg>'cpm2'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_CH1_COUNTS_PER_SECOND</span>   =                         <span class=strg>'cps1'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_CH2_COUNTS_PER_SECOND</span>   =                         <span class=strg>'cps2'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_DET1_COUNTS_PER_SECOND</span>  =                         <span class=strg>'det1'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_DET2_COUNTS_PER_SECOND</span>  =                         <span class=strg>'det2'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_DET3_COUNTS_PER_SECOND</span>  =                         <span class=strg>'det3'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_DET4_COUNTS_PER_SECOND</span>  =                         <span class=strg>'det4'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_MAX_COUNTS_PER_PIXEL</span>    =                       <span class=strg>'maxcpp'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_RESULTINGFILENAME</span>       =            <span class=strg>'ResultingFilename'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_RESULTINGGROUPNAME</span>      =           <span class=strg>'ResultingGroupname'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_RESULTINGLASERREPRATE</span>   = <span class=strg>'ResultingLaserRepetitionRate'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME</span>               =                    <span class=strg>'LaserName'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME1</span>              =                   <span class=strg>'LaserName1'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME2</span>              =                   <span class=strg>'LaserName2'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME3</span>              =                   <span class=strg>'LaserName3'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME4</span>              =                   <span class=strg>'LaserName4'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME5</span>              =                   <span class=strg>'LaserName5'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME6</span>              =                   <span class=strg>'LaserName6'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME7</span>              =                   <span class=strg>'LaserName7'</span>;
+    <span class=cnst>PQ_OPT_DATANAME_LASERNAME8</span>              =                   <span class=strg>'LaserName8'</span>;
 
 
     <span class=comt>// ************************************************************************************************
@@ -203,6 +231,7 @@
                                          <span class=cnst>PQ_ERRCODE_SOCKET_ERROR_LOOKUP</span>      =   <span class=nmbr>-1106</span>,
                                          <span class=cnst>PQ_ERRCODE_DLL_NOT_FOUND</span>            =   <span class=nmbr>-9100</span>,
                                          <span class=cnst>PQ_ERRCODE_UNKNOWN_FUNCTION</span>         =   <span class=nmbr>-9110</span>,
+                                         <span class=cnst>PQ_ERRCODE_ILLEGAL_FUNCTION_VALUE</span>   =   <span class=nmbr>-9120</span>,
                                          <span class=cnst>PQ_ERRCODE_UNKNOWN_ERROR</span>            =   <span class=nmbr>-9999</span>);
 
     <span class=type>E_SPT_RI_STATUS</span>                   = (<span class=cnst>SPT_RI_STATUS_UNKNOWN</span>               =       <span class=nmbr>0</span>,
@@ -212,39 +241,76 @@
 
 
     <span class=comt>// ************************************************************************************************
-    // call-back function type
+    // call-back function types
     // ************************************************************************************************</span>
 
-    <span class=type>TReceiveParamFunc</span> = <span class=type>int</span> <span class=keyw>function</span> (<span class=type>pAnsiChar</span> <span class=idnt>pcIdent</span>, <span class=type>single</span> <span class=idnt>fValue</span>, <span class=type>int</span> <span class=idnt>iRecNumber</span>); <span class=keyw>stdcall</span>;
+    <span class=type>TReceiveNumParamFunc</span> = <span class=type>int</span> <span class=keyw>function</span> (<span class=type>pAnsiChar</span> <span class=idnt>pcIdent</span>, <span class=type>single</span> <span class=idnt>fValue</span>, <span class=type>int</span> <span class=idnt>iRecNumber</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span> Callback-Type;
-          Function invoked by SPT RemoteInterface DLL, if provided by the client application; 
-          Called on incoming data frames (NACK-frames), once for each parameter in the frame received.
+          Function invoked by SPT RemoteInterface DLL, if provided by the client application;
+          Called on incoming data frames (NACK-frames), once for each numeric parameter in the frame received.
         <span class=bcmt>Blocking / Synchronizing:</span>
-          This function will be called and run in the context of a DLL internal thread 
-            (herein after referred to as the "NACK-thread"). 
+          This function will be called and run in the context of a DLL internal thread
+            (herein after referred to as the "NACK-thread").
           The implementation by all means has to take care of synchronizing with the external threads.
         <span class=bcmt>Parameters:</span>
           pcIdent                 : pointer to a buffer of AnsiChar, containing the parameter name
                                       Only valid within the scope of the call back function;
                                       To save the string for client global scope, you've to copy it
-                                      to globally allocated memory. 
+                                      to globally allocated memory.
                                      (max. length to be granted by client application: PQ_OPT_DATATYPE_NAME_MAXLEN+1)
-          fValue                  : single; 
+          fValue                  : single;
           iRecNumber              : integer
         <span class=bcmt>Returns:</span>
-          E_SPT_RI_STOP_REASONS   : code to control the on-going measurement; 
-                                      the measurement will be stopped if the client returnes another value 
-                                      than SPT_RI_STOP_REASON_CONTINUE_OK. The DLL will still complete the 
-                                      whole NACK-frame processing in calling this function more than once, 
-                                      but after completion it will autonomously send a stop message with 
-                                      the stop reason of the highest priority received during the completed 
+          E_SPT_RI_STOP_REASONS   : code to control the on-going measurement;
+                                      the measurement will be stopped if the client returnes another value
+                                      than SPT_RI_STOP_REASON_CONTINUE_OK. The DLL will still complete the
+                                      whole NACK-frame processing in calling this function more than once,
+                                      but after completion it will autonomously send a stop message with
+                                      the stop reason of the highest priority received during the completed
                                       NACK-frame processing. The priority order from highest to lowest is:
                                          SPT_RI_STOP_REASON_ERROR,
                                          SPT_RI_STOP_REASON_USER_BREAK,
                                          SPT_RI_STOP_REASON_FINISHED_OK.
-                                      Note: If the client application launches by other reason (e.g. a timer) 
-                                      a concurrent call to RI_RequestStopMeas, this could result in a racing 
-                                      condition with unpredictable results and may or may not interfere with 
+                                      Note: If the client application launches by other reason (e.g. a timer)
+                                      a concurrent call to RI_RequestStopMeas, this could result in a racing
+                                      condition with unpredictable results and may or may not interfere with
+                                      the autonomous launched request, thus returning PQ_ERRCODE_FUNCTION_BLOCKED.
+    */</span>
+
+    <span class=type>TReceiveStrParamFunc</span> = <span class=type>int</span> <span class=keyw>function</span> (<span class=type>pAnsiChar</span> <span class=idnt>pcIdent</span>, <span class=type>pAnsiChar</span> <span class=idnt>pcValue</span>, <span class=type>int</span> <span class=idnt>iRecNumber</span>); <span class=keyw>stdcall</span>;
+    <span class=comt>/*  <span class=bcmt>Synopsis:</span> Callback-Type;
+          Function invoked by SPT RemoteInterface DLL, if registered by the client application;
+          Called on incoming data frames (NACK-frames), once for each string parameter in the frame received.
+        <span class=bcmt>Blocking / Synchronizing:</span>
+          This function will be called and run in the context of a DLL internal thread
+            (herein after referred to as the "NACK-thread").
+          The implementation by all means has to take care of synchronizing with the external threads.
+        <span class=bcmt>Parameters:</span>
+          pcIdent                 : pointer to a buffer of AnsiChar, containing the parameter name
+                                      Only valid within the scope of the call back function;
+                                      To save the string for client global scope, you've to copy it
+                                      to globally allocated memory.
+                                     (max. length to be granted by client application: PQ_OPT_DATATYPE_NAME_MAXLEN+1)
+          pcValue                 : pointer to a buffer of AnsiChar, containing the parameter value;
+                                      Only valid within the scope of the call back function;
+                                      To save the string for client global scope, you've to copy it
+                                      to globally allocated memory.
+                                     (max. length to be granted by client application: 65535 characters)
+          iRecNumber              : integer
+        <span class=bcmt>Returns:</span>
+          E_SPT_RI_STOP_REASONS   : code to control the on-going measurement;
+                                      the measurement will be stopped if the client returnes another value
+                                      than SPT_RI_STOP_REASON_CONTINUE_OK. The DLL will still complete the
+                                      whole NACK-frame processing in calling this function more than once,
+                                      but after completion it will autonomously send a stop message with
+                                      the stop reason of the highest priority received during the completed
+                                      NACK-frame processing. The priority order from highest to lowest is:
+                                         SPT_RI_STOP_REASON_ERROR,
+                                         SPT_RI_STOP_REASON_USER_BREAK,
+                                         SPT_RI_STOP_REASON_FINISHED_OK.
+                                      Note: If the client application launches by other reason (e.g. a timer)
+                                      a concurrent call to RI_RequestStopMeas, this could result in a racing
+                                      condition with unpredictable results and may or may not interfere with
                                       the autonomous launched request, thus returning PQ_ERRCODE_FUNCTION_BLOCKED.
     */</span>
 
@@ -260,8 +326,8 @@
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with a DLL internal thread
             (herein after referred to as the "socket-thread").
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
           pcFileName              : pointer to a buffer of AnsiChar, containing the logfile name;
@@ -269,58 +335,58 @@
           PQ_ERRCODE_NO_ERROR     : OK
           anything else           : Error
     */</span>
-  
+
     <span class=type>int</span> <span class=cmnd>RI_AddLineToLog</span> (<span class=type>pAnsiChar</span> <span class=idnt>pcNewLine</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
           appends a new line to the log; full timing info will be preceded. if e.g. called preceding
-          every new measurement, this function should help not getting the increasing log out of hands 
+          every new measurement, this function should help not getting the increasing log out of hands
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
           pcNewLine               : pointer to a buffer of AnsiChar, containing the line to append;
         <span class=bcmt>Returns:</span>
           PQ_ERRCODE_NO_ERROR     : OK
     */</span>
-  
+
     <span class=type>int</span> <span class=cmnd>RI_ShowLogWin</span> (<span class=type>void</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
           for debugging purposes: showing a log window with a readonly memofield containing the
           complete handshake protocol messages as Hex-Dump
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Returns:</span>
           PQ_ERRCODE_NO_ERROR     : OK
           anything else           : Error
     */</span>
-  
+
     <span class=type>int</span> <span class=cmnd>RI_HideLogWin</span> (<span class=type>void</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
-          for debugging purposes: 
+          for debugging purposes:
           hiding the log window again
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Returns:</span>
           PQ_ERRCODE_NO_ERROR     : OK
           anything else           : Error
     */</span>
-  
+
     <span class=type>int</span> <span class=cmnd>RI_EnableLog</span> (<span class=type>Bool</span> <span class=idnt>bEnableLog</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
-          for debugging purposes: 
+          for debugging purposes:
           enabling / disabling the log (no handshake traffic)
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
           bEnableLog              : boolean, false to disable logging
@@ -340,8 +406,8 @@
           retrieves library version
         <span class=bcmt>Blocking:</span>
           function solely runs in the context of the calling thread.
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
           pcLibVersion            : pointer to a buffer of AnsiChar, returning the library version
@@ -353,11 +419,11 @@
 
     <span class=type>int</span> <span class=cmnd>RI_GetErrorText</span> (<span class=type>E_PQ_ERROR_CODES</span> <span class=idnt>eec</span>, <span class=type>pAnsiChar</span> <span class=idnt>pcErrorText</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
-          retrieves human readable error text by error code (no handshake traffic) 
+          retrieves human readable error text by error code (no handshake traffic)
         <span class=bcmt>Blocking:</span>
           function solely runs in the context of the calling thread.
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
           eec                     : error code
@@ -373,8 +439,8 @@
           for controlling purposes: returns the internal status of the DLL
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Returns:</span>
           E_SPT_RI_STATUS
@@ -385,8 +451,8 @@
           retrieves human readable status text by status code (no handshake traffic)
         <span class=bcmt>Blocking:</span>
           function solely runs in the context of the calling thread.
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
           estc                    : status code
@@ -404,8 +470,8 @@
           releases connection
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
           pcHost                  : pointer to a buffer of AnsiChar, identifying the server;
@@ -423,13 +489,13 @@
           stores optional float parameters for the next measurement
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
-          pcIdent                 : pointer to a buffer of AnsiChar, identifying the optional float parameter;
-          fValue                  : single, containing the float parameter value;
-          iArrIdx                 : integer, if the parameter identified isn't an array : -1,
+          pcIdent                    : pointer to a buffer of AnsiChar, identifying the optional float parameter;
+          fValue                     : single, containing the float parameter value;
+          iArrIdx                    : integer, if the parameter identified isn't an array : -1,
                                              else : array index (zero-based) to write the value to
         <span class=bcmt>Returns:</span>
           PQ_ERRCODE_NO_ERROR        : ( 0) OK, if parameter is known and valid
@@ -437,19 +503,19 @@
           PQ_ERRCODE_UNKNOWN_PARAM   : ( 5) Warning, if parameter is unknown but valid
           PQ_ERRCODE_TYPE_MISMATCH   : (-7) Errorcode, if parameter is known but typecheck failed
     */</span>
-    
+
     <span class=type>int</span> <span class=cmnd>RI_SetOptionalInt</span> (<span class=type>pAnsiChar</span> <span class=idnt>pcIdent</span>, <span class=type>int</span> <span class=idnt>iValue</span>, <span class=type>int</span> <span class=idnt>iArrIdx</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
           stores optional integer parameters for the next measurement
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
-          pcIdent                 : pointer to a buffer of AnsiChar, identifying the optional int parameter;
-          iValue                  : integer, containing the int parameter value;
-          iArrIdx                 : integer, if the parameter identified isn't an array : -1,
+          pcIdent                    : pointer to a buffer of AnsiChar, identifying the optional int parameter;
+          iValue                     : integer, containing the int parameter value;
+          iArrIdx                    : integer, if the parameter identified isn't an array : -1,
                                              else : array index (zero-based) to write the value to
         <span class=bcmt>Returns:</span>
           PQ_ERRCODE_NO_ERROR        : ( 0) OK, if parameter is known and valid
@@ -463,12 +529,29 @@
           stores optional string parameters for the next measurement
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Parameters:</span>
-          pcIdent                 : pointer to a buffer of AnsiChar, identifying the optional string parameter;
-          pcValue                 : pointer to a buffer of AnsiChar, containing the string parameter value;
+          pcIdent                    : pointer to a buffer of AnsiChar, identifying the optional string parameter;
+          pcValue                    : pointer to a buffer of AnsiChar, containing the string parameter value;
+        <span class=bcmt>Returns:</span>
+          PQ_ERRCODE_NO_ERROR        : ( 0) OK, if parameter is known and valid
+          PQ_ERRCODE_REDEFINED_PARAM : ( 4) Warning, if parameter is valid but already set
+          PQ_ERRCODE_UNKNOWN_PARAM   : ( 5) Warning, if parameter is unknown but valid
+          PQ_ERRCODE_TYPE_MISMATCH   : (-7) Errorcode, if parameter is known but typecheck failed
+    */</span>
+
+    <span class=type>int</span> <span class=cmnd>RI_RegisterStringHandler</span> (<span class=type>TReceiveStrParamFunc</span> <span class=idnt>StrParamCallbackFunc</span>); <span class=keyw>stdcall</span>;
+    <span class=comt>/*  <span class=bcmt>Synopsis:</span>
+          registers a call-back function for optional string parameters
+        <span class=bcmt>Blocking:</span>
+          function establishes intertask communication with the DLL internal socket-thread
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
+          and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+        <span class=bcmt>Parameters:</span>
+          StrParamCallbackFunc       : pointer to a string handling call back function;
         <span class=bcmt>Returns:</span>
           PQ_ERRCODE_NO_ERROR        : ( 0) OK, if parameter is known and valid
           PQ_ERRCODE_REDEFINED_PARAM : ( 4) Warning, if parameter is valid but already set
@@ -489,19 +572,19 @@
           waits for reply
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
           refer also to the note on TReceiveParamFunc-typed callback functions
         <span class=bcmt>Parameters:</span>
           bRecordFile             : boolean, false for test measurement (i.e. data measured will not be stored)
                                              true  for regular measurement
-          ParamCallbackFunc       : function pointer to the call back function 
+          ParamCallbackFunc       : function pointer to the call back function
                                       to be called by the NACK-thread of the DLL on incoming online parameters
         <span class=bcmt>Returns:</span>
           E_PQ_ERROR_CODES        : detailed error code
     */</span>
-  
+
     <span class=type>int</span> <span class=cmnd>RI_RequestImage</span> (<span class=type>Bool</span> <span class=idnt>bRecordFile</span>, <span class=type>int</span> <span class=idnt>iPixX</span>, <span class=type>int</span> <span class=idnt>iPixY</span>, <span class=type>single</span> <span class=idnt>fResol</span>, <span class=type>Bool</span> <span class=idnt>bBiDirectionalScan</span>, <span class=type>TReceiveParameter</span> <span class=idnt>ParamCallbackFunc</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
           establishes connection,
@@ -510,8 +593,8 @@
           waits for reply
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
           refer also to the note on TReceiveParamFunc-typed callback functions
         <span class=bcmt>Parameters:</span>
@@ -520,20 +603,20 @@
           iPixX, iPixY            : integer, dimensions of the image to scan in pixel counts
           fResol                  : single, pixel resolution in µm
           bBiDirectionalScan      : boolean, sets the scanning mode
-          ParamCallbackFunc       : function pointer to the call back function 
+          ParamCallbackFunc       : function pointer to the call back function
                                       to be called by the NACK-thread of the DLL on incoming online parameters
         <span class=bcmt>Returns:</span>
           E_PQ_ERROR_CODES        : detailed error code
     */</span>
-  
+
     <span class=type>int</span> <span class=cmnd>RI_RequestStopMeas</span> (<span class=type>void</span>); <span class=keyw>stdcall</span>;
     <span class=comt>/*  <span class=bcmt>Synopsis:</span>
           sends stop request,
           waits for acknowledging reply or timeout
         <span class=bcmt>Blocking:</span>
           function establishes intertask communication with the DLL internal socket-thread
-          function is re-entrance blocked on library scope, thus entering will fail while another 
-          blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+          function is re-entrance blocked on library scope, thus entering will fail while another
+          blocked function is still running. function then waits for 50 msec, reattempts twice to enter
           and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
         <span class=bcmt>Returns:</span>
           E_PQ_ERROR_CODES        : detailed error code

@@ -26,6 +26,11 @@ Class Client_w_Stress.Client_LSM_SymPhoTime_Dlg: AutoLayout, AnsiClass, Class, P
     Int32 iLastNonLocalIP IsLong : Public
     System.String strLogFileName : Public
     Int32 iStopFired IsLong : Public
+    Boolean bSyncServerVersion : Public
+    System.String strServerVersion : Public
+    Boolean bSyncResultMemo : Public
+    System.String strResultMemo : Public
+    Int32 iOnStopSendStopReasonIdx IsLong : Public
   Methods:
     rbtnLocal_InvokeCheckedChanged(): PrivateScope, Public, HideBySig
     InitializeComponent(): PrivateScope, Public, HideBySig

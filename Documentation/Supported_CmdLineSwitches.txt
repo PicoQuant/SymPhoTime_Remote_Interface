@@ -2,7 +2,7 @@
 //
 //         Summary of the command line switches supported by the 
 //
-//             PicoQuant SymPhoTime Small Dark Client V1.0.8
+//           PicoQuant SymPhoTime Remote Control Client V1.0.9
 //
 //------------------------------------------------------------------------------
 //

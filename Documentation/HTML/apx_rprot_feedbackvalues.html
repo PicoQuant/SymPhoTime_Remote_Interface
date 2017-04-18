@@ -276,7 +276,7 @@
           <table border="0">
             <colgroup>
               <col width="100">
-              <col width="150">
+              <col width="190">
               <col>
             </colgroup>
             <tr>
@@ -284,6 +284,16 @@
               <td valign="top">&quot;ServerVersion&quot;</td>
               <td>Return value type is <a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a>. Byte[3] = Major Version No., 
                   Byte[2] = Minor Version No., Byte[0] + 256 * Byte[1] = Word = Build No.</td>
+            </tr>
+            <tr>
+              <td valign="top"/>
+              <td valign="top">&quot;ResultingLaserRepetitionRate&quot;</td>
+              <td>The laser repetition rate (Hz; <a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a>) as set in the SOM module of the Sepia&nbsp;II by SPT64 &nbsp;(only if a Sepia&nbsp;II is connected)</td>
+            </tr>
+            <tr>
+              <td valign="top"/>
+              <td valign="top">&quot;Lasername&quot; + &lt;&quot;1&quot;&hellip;&quot;8&quot;&gt;</td>
+              <td>The names of the currently assessable lasers as given in SPT64 &nbsp;(only if a Sepia&nbsp;II is connected)</td>
             </tr>
             <tr>
               <td>Always:</td>
@@ -609,7 +619,7 @@
           <table border="0">
             <colgroup>
               <col width="100">
-              <col width="150">
+              <col width="190">
               <col>
             </colgroup>
             <tr>
@@ -617,6 +627,26 @@
               <td valign="top">&quot;ServerVersion&quot;</td>
               <td>Return value type is <a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftUInt</a>. Byte[3] = Major Version No., 
                   Byte[2] = Minor Version No., Byte[0] + 256 * Byte[1] = Word = Build No.</td>
+            </tr>
+            <tr>
+              <td valign="top"/>
+              <td valign="top">&quot;ResultingGroupname&quot;</td>
+              <td>The name of the directory, the measured data and results is saved to. Especially useful, since the name templates are substituted. &nbsp;(only if "Groupname" was given on request)</td>
+            </tr>
+            <tr>
+              <td valign="top"/>
+              <td valign="top">&quot;ResultingFilename&quot;</td>
+              <td>The name of the rawdata file, the measured data is saved to. Especially useful, since the name templates are substituted.</td>
+            </tr>
+            <tr>
+              <td valign="top"/>
+              <td valign="top">&quot;ResultingLaserRepetitionRate&quot;</td>
+              <td>The laser repetition rate (Hz; <a href="..\AllConstantsOverview.html#RemoteInterfaceFeedbackTypes">rftInt</a>) as set in the SOM module of the Sepia&nbsp;II by SPT64 &nbsp;(only if a Sepia&nbsp;II is connected)</td>
+            </tr>
+            <tr>
+              <td valign="top"/>
+              <td valign="top">&quot;Lasername&quot; + &lt;&quot;1&quot;&hellip;&quot;8&quot;&gt;</td>
+              <td>The names of the currently assessable lasers as given in SPT64 &nbsp;(only if a Sepia&nbsp;II is connected)</td>
             </tr>
             <tr>
               <td>&nbsp;</td>

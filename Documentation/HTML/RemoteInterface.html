@@ -166,6 +166,15 @@ create the new file directly in the destination directory given by <code>&lt;Des
             </tr>
  <!-- -FieldsFound -->  <!-- +FieldsFound -->
             <tr>
+              <td valign=TOP><code><nobr>RawGroupname</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="String.html">String</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font></td>
+              <td valign=TOP>Groupname as given by the client with an incoming remote request.
+This name still contains all <a href="AllConstantsOverview.html#SymbolicStringSubstitutes">symbolic&nbsp;placeholders</a>
+just as it came from the client. Use this to compare for substitutions.</td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
               <td valign=TOP><code><nobr>DefaultFilename</nobr></code></td>
               <td valign=TOP><code><nobr><a href="String.html">String</a></nobr></code></td>
               <td valign=TOP><font color="GREEN"><i>public</i></font></td>
@@ -176,6 +185,15 @@ The default name given may contain <a href="AllConstantsOverview.html#SymbolicSt
 like e.g. <span class=cnst>SYMB_TIMECODE</span>, that will be replaced before file creation.<br>
 If neither this field nor the remote request provides a filename, RemoteInterface will
 automatically name the file &nbsp;&nbsp;&nbsp;&nbsp;<code>&quot;RemoteMeas_&quot;&nbsp;+&nbsp;</code><span class=cnst>SYMB_DATETIMECODE</span><code>&nbsp;+&nbsp;&quot;.&quot;&nbsp;+&nbsp;</code><span class=cnst>SYMB_MEAS_EXT</span></td>
+            </tr>
+ <!-- -FieldsFound -->  <!-- +FieldsFound -->
+            <tr>
+              <td valign=TOP><code><nobr>RawFilename</nobr></code></td>
+              <td valign=TOP><code><nobr><a href="String.html">String</a></nobr></code></td>
+              <td valign=TOP><font color="GREEN"><i>public</i></font></td>
+              <td valign=TOP>Filename as given by the client with an incoming remote request.
+This name still contains all <a href="AllConstantsOverview.html#SymbolicStringSubstitutes">symbolic&nbsp;placeholders</a>
+just as it came from the client. Use this to compare for substitutions.</td>
             </tr>
  <!-- -FieldsFound -->  <!-- +FieldsFound -->
             <tr>

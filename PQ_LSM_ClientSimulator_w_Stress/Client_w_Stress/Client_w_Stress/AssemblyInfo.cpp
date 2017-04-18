@@ -16,7 +16,7 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyConfigurationAttribute("")];
 [assembly:AssemblyCompanyAttribute("PicoQuant GmbH")];
 [assembly:AssemblyProductAttribute("Client_w_Stress")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c) 2012")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) 2012 - 2016")];
 [assembly:AssemblyTrademarkAttribute("SymPhoTime")];
 [assembly:AssemblyCultureAttribute("")];
 
@@ -31,7 +31,7 @@ using namespace System::Security::Permissions;
 // Sie können alle Werte angeben oder für die Revisions- und Buildnummer den Standard
 // übernehmen, indem Sie "*" eingeben:
 
-[assembly:AssemblyVersionAttribute("1.0.7.2")];
+[assembly:AssemblyVersionAttribute("1.0.9.0")];
 
 [assembly:ComVisible(false)];
 

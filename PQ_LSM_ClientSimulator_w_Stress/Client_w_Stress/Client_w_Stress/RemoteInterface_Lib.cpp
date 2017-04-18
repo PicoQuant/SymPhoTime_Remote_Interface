@@ -13,6 +13,7 @@
 //  apo  17.02.12   release of the library interface
 //  apo  14.01.13   introduced new function "RI_AddLineToLog"
 //  apo  20.01.13   introduced new function "RI_EnableLog"
+//  apo  03.03.16   introduced new function "RI_RegisterStringHandler"
 //
 //-----------------------------------------------------------------------------
 //
@@ -73,17 +74,30 @@ long __stdcall LongFunc2PChar_missing (char*, char*)
   return PQ_ERRCODE_UNKNOWN_FUNCTION;
 }
 
+long __stdcall LongFuncSPCBF_missing (TReceiveStrParamFunc)
+{
+  return PQ_ERRCODE_UNKNOWN_FUNCTION;
+}
+
+/*
+// prepared for future versions:
+long __stdcall LongFuncNAPCBF_missing (TReceiveNumArrParamFunc)
+{
+  return PQ_ERRCODE_UNKNOWN_FUNCTION;
+}
+*/
+
 long __stdcall LongFuncBool_missing (longbool)
 {
   return PQ_ERRCODE_UNKNOWN_FUNCTION;
 }
 
-long __stdcall LongFuncBoolPCBF_missing (longbool, TReceiveParamFunc)
+long __stdcall LongFuncBoolNPCBF_missing (longbool, TReceiveNumParamFunc)
 {
   return PQ_ERRCODE_UNKNOWN_FUNCTION;
 }
 
-long __stdcall LongFuncBool2IntFloatBoolPCBF_missing (longbool, long, long, float, longbool, TReceiveParamFunc)
+long __stdcall LongFuncBool2IntFloatBoolNPCBF_missing (longbool, long, long, float, longbool, TReceiveNumParamFunc)
 {
   return PQ_ERRCODE_UNKNOWN_FUNCTION;
 }
@@ -205,23 +219,40 @@ long InitRemoteInterface_DLL (void)
       RI_SetOptionalString = (TLongFunc2PChar) LongFunc2PChar_missing;       
     }
     //
+    RI_RegisterStringHandler = (TLongFuncSPCBF) GetProcAddress (hDLL, "RI_RegisterStringHandler");
+    if (! RI_RegisterStringHandler)
+    {
+      lRet = PQ_ERRCODE_UNKNOWN_FUNCTION;
+      RI_RegisterStringHandler = (TLongFuncSPCBF) LongFuncSPCBF_missing;       
+    }
+    //
+    /*
+    // prepared for future versions:
+    RI_RegisterNumArrayHandler = (TLongFuncNAPCBF) GetProcAddress (hDLL, "RI_RegisterNumArrayHandler");
+    if (! RI_RegisterNumArrayHandler)
+    {
+      lRet = PQ_ERRCODE_UNKNOWN_FUNCTION;
+      RI_RegisterNumArrayHandler = (TLongFuncNAPCBF) LongFuncNAPCBF_missing;       
+    }
+    */
+    //
     //
     // ************************************************************************************************
     // measurement handshake functions
     // ************************************************************************************************
     //
-    RI_RequestTimeTrace = (TLongFuncBoolPCBF) GetProcAddress (hDLL, "RI_RequestTimeTrace");
+    RI_RequestTimeTrace = (TLongFuncBoolNPCBF) GetProcAddress (hDLL, "RI_RequestTimeTrace");
     if (! RI_RequestTimeTrace)
     {
       lRet = PQ_ERRCODE_UNKNOWN_FUNCTION;
-      RI_RequestTimeTrace = (TLongFuncBoolPCBF) LongFuncBoolPCBF_missing;       
+      RI_RequestTimeTrace = (TLongFuncBoolNPCBF) LongFuncBoolNPCBF_missing;       
     }
     //
-    RI_RequestImage = (TLongFuncBool2IntFloatBoolPCBF) GetProcAddress (hDLL, "RI_RequestImage");
+    RI_RequestImage = (TLongFuncBool2IntFloatBoolNPCBF) GetProcAddress (hDLL, "RI_RequestImage");
     if (! RI_RequestImage)
     {
       lRet = PQ_ERRCODE_UNKNOWN_FUNCTION;
-      RI_RequestImage = (TLongFuncBool2IntFloatBoolPCBF) LongFuncBool2IntFloatBoolPCBF_missing;       
+      RI_RequestImage = (TLongFuncBool2IntFloatBoolNPCBF) LongFuncBool2IntFloatBoolNPCBF_missing;       
     }
     //
     RI_RequestStopMeas = (TLongFuncVoid) GetProcAddress (hDLL, "RI_RequestStopMeas");

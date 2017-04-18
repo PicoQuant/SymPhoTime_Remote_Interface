@@ -1,5 +1,24 @@
   //
-  // This information is corresponding to PicoQuant's  RemoteInterface.DLL  V1.0.8
+  //    This information is corresponding to PicoQuant's  RemoteInterface.DLL  V1.0.9
+  //    (SPT64 version >= V2.2 required)
+  //
+  //
+  //    New in version 1.0.9  (compared to version 1.0.8):
+  //
+  //      * Support of string values in online-feedback (RI_RegisterStringHandler):
+  //        - Feedback on resulting groupname
+  //        - Feedback on resulting filename
+  //
+  //      * Support of PicoQuant laser driver settings (PQLaserDrv, e.g. PDL 828 "Sepia II")
+  //        transmitted as regular optional parameters:
+  //        - Desired repetition rate   (as set by means of the SOM 828 module)
+  //        - Multilaser pulse pattern  (as defined by SPT64 and set by means of the SOM 828 module)
+  //        - Laser activation          (as set by means of the SLM 828 modules)
+  //        - Laser intensity           (as set by means of the SLM 828 modules)
+  //
+  //      * Support of feedback on laser driver settings
+  //        - Feedback on currently registered lasers (by name, as string value in online-feedback)
+  //        - Feedback on resulting repetition rate (i.e. next legal value <= desired value or least legal value)
   //
   // ************************************************************************************************
   // constants definitions                                                                           
@@ -17,6 +36,12 @@
   PQ_OPT_INFONAME_FILENAME          = 'Filename';
   PQ_OPT_INFONAME_GROUPNAME         = 'Groupname';
   PQ_OPT_INFONAME_COMMENT           = 'Comment';
+                                                                  // new in V 1.0.9:
+                                                                  //
+  PQ_OPT_INFONAME_LASERREPRATE      = 'LaserRepetitionRate';      // [Hz]                             (RI_SetOptionalInt)
+  PQ_OPT_INFONAME_LASERPULSEPATTERN = 'LaserPulsePatternIndex';   // [0..1] for "Standard" / "PIE"    (RI_SetOptionalInt)
+  PQ_OPT_INFONAME_LASERON_ARRAY     = 'LaserOn';                  // [0..1] in an array [0..n-1]  (n * RI_SetOptionalInt)
+  PQ_OPT_INFONAME_LASERINTENS_ARRAY = 'LaserIntensity';           // [%]    in an array [0..n-1]  (n * RI_SetOptionalFloat)
   
   
   // ************************************************************************************************
@@ -73,6 +98,7 @@
                                        PQ_ERRCODE_SOCKET_ERROR_LOOKUP      =   -1106,
                                        PQ_ERRCODE_DLL_NOT_FOUND            =   -9100,
                                        PQ_ERRCODE_UNKNOWN_FUNCTION         =   -9110,
+                                       PQ_ERRCODE_ILLEGAL_FUNCTION_VALUE   =   -9120,  // new in V 1.0.9
                                        PQ_ERRCODE_UNKNOWN_ERROR            =   -9999);
   
   E_SPT_RI_STATUS                   = (SPT_RI_STATUS_UNKNOWN               =       0,
@@ -82,15 +108,16 @@
 
 
 // ************************************************************************************************
-// call-back function type                                                                         
+// numeric parameter call-back function type                                                                         
 // ************************************************************************************************
 
-  TReceiveParamFunc = int function (PAnsiChar pcIdent; single fValue; int iRecNumber); stdcall;
+  TReceiveNumParamFunc = int function (PAnsiChar pcIdent; single fValue; int iRecNumber); stdcall;
     { Synopsis: Callback-Type;
-        Function invoked by SPT RemoteInterface DLL, if provided by the client application; 
-        Called on incoming data frames (NACK-frames), once for each parameter in the frame received.
+        Function invoked by SPT RemoteInterface DLL, if provided by the client application on call 
+        of the RI_RequestImage or RI_RequestTimeTrace function; 
+        Called on incoming data frames (NACK-frames), once for each numeric parameter in the frame received.
       Blocking / Synchronizing:
-        This function will be cslled and run in the context of a DLL internal thread 
+        This function will be called and run in the context of a DLL internal thread 
           (herein after referred to as the "NACK-thread"). 
         The implementation by all means has to take care of synchronizing with the external threads.
       Parameters:
@@ -117,6 +144,49 @@
                                     condition with unpredictable results and may or may not interfere with 
                                     the autonomous launched request, thus returning PQ_ERRCODE_FUNCTION_BLOCKED.
     }
+
+
+// ************************************************************************************************
+// string parameter call-back function type                                       // new in V 1.0.9                                                                       
+// ************************************************************************************************
+       
+  TReceiveStrParamFunc = int function (PAnsiChar pcIdent; PAnsiChar pcValue; int iRecNumber); stdcall;
+    { Synopsis: Callback-Type;
+        Function invoked by SPT RemoteInterface DLL, if registered by the client application; 
+        Called on incoming data frames (NACK-frames), once for each string parameter in the frame received.
+      Blocking / Synchronizing:
+        This function will be called and run in the context of a DLL internal thread 
+          (herein after referred to as the "NACK-thread"). 
+        The implementation by all means has to take care of synchronizing with the external threads.
+      Parameters:
+        pcIdent                 : pointer to a buffer of AnsiChar, containing the parameter name
+                                    Only valid within the scope of the call back function;
+                                    To save the string for client global scope, you've to copy it
+                                    to globally allocated memory. 
+                                   (max. length to be granted by client application: PQ_OPT_DATATYPE_NAME_MAXLEN+1)
+        pcValue                 : pointer to a buffer of AnsiChar, containing the string transferred 
+                                    Only valid within the scope of the call back function;
+                                    To save the string for client global scope, you've to copy it
+                                    to globally allocated memory. 
+                                   (max. length to be granted by client application: PQ_OPT_DATATYPE_NAME_MAXLEN+1)
+        iRecNumber              : integer
+      Returns:
+        E_SPT_RI_STOP_REASONS   : code to control the on-going measurement; 
+                                    the measurement will be stopped if the client returnes another value 
+                                    than SPT_RI_STOP_REASON_CONTINUE_OK. The DLL will still complete the 
+                                    whole NACK-frame processing in calling this function more than once, 
+                                    but after completion it will autonomously send a stop message with 
+                                    the stop reason of the highest priority received during the completed 
+                                    NACK-frame processing. The priority order from highest to lowest is:
+                                       SPT_RI_STOP_REASON_ERROR,
+                                       SPT_RI_STOP_REASON_USER_BREAK,
+                                       SPT_RI_STOP_REASON_FINISHED_OK.
+                                    Note: If the client application launches by other reason (e.g. a timer) 
+                                    a concurrent call to RI_RequestStopMeas, this could result in a racing 
+                                    condition with unpredictable results and may or may not interfere with 
+                                    the autonomous launched request, thus returning PQ_ERRCODE_FUNCTION_BLOCKED.
+    }
+
 
 
 // ************************************************************************************************
@@ -346,12 +416,28 @@
         PQ_ERRCODE_TYPE_MISMATCH   : (-7) Errorcode, if parameter is known but typecheck failed
     } 
 
+  int function RI_RegisterStringHandler (TReceiveStrParamFunc StrParamCallbackFunc); stdcall;  // new in V 1.0.9
+    { Synopsis:
+        registers a callback function for string parameter handling
+      Blocking:
+        function establishes intertask communication with the DLL internal socket-thread
+        function is re-entrance blocked on library scope, thus entering will fail while another 
+        blocked function is still running. function then waits for 50 msec, reattempts twice to enter 
+        and - if still unsuccessful - return PQ_ERRCODE_FUNCTION_BLOCKED
+      Parameters:
+        StrParamCallbackFunc    : function pointer to the call back function 
+                                    to be called by the NACK-thread of the DLL on incoming string online parameters
+      Returns:
+        E_PQ_ERROR_CODES        : detailed error code
+    }
+
+
 
 // ************************************************************************************************
 // measurement handshake functions
 // ************************************************************************************************
 
-  int function RI_RequestTimeTrace(Bool bRecordFile; TReceiveParameter ParamCallbackFunc); stdcall;
+  int function RI_RequestTimeTrace(Bool bRecordFile; TReceiveNumParamFunc NumParamCallbackFunc); stdcall;
     { Synopsis:
         establishes connection,
         transfers optional parameters collected and starts measurement,
@@ -366,12 +452,12 @@
       Parameters:
         bRecordFile             : boolean, false for test measurement (i.e. data measured will not be stored)
                                            true  for regular measurement
-        ParamCallbackFunc       : function pointer to the call back function 
-                                    to be called by the NACK-thread of the DLL on incoming online parameters
+        NumParamCallbackFunc    : function pointer to the call back function 
+                                    to be called by the NACK-thread of the DLL on incoming numeric online parameters
       Returns:
         E_PQ_ERROR_CODES        : detailed error code
 
-  int function RI_RequestImage(Bool bRecordFile; int iPixX, iPixY; single fResol: single; Bool bBiDirectionalScan; TReceiveParameter ParamCallbackFunc); stdcall;
+  int function RI_RequestImage(Bool bRecordFile; int iPixX, iPixY; single fResol: single; Bool bBiDirectionalScan; TReceiveNumParamFunc NumParamCallbackFunc); stdcall;
     { Synopsis:
         establishes connection,
         transfers optional parameters collected and starts measurement,
@@ -389,8 +475,8 @@
         iPixX, iPixY            : integer, dimensions of the image to scan in pixel counts
         fResol                  : single, pixel resolution in µm
         bBiDirectionalScan      : boolean, sets the scanning mode
-        ParamCallbackFunc       : function pointer to the call back function 
-                                    to be called by the NACK-thread of the DLL on incoming online parameters
+        NumParamCallbackFunc    : function pointer to the call back function 
+                                    to be called by the NACK-thread of the DLL on incoming numeric online parameters
       Returns:
         E_PQ_ERROR_CODES        : detailed error code
     }
